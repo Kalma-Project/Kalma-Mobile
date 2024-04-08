@@ -1,5 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_ta/general/dashboard/screen/dashboard_screen.dart';
+import 'package:flutter_ta/general/forgot_password/screen/forgotpass_screen.dart';
 import 'dart:developer';
+
+import 'package:flutter_ta/general/register/screen/register_screen.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
@@ -12,8 +16,16 @@ class _LoginScreenState extends State<LoginScreen> {
   TextEditingController emailunameController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
   bool isChecked = false;
+  bool passwordVisible = false;
+  bool emailError = false;
+  bool passwordError = false;
 
-  bool isNotValidated = false;
+
+  @override
+  void initState(){
+    super.initState();
+    passwordVisible=true;
+  }
 
   void loginUser() async{
     if (emailunameController.text.isNotEmpty && passwordController.text.isNotEmpty) {
@@ -24,13 +36,43 @@ class _LoginScreenState extends State<LoginScreen> {
       };
 
       log('credentials: $login');
+      Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(builder: (context) => const DashboardScreen()),
+      );
+
+    } else {
+      setState(() {
+        emailError = true;
+        passwordError = true;
+      });
+    }
+  }
+
+  void onInputChange(String value, String field) {
+    if (field == 'email') {
+      if (value.isNotEmpty) {
+        setState(() {
+          emailError = false;
+        });
+      }
+    } else if (field == 'password') {
+      if (value.isNotEmpty) {
+        setState(() {
+          passwordError = false;
+        });
+      }
     }
   }
 
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      theme: ThemeData(
+        fontFamily: 'JakartaSans'
+      ),
       home: Scaffold(
+        backgroundColor: const Color(0xFFF6F1F1),
         body: SafeArea(
             child: Padding(
               padding: const EdgeInsets.symmetric(horizontal: 14.0),
@@ -55,7 +97,8 @@ class _LoginScreenState extends State<LoginScreen> {
                               'Selamat Datang Kembali',
                               style: TextStyle(
                                   fontSize: 16.0,
-                                  fontWeight: FontWeight.w600
+                                  fontWeight: FontWeight.w600,
+                                  color: Color(0xFF585858)
                               ),
                             )
                           ],
@@ -68,21 +111,36 @@ class _LoginScreenState extends State<LoginScreen> {
                     children: <Widget>[
                       TextFormField(
                         controller: emailunameController,
-                      keyboardType: TextInputType.text,
+                        keyboardType: TextInputType.text,
+                        onChanged: (value) => onInputChange(value, 'email'),
                         decoration: InputDecoration(
                             border: const UnderlineInputBorder(),
                             labelText: 'Email atau Username',
-                            errorText: isNotValidated ? "Isi form dengan benar" : null
+                            errorText: emailError ? "Isi form dengan benar" : null
                         ),
                       ),
                       TextFormField(
+                        obscureText: passwordVisible,
                         controller: passwordController,
                         keyboardType: TextInputType.text,
+                        onChanged: (value) => onInputChange(value, 'password'),
                         decoration: InputDecoration(
-                            border: UnderlineInputBorder(),
+                            border: const UnderlineInputBorder(),
                             labelText: 'Password',
-                            errorText: isNotValidated ? "Password tidak sesuai" : null
-                        ),
+                            errorText: passwordError ? "Password tidak sesuai" : null,
+                            suffixIcon: IconButton(
+                              icon: Icon(passwordVisible
+                                  ? Icons.visibility
+                                  : Icons.visibility_off),
+                              onPressed: () {
+                                setState(
+                                      () {
+                                    passwordVisible = !passwordVisible;
+                                  },
+                                );
+                              },
+                            ),
+                          ),
                       ),
                       const SizedBox(
                         height: 18.0,
@@ -111,7 +169,15 @@ class _LoginScreenState extends State<LoginScreen> {
                               const Text('Ingatkan Saya')
                             ],
                           ),
-                          const Text('Lupa Kata Sandi')
+                          GestureDetector(
+                            onTap: () {
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(builder: (context) => const ForgotPassScreen()),
+                              );
+                            },
+                            child: const Text('Lupa Kata Sandi'),
+                          )
                         ],
                       ),
                       const SizedBox(
@@ -136,6 +202,37 @@ class _LoginScreenState extends State<LoginScreen> {
                       ),
                     ],
                   ),
+                  Container(
+                    margin: const EdgeInsets.only(top: 18.0),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        const Text(
+                            'Belum Punya Akun? ',
+                            style: TextStyle(
+                              fontSize: 12.0,
+                              fontWeight: FontWeight.w500
+                            ),
+                          ),
+                        GestureDetector(
+                          onTap: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(builder: (context) => const RegisterScreen()),
+                            );
+                          },
+                          child: const Text(
+                            'Daftar Akun',
+                            style: TextStyle(
+                              fontSize: 12.0,
+                              fontWeight: FontWeight.w600,
+                              color: Color(0xFF2F9296)
+                            ),
+                          ),
+                        )
+                      ],
+                    ),
+                  )
                 ],
               ),
             )
