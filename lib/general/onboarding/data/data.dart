@@ -10,8 +10,7 @@ List<OnboardingContent> contents = [
   OnboardingContent(
     title: 'Identifikasi emosimu',
     image: 'images/onboarding_1.png',
-    description:
-        'Kenali emosimu dan dapatkan wawasan berharga dalam perjalanan kesehatan mentalmu',
+    description: 'Kenali emosimu dan dapatkan wawasan berharga dalam perjalanan kesehatan mentalmu',
   ),
   OnboardingContent(
     title: 'Bebas ekspresikan dirimu',

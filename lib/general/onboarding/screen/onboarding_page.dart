@@ -29,60 +29,63 @@ class _OnboardingState extends State<Onboarding> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: const Color(0xFFF6F1F1),
-      body: Container(
-        margin: const EdgeInsets.only(
-          bottom: 80,
-          right: 40,
-          left: 40,
-        ),
-        child: Column(
-          children: [
-            Expanded(
-              child: PageView.builder(
-                controller: _controller,
-                itemCount: contents.length,
-                onPageChanged: (int index) {
-                  setState(() {
-                    currentIndex = index;
-                  });
-                },
-                itemBuilder: (_, i) {
-                  return Center(
-                    child: Column(
-                      mainAxisSize: MainAxisSize.min,
-                      children: [
-                        Image.asset(
-                          contents[i].image,
-                          height: 300,
-                        ),
-                        const SizedBox(
-                          height: 90,
-                        ),
-                        Text(
-                          contents[i].title,
-                          style: GoogleFonts.dmSans(
-                            color: const Color(0xFF3D3D3D),
-                            fontWeight: FontWeight.bold,
-                            fontSize: 24,
-                          ),
-                          textAlign: TextAlign.start,
-                        ),
-                        Text(
-                          contents[i].description,
-                          style: GoogleFonts.dmSans(
-                            color: const Color(0xFF727272),
-                            fontWeight: FontWeight.normal,
-                            fontSize: 16,
-                          ),
-                          textAlign: TextAlign.center,
-                        ),
-                      ],
+      body: Column(
+        children: [
+          Expanded(
+            child: PageView.builder(
+              controller: _controller,
+              itemCount: contents.length,
+              onPageChanged: (int index) {
+                setState(() {
+                  currentIndex = index;
+                });
+              },
+              itemBuilder: (_, i) {
+                return Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Center(
+                      child: Image.asset(
+                        contents[i].image,
+                        height: 300,
+                      ),
                     ),
-                  );
-                },
-              ),
+                    const SizedBox(
+                      height: 90,
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 20.0),
+                      child: Text(
+                        contents[i].title,
+                        style: GoogleFonts.dmSans(
+                          color: const Color(0xFF3D3D3D),
+                          fontWeight: FontWeight.bold,
+                          fontSize: 24,
+                        ),
+                        textAlign: TextAlign.start,
+                      ),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 20.0),
+                      child: Text(
+                        contents[i].description,
+                        style: GoogleFonts.dmSans(
+                          color: const Color(0xFF727272),
+                          fontWeight: FontWeight.normal,
+                          fontSize: 16,
+                        ),
+                        textAlign: TextAlign.start,
+                      ),
+                    ),
+                  ],
+                );
+              },
             ),
-            Row(
+          ),
+          Padding(
+            padding: const EdgeInsets.only(right: 20, left: 20, bottom: 80, top: 0),
+            child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Row(
@@ -123,8 +126,8 @@ class _OnboardingState extends State<Onboarding> {
                 ),
               ],
             ),
-          ],
-        ),
+          ),
+        ],
       ),
     );
   }
