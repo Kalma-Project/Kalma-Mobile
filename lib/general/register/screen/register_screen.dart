@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_ta/general/login/screen/login_screen.dart';
 import 'dart:developer';
 
 import 'package:flutter_ta/general/register/screen/success_register_screen.dart';
@@ -182,6 +183,37 @@ class _RegisterScreenState extends State<RegisterScreen> {
                           ),
                         ),
                       ),
+                      Container(
+                        margin: const EdgeInsets.only(top: 18.0),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            const Text(
+                              'Sudah Memiliki Akun? ',
+                              style: TextStyle(
+                                  fontSize: 12.0,
+                                  fontWeight: FontWeight.w500
+                              ),
+                            ),
+                            GestureDetector(
+                              onTap: () {
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(builder: (context) => const LoginScreen()),
+                                );
+                              },
+                              child: const Text(
+                                'Login',
+                                style: TextStyle(
+                                    fontSize: 12.0,
+                                    fontWeight: FontWeight.w600,
+                                    color: Color(0xFF2F9296)
+                                ),
+                              ),
+                            )
+                          ],
+                        ),
+                      )
                     ],
                   )
                 ],

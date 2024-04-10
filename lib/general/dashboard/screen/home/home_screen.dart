@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_ta/general/dashboard/screen/home/card_home_widget.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
@@ -64,27 +65,7 @@ class HomeScreen extends StatelessWidget {
                   const SizedBox(
                     height: 34.0,
                   ),
-                  Card(
-                    elevation: 0,
-                    color: const Color(0xFF4DA9AC),
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(20.0)
-                    ),
-                    child: const ListTile(
-                      title: Text(
-                          '"It is better to conquer yourself than to win a thousand battles"',
-                        style: TextStyle(
-                          fontSize: 14.0,
-                          fontWeight: FontWeight.w500,
-                          color: Color(0xFFF6F1F1)
-                        ),
-                        textAlign: TextAlign.start,
-                      ),
-                      trailing: Icon(Icons.format_quote),
-                      iconColor: Color(0xFFF6F1F1),
-                      contentPadding: EdgeInsets.all(16.0),
-                    )
-                  ),
+                  const CardHomeWidget(),
                   const SizedBox(
                     height: 24.0,
                   ),

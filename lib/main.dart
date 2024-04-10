@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_ta/general/dashboard/screen/dashboard_screen.dart';
 import 'package:flutter_ta/general/splach_screen.dart';
 
 void main() {
@@ -12,7 +13,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return const MaterialApp(
       debugShowCheckedModeBanner: false,
-      home: SplashScreen()
+      home: DashboardScreen()
     );
   }
 }

@@ -61,6 +61,7 @@ class _ForgotPassScreenState extends State<ForgotPassScreen> {
                                   fontWeight: FontWeight.w700
                               ),
                             ),
+                            const SizedBox(height: 12,),
                             SizedBox(
                               width: MediaQuery.of(context).size.width * 0.8, // Adjust the width as needed
                               child: const Text(
@@ -104,7 +105,7 @@ class _ForgotPassScreenState extends State<ForgotPassScreen> {
                               const Color(0xFF2F9296)),
                         ),
                         child: const Text(
-                          'Login',
+                          'Lanjutkan',
                           style: TextStyle(
                             color: Colors.white,
                             fontSize: 14.0,
