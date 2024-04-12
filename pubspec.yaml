@@ -9,6 +9,7 @@ dependencies:
   flutter:
     sdk: flutter
   cupertino_icons: ^1.0.6
+  image_picker: ^1.0.8
   animated_splash_screen: ^1.3.0
   page_transition: ^2.1.0
   google_fonts: ^6.2.0
@@ -45,4 +46,6 @@ flutter:
     - images/onboarding_2.png
     - images/onboarding_3.png
     - images/onboarding_4.png
+    - images/profile_icon.png
+    - images/clear_icon.png
   uses-material-design: true

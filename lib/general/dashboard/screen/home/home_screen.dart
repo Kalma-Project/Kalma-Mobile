@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_ta/general/dashboard/screen/home/card_home_widget.dart';
 
+import '../../../profile/screen/profile_screen.dart';
+
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
 
@@ -29,10 +31,10 @@ class HomeScreen extends StatelessWidget {
               padding: const EdgeInsets.only(left: 16.0, top: 40.0, right: 16.0),
               child: Column(
                 children: <Widget>[
-                  const Row(
+                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: <Widget>[
-                      Column(
+                      const Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: <Widget>[
                           Text(
@@ -55,10 +57,13 @@ class HomeScreen extends StatelessWidget {
                           )
                         ],
                       ),
-                      Icon(
-                        Icons.account_circle,
-                        color: Color(0xFFF6F1F1),
-                        size: 36.0,
+                      IconButton(
+                        icon : const Icon(Icons.account_circle,
+                          color: Color(0xFFF6F1F1),
+                          size: 36.0,),
+                        onPressed: (){
+                          Navigator.push(context, MaterialPageRoute(builder: (context) => const Profile(),),);
+                        },
                       ),
                     ],
                   ),
