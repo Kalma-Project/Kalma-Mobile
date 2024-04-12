@@ -89,7 +89,7 @@ class Onboarding extends StatelessWidget {
                 'Identifikasi emosimu',
                 textAlign: TextAlign.start,
                 style: TextStyle(
-                  fontFamily: 'DMSans',
+                  fontFamily: 'JakartaSans',
                   color: fBlackColor,
                   fontSize: 22.0,
                   fontWeight: FontWeight.bold,
@@ -102,7 +102,7 @@ class Onboarding extends StatelessWidget {
                 'Kenali emosimu dan dapatkan wawasan berharga dalam perjalanan kesehatan mentalmu',
                 textAlign: TextAlign.left,
                 style: TextStyle(
-                  fontFamily: 'DMSans',
+                  fontFamily: 'JakartaSans',
                   color: fGreyColor,
                   fontSize: 16.0,
                   fontWeight: FontWeight.normal,
@@ -126,7 +126,7 @@ class Onboarding extends StatelessWidget {
                 'Bebas ekspresikan dirimu',
                 textAlign: TextAlign.start,
                 style: TextStyle(
-                  fontFamily: 'DMSans',
+                  fontFamily: 'JakartaSans',
                   color: fBlackColor,
                   fontSize: 22.0,
                   fontWeight: FontWeight.bold,
@@ -139,7 +139,7 @@ class Onboarding extends StatelessWidget {
                 'Abadikan pengalaman harianmu, tetapkan tujuan, dan kembangkan self-awareness kamu lewat jurnal',
                 textAlign: TextAlign.left,
                 style: TextStyle(
-                  fontFamily: 'DMSans',
+                  fontFamily: 'JakartaSans',
                   color: fGreyColor,
                   fontSize: 16.0,
                   fontWeight: FontWeight.normal,
@@ -163,7 +163,7 @@ class Onboarding extends StatelessWidget {
                 'Temukan kedamaian',
                 textAlign: TextAlign.start,
                 style: TextStyle(
-                  fontFamily: 'DMSans',
+                  fontFamily: 'JakartaSans',
                   color: fBlackColor,
                   fontSize: 22.0,
                   fontWeight: FontWeight.bold,
@@ -176,7 +176,7 @@ class Onboarding extends StatelessWidget {
                 'Jelajahi latihan pernapasan yang disesuaikan untuk mengurangi stres dan meningkatkan relaksasi',
                 textAlign: TextAlign.left,
                 style: TextStyle(
-                  fontFamily: 'DMSans',
+                  fontFamily: 'JakartaSans',
                   color: fGreyColor,
                   fontSize: 16.0,
                   fontWeight: FontWeight.normal,
@@ -200,7 +200,7 @@ class Onboarding extends StatelessWidget {
                 'Rasakan ketenangan melodi',
                 textAlign: TextAlign.start,
                 style: TextStyle(
-                  fontFamily: 'DMSans',
+                  fontFamily: 'JakartaSans',
                   color: fBlackColor,
                   fontSize: 22.0,
                   fontWeight: FontWeight.bold,
@@ -213,7 +213,7 @@ class Onboarding extends StatelessWidget {
                 'Tingkatkan latihan meditasi, kurangi kecemasan, dan rasakan relaksasi mendalam melalui keajaiban musik',
                 textAlign: TextAlign.left,
                 style: TextStyle(
-                  fontFamily: 'DMSans',
+                  fontFamily: 'JakartaSans',
                   color: fGreyColor,
                   fontSize: 16.0,
                   fontWeight: FontWeight.normal,

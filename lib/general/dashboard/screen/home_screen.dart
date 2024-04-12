@@ -92,63 +92,131 @@ class HomeScreen extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: <Widget>[
                       SizedBox(
-                        width: 66.0,
-                        height: 66.0,
-                        child: Card(
-                          elevation: 0,
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(20.0),
-                          ),
-                          color: const Color(0xFFF6F1F1),
-                          child: const Icon(
-                            Icons.sticky_note_2_rounded,
-                            color: Color(0xFF2F9296),
-                          ),
+                        width: 69.0,
+                        height: 102.0,
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: <Widget>[
+                            SizedBox(
+                              width: 66.0,
+                              height: 66.0,
+                              child: Card(
+                                elevation: 0,
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(20.0),
+                                ),
+                                color: const Color(0xFFF6F1F1),
+                                child: const Icon(
+                                  Icons.sticky_note_2_rounded,
+                                  color: Color(0xFF2F9296),
+                                ),
+                              ),
+                            ),
+                            const Text(
+                              'Self Screening',
+                              style: TextStyle(
+                                fontSize: 14.0,
+                                fontWeight: FontWeight.w600
+                              ),
+                              textAlign: TextAlign.center,
+                            )
+                          ]
                         ),
                       ),
                       SizedBox(
                         width: 66.0,
-                        height: 66.0,
-                        child: Card(
-                          elevation: 0,
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(20.0),
-                          ),
-                          color: const Color(0xFFF6F1F1),
-                          child: const Icon(
-                            Icons.note_alt_rounded,
-                            color: Color(0xFF2F9296),
-                          ),
+                        height: 102.0,
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: <Widget>[
+                            SizedBox(
+                              width: 66.0,
+                              height: 66.0,
+                              child: Card(
+                                elevation: 0,
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(20.0),
+                                ),
+                                color: const Color(0xFFF6F1F1),
+                                child: const Icon(
+                                  Icons.note_alt_rounded,
+                                  color: Color(0xFF2F9296),
+                                ),
+                              ),
+                            ),
+                            const Text(
+                              'Journaling',
+                              style: TextStyle(
+                                  fontSize: 14.0,
+                                  fontWeight: FontWeight.w600
+                              ),
+                              textAlign: TextAlign.center,
+                            )
+                          ]
+                        ),
+                      ),
+                      SizedBox(
+                        width: 80.0,
+                        height: 102.0,
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: <Widget>[
+                            SizedBox(
+                              width: 66.0,
+                              height: 66.0,
+                              child: Card(
+                                elevation: 0,
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(20.0),
+                                ),
+                                color: const Color(0xFFF6F1F1),
+                                child: const Icon(
+                                  Icons.air_sharp,
+                                  color: Color(0xFF2F9296),
+                                ),
+                              ),
+                            ),
+                            const Text(
+                              'Breath work',
+                              style: TextStyle(
+                                  fontSize: 14.0,
+                                  fontWeight: FontWeight.w600
+                              ),
+                              textAlign: TextAlign.center,
+                            )
+                          ]
                         ),
                       ),
                       SizedBox(
                         width: 66.0,
-                        height: 66.0,
-                        child: Card(
-                          elevation: 0,
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(20.0),
-                          ),
-                          color: const Color(0xFFF6F1F1),
-                          child: const Icon(
-                            Icons.air_sharp,
-                            color: Color(0xFF2F9296),
-                          ),
-                        ),
-                      ),
-                      SizedBox(
-                        width: 66.0,
-                        height: 66.0,
-                        child: Card(
-                          elevation: 0,
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(20.0),
-                          ),
-                          color: const Color(0xFFF6F1F1),
-                          child: const Icon(
-                            Icons.music_note_rounded,
-                            color: Color(0xFF2F9296),
-                          ),
+                        height: 102.0,
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: <Widget>[
+                            SizedBox(
+                              width: 66.0,
+                              height: 66.0,
+                              child: Card(
+                                elevation: 0,
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(20.0),
+                                ),
+                                color: const Color(0xFFF6F1F1),
+                                child: const Icon(
+                                  Icons.music_note_rounded,
+                                  color: Color(0xFF2F9296),
+                                ),
+                              ),
+                            ),
+                            const Text(
+                              'Therapy Music',
+                              style: TextStyle(
+                                  fontSize: 14.0,
+                                  fontWeight: FontWeight.w600
+                              ),
+                              textAlign: TextAlign.center,
+                            )
+                          ]
                         ),
                       ),
                     ],
