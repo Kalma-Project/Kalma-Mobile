@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_ta/general/dashboard/screen/home_screen.dart';
+import 'package:flutter_ta/general/dashboard/screen/home/home_screen.dart';
 
 
 class DashboardScreen extends StatefulWidget {
