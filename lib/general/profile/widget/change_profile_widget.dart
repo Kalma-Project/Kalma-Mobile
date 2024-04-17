@@ -4,11 +4,13 @@ import 'package:google_fonts/google_fonts.dart';
 class CustomTextField extends StatefulWidget {
   final String labelText;
   final String placeHolder;
+  final TextEditingController? controller;
 
   const CustomTextField({
     Key? key,
     required this.labelText,
     required this.placeHolder,
+    this.controller,
   }) : super(key: key);
 
   @override
@@ -16,14 +18,15 @@ class CustomTextField extends StatefulWidget {
 }
 
 class _CustomTextFieldState extends State<CustomTextField> {
-  TextEditingController controller = TextEditingController();
+  late TextEditingController _controller;
   FocusNode focusNode = FocusNode();
   bool isFocused = false;
 
   @override
   void initState() {
     super.initState();
-    controller.text = widget.placeHolder;
+    _controller = widget.controller ?? TextEditingController();
+    _controller.text = widget.placeHolder;
     focusNode.addListener(() {
       setState(() {
         isFocused = focusNode.hasFocus;
@@ -37,7 +40,7 @@ class _CustomTextFieldState extends State<CustomTextField> {
       padding: const EdgeInsets.all(16),
       child: TextField(
         cursorColor: const Color(0xff2F9296),
-        controller: controller,
+        controller: _controller,
         focusNode: focusNode,
         style: GoogleFonts.plusJakartaSans(
           color: const Color(0xff3D3D3D),
@@ -53,7 +56,7 @@ class _CustomTextFieldState extends State<CustomTextField> {
           suffixIcon: isFocused
               ? IconButton(
             onPressed: () {
-              controller.clear();
+              _controller.clear();
             },
             icon: Image.asset(
               'images/clear_icon.png',
@@ -79,7 +82,7 @@ class _CustomTextFieldState extends State<CustomTextField> {
 
   @override
   void dispose() {
-    controller.dispose();
+    _controller.dispose();
     focusNode.dispose();
     super.dispose();
   }

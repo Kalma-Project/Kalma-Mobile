@@ -64,7 +64,6 @@ class _CardHomeWidgetState extends State<CardHomeWidget> {
               },
             ),
           ),
-
         ),
         const SizedBox(height: 10,),
         Row(

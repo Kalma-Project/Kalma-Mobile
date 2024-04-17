@@ -36,6 +36,7 @@ class _ForgotPassScreenState extends State<ForgotPassScreen> {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       theme: ThemeData(
         fontFamily: 'JakartaSans'
       ),
