@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_ta/general/dashboard/screen/home/home_screen.dart';
+import 'journaling/screen.dart';
 
 
 class DashboardScreen extends StatefulWidget {
@@ -13,16 +14,13 @@ class DashboardScreen extends StatefulWidget {
 class _DashboardScreenState extends State<DashboardScreen> {
   int _selectedIndex = 0;
   static const TextStyle optionStyle = TextStyle(fontSize: 12.0, fontWeight: FontWeight.w600);
-  static const List<Widget> _widgetOptions = <Widget>[
-    HomeScreen(),
+  static  final List<Widget> _widgetOptions = <Widget>[
+    const HomeScreen(),
     Text(
       'Index 1: Business',
       style: optionStyle,
     ),
-    Text(
-      'Index 2: School',
-      style: optionStyle,
-    ),
+   JournalingScreen(),
     Text(
       'Index 3: Walawe',
       style: optionStyle,
@@ -76,7 +74,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
                 ),
                 BottomNavigationBarItem(
                     icon: Icon(Icons.edit_square),
-                    label: 'Edit'
+                    label: 'Journaling'
                 ),
                 BottomNavigationBarItem(
                     icon: Icon(Icons.newspaper),
