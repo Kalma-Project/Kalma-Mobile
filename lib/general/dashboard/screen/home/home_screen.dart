@@ -1,9 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_ta/error_page/under_construction/under_construction_page.dart';
 import 'package:flutter_ta/general/dashboard/screen/home/card_home_widget.dart';
 import 'package:flutter_ta/general/dashboard/screen/home/data/card_data_dummy.dart';
 import 'package:flutter_ta/general/dashboard/widget/home/article_card_widget.dart';
 import 'package:flutter_ta/general/dashboard/widget/home/icons_card_widget.dart';
 import 'package:flutter_ta/model/general/general.dart';
+import 'package:flutter_ta/general/article/screen/articlelist_page.dart';
+import 'package:flutter_ta/self_management/journaling/screen/journaling_screen.dart';
+import 'package:flutter_ta/self_screening/screen/self_screening_screen.dart';
 
 import '../../../profile/screen/profile_screen.dart';
 
@@ -84,10 +88,10 @@ class HomeScreen extends StatelessWidget {
                       const Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: <Widget>[
-                          IconCard(iconData: Icons.sticky_note_2_rounded, title: 'Self Screening'),
-                          IconCard(iconData: Icons.note_alt_rounded, title: 'Journal'),
-                          IconCard(iconData: Icons.air_sharp, title: 'Breath Work'),
-                          IconCard(iconData: Icons.music_note_rounded, title: 'Melodies'),
+                          IconCard(iconData: Icons.sticky_note_2_rounded, title: 'Self Screening', urlPage: SelfScreening(),),
+                          IconCard(iconData: Icons.note_alt_rounded, title: 'Journal', urlPage: JournalingPage(),),
+                          IconCard(iconData: Icons.air_sharp, title: 'Breath Work', urlPage: UnderConstruction()),
+                          IconCard(iconData: Icons.music_note_rounded, title: 'Melodies', urlPage: UnderConstruction()),
                         ],
                       ),
                     ],
@@ -135,7 +139,9 @@ class HomeScreen extends StatelessWidget {
                                     ),
                                   ),
                                 ),
-                                onPressed: (){},
+                                onPressed: (){
+                                  Navigator.push(context, MaterialPageRoute(builder: (context) => const ArticleListPage(),),);
+                                },
                                 child: const Text(
                                     'Lihat Semua',
                                   style: TextStyle(

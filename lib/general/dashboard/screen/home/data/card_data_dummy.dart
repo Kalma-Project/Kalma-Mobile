@@ -23,7 +23,7 @@ List<CardContent> contents = [
 
 final List<ArticleData> articleData = [
   ArticleData(
-      title: "Pentingnya Mental Health",
+      title: "Mengapa Mental Health Remaja?",
       imageUrl: "images/mental_image.png",
       author: "John Doe"
   ),
