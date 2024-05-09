@@ -51,8 +51,8 @@ class _ListMusicState extends State<ListMusic> {
                     children: [
                       TextButton(
                         onPressed: () {},
-                        child: Row(
-                          children: const [
+                        child: const Row(
+                          children: [
                             Icon(
                               Icons.arrow_back,
                               color: Color(0xff3D3D3D),
@@ -71,39 +71,99 @@ class _ListMusicState extends State<ListMusic> {
                       ),
                     ],
                   ),
-                  Expanded(
-                    child: SingleChildScrollView(
-                      child: GridView.builder(
-                        physics: const NeverScrollableScrollPhysics(),
-                        shrinkWrap: true,
-                        gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                          crossAxisCount: 1,
-                          crossAxisSpacing: 12,
-                          mainAxisSpacing: 16,
-                          mainAxisExtent: 153,
-                        ),
-                        itemCount: playlist.length,
-                        itemBuilder: (context, index) {
-                          final Song song = playlist[index];
-                          return GestureDetector(
-                            onTap: () => goToSong(index),
-                            child: Container(
+                  SizedBox(
+                    height: 35,
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 14.0),
+                    child: Expanded(
+                      child: SingleChildScrollView(
+                        child: GridView.builder(
+                          physics: const NeverScrollableScrollPhysics(),
+                          shrinkWrap: true,
+                          gridDelegate:
+                              const SliverGridDelegateWithFixedCrossAxisCount(
+                            crossAxisCount: 1,
+                            crossAxisSpacing: 0,
+                            mainAxisSpacing: 0,
+                            mainAxisExtent: 70,
+                          ),
+                          itemCount: playlist.length,
+                          itemBuilder: (context, index) {
+                            final Song song = playlist[index];
+                            return GestureDetector(
+                              onTap: () => goToSong(index),
                               child: Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
-                                  Text((index + 1).toString()),
-                                  Image.asset(song.imgUrl),
-                                  Column(
-                                    children: [
-                                      Text(song.titleSong),
-                                      Text(song.artistName),
-                                    ],
+                                  Container(
+                                    child: Row(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.center,
+                                      children: [
+                                        Text((index + 1).toString(),  style:
+                                        GoogleFonts.plusJakartaSans(
+                                            color: const Color(
+                                                0xff7D7D7D),
+                                            fontSize: 16,
+                                            fontWeight:
+                                            FontWeight.w400),),
+                                        SizedBox(
+                                          width: 16,
+                                        ),
+                                        SizedBox(
+                                          width: 44,
+                                          height: 44,
+                                          child: Image.asset(
+                                            song.imgUrl,
+                                            fit: BoxFit.cover,
+                                          ),
+                                        ),
+                                        SizedBox(
+                                          width: 16,
+                                        ),
+                                        Column(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.center,
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.start,
+                                          children: [
+                                            Text(
+                                              song.titleSong,
+                                              style:
+                                                  GoogleFonts.plusJakartaSans(
+                                                      color: const Color(
+                                                          0xff2F9296),
+                                                      fontSize: 16,
+                                                      fontWeight:
+                                                          FontWeight.w600),
+                                            ),
+                                            Text(
+                                              song.artistName,
+                                              style:
+                                                  GoogleFonts.plusJakartaSans(
+                                                      color: const Color(
+                                                          0xff7D7D7D),
+                                                      fontSize: 16,
+                                                      fontWeight:
+                                                          FontWeight.w400),
+                                            ),
+                                          ],
+                                        ),
+                                      ],
+                                    ),
                                   ),
-                                  IconButton(onPressed: (){}, icon: const Icon(Icons.favorite),)
+                                  IconButton(
+                                    onPressed: () {},
+                                    icon: const Icon(Icons.favorite_border, color: Color(0xff7D7D7D),),
+                                  )
                                 ],
                               ),
-                            ),
-                          );
-                        },
+                            );
+                          },
+                        ),
                       ),
                     ),
                   ),
