@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_ta/general/dashboard/screen/home/home_screen.dart';
+import 'package:flutter_ta/general/music/screen/list_music_page.dart';
 import 'journaling/screen.dart';
 
 
@@ -21,10 +22,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
       style: optionStyle,
     ),
    JournalingScreen(),
-    Text(
-      'Index 3: Walawe',
-      style: optionStyle,
-    ),
+    ListMusic(),
   ];
 
 
@@ -77,8 +75,8 @@ class _DashboardScreenState extends State<DashboardScreen> {
                     label: 'Journaling'
                 ),
                 BottomNavigationBarItem(
-                    icon: Icon(Icons.newspaper),
-                    label: 'History'
+                    icon: Icon(Icons.music_note),
+                    label: 'Music'
                 ),
               ],
               currentIndex: _selectedIndex,

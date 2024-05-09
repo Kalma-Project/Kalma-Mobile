@@ -52,4 +52,6 @@ flutter:
     - images/onboarding_4.png
     - images/profile_icon.png
     - images/clear_icon.png
+    - music_images/
+    - audio/
   uses-material-design: true
