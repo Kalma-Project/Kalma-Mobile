@@ -71,7 +71,7 @@ class _ListMusicState extends State<ListMusic> {
                       ),
                     ],
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 35,
                   ),
                   Padding(
@@ -110,7 +110,7 @@ class _ListMusicState extends State<ListMusic> {
                                             fontSize: 16,
                                             fontWeight:
                                             FontWeight.w400),),
-                                        SizedBox(
+                                        const SizedBox(
                                           width: 16,
                                         ),
                                         SizedBox(
@@ -121,7 +121,7 @@ class _ListMusicState extends State<ListMusic> {
                                             fit: BoxFit.cover,
                                           ),
                                         ),
-                                        SizedBox(
+                                        const SizedBox(
                                           width: 16,
                                         ),
                                         Column(

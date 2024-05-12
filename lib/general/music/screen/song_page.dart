@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_ta/general/music/provider/playlist_provider.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -31,38 +32,27 @@ class SongPage extends StatelessWidget {
         extendBodyBehindAppBar: true,
         body: SafeArea(
           child: Stack(
-            fit: StackFit.expand,
             children: [
-              Image.asset(
-                currentSong.imgUrl,
-                fit: BoxFit.fill,
+              Positioned.fill(
+                child: Image.asset(
+                  currentSong.imgUrl,
+                  fit: BoxFit.fill,
+                ),
               ),
-              ShaderMask(
-                shaderCallback: (rect) {
-                  return LinearGradient(
+              Positioned.fill(
+                child: Container(
+                  decoration: BoxDecoration(
+                    gradient: LinearGradient(
                       begin: Alignment.topCenter,
                       end: Alignment.bottomCenter,
                       colors: [
-                        Colors.black,
-                        Colors.black.withOpacity(0.4),
-                        Colors.black.withOpacity(0.0),
-                      ],
-                      stops: [
-                        0.0,
-                        0.0,
-                        1.0
-                      ]).createShader(rect);
-                },
-                blendMode: BlendMode.dstOut,
-                child: Container(
-                  decoration: BoxDecoration(
-                      gradient: LinearGradient(
-                          begin: Alignment.topCenter,
-                          end: Alignment.bottomCenter,
-                          colors: [
                         Colors.black.withOpacity(0.0),
                         Colors.black.withOpacity(1.0),
-                      ])),
+                        Colors.black.withOpacity(1.0),
+                      ],
+                      stops: [0.0, 0.7,1.0],
+                    )
+                  ),
                 ),
               ),
               SizedBox(
@@ -97,7 +87,7 @@ class SongPage extends StatelessWidget {
                         height: 332,
                         child: Column(
                           children: [
-                            SizedBox(
+                            const SizedBox(
                               height: 45,
                             ),
                             Row(
@@ -131,7 +121,7 @@ class SongPage extends StatelessWidget {
                                 ),
                               ],
                             ),
-                            SizedBox(
+                            const SizedBox(
                               height: 34,
                             ),
                             SliderTheme(
@@ -157,9 +147,11 @@ class SongPage extends StatelessWidget {
                               ),
                             ),
                             Padding(
-                              padding: const EdgeInsets.symmetric(horizontal: 25.0),
+                              padding:
+                                  const EdgeInsets.symmetric(horizontal: 25.0),
                               child: Row(
-                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
                                 children: [
                                   Text(
                                     formatTime(value.currentDuration),
@@ -169,10 +161,11 @@ class SongPage extends StatelessWidget {
                                         fontWeight: FontWeight.w400),
                                   ),
                                   Text(
-                                    formatTime(value.totalDuration),style: GoogleFonts.plusJakartaSans(
-                                      color: Colors.grey.shade800,
-                                      fontSize: 12,
-                                      fontWeight: FontWeight.w400),
+                                    formatTime(value.totalDuration),
+                                    style: GoogleFonts.plusJakartaSans(
+                                        color: Colors.grey.shade800,
+                                        fontSize: 12,
+                                        fontWeight: FontWeight.w400),
                                   ),
                                 ],
                               ),
@@ -181,37 +174,65 @@ class SongPage extends StatelessWidget {
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
                                 IconButton(
-                                  onPressed: (){
-                                    value.isShuffleActive = !value.isShuffleActive;
+                                  onPressed: () {
+                                    value.isShuffleActive =
+                                        !value.isShuffleActive;
                                     if (value.isShuffleActive) {
                                       value.shuffleNextSong;
-                                    }},
-                                  icon: Icon(Icons.shuffle, color: value.isShuffleActive? Colors.green.shade500: Colors.grey.shade50,),
-                                  iconSize: 40,
+                                    }
+                                  },
+                                  icon: Icon(
+                                    Icons.shuffle,
+                                    color: value.isShuffleActive
+                                        ? Colors.green.shade500
+                                        : Colors.grey.shade50,
+                                  ),
+                                  iconSize: 35,
                                 ),
                                 IconButton(
                                   onPressed: value.playPreviousSong,
-                                  icon: Icon(Icons.skip_previous_sharp, color: Colors.grey.shade50,),
-                                  iconSize: 40,
+                                  icon: Icon(
+                                    Icons.skip_previous_sharp,
+                                    color: Colors.grey.shade50,
+                                  ),
+                                  iconSize: 35,
                                 ),
                                 IconButton(
                                   onPressed: value.pauseOrResume,
-                                  icon: Icon(value.isPlaying ? Icons.pause_circle : Icons.play_circle, color: Colors.grey.shade50,),
+                                  icon: Icon(
+                                    value.isPlaying
+                                        ? Icons.pause_circle
+                                        : Icons.play_circle,
+                                    color: Colors.grey.shade50,
+                                  ),
                                   iconSize: 50,
                                 ),
                                 IconButton(
                                   onPressed: value.playNextSong,
-                                  icon: Icon(Icons.skip_next_sharp, color: Colors.grey.shade50,),
-                                  iconSize: 40,
+                                  icon: Icon(
+                                    Icons.skip_next_sharp,
+                                    color: Colors.grey.shade50,
+                                  ),
+                                  iconSize: 35,
                                 ),
                                 IconButton(
-                                  onPressed: (){},
-                                  icon: Icon(Icons.repeat, color: Colors.grey.shade50,),
-                                  iconSize: 40,
+                                  onPressed: () {
+                                    value.isRepeatActive =
+                                    !value.isRepeatActive;
+                                    if (value.isRepeatActive) {
+                                      value.repeatCurrentSong();
+                                    }
+                                  },
+                                  icon: Icon(
+                                    Icons.repeat,
+                                    color: value.isRepeatActive
+                                  ? Colors.green.shade500
+                                      : Colors.grey.shade50,
+                                  ),
+                                  iconSize: 35,
                                 ),
                               ],
                             )
-
                           ],
                         ),
                       )

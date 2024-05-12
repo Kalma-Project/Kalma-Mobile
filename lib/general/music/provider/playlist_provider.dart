@@ -47,6 +47,7 @@ class PlayListProvider extends ChangeNotifier {
   //initially not playing
   bool _isPlaying = false;
   bool _isShuffleActive = false;
+  bool _isRepeatActive = false;
 
 
   //play the song
@@ -132,6 +133,8 @@ class PlayListProvider extends ChangeNotifier {
     _audioPlayer.onPlayerComplete.listen((event) {
       if (_isShuffleActive) {
         shuffleNextSong(); // Jalankan fungsi shuffle jika shuffled aktif
+      }if (_isRepeatActive) {
+        repeatCurrentSong();
       } else {
         playNextSong(); // Jalankan fungsi playNextSong jika shuffled tidak aktif
       }
@@ -140,19 +143,23 @@ class PlayListProvider extends ChangeNotifier {
 
   //shuffle next song
   void shuffleNextSong() {
-    if (_playlist.length > 1) {
+    if (_currentSongIndex != null) {
       final random = Random();
       int newIndex = _currentSongIndex!;
       while (newIndex == _currentSongIndex) {
-        newIndex = random.nextInt(_playlist.length);
+        newIndex = random.nextInt(_playlist.length-1);
       }
       currentSongIndex = newIndex;
-      _isShuffleActive = true;
       notifyListeners();
     }
   }
 
   //repeat the current song after the current son finished
+  void repeatCurrentSong(){
+    if (_currentSongIndex != null) {
+      currentSongIndex = _currentSongIndex;
+    }
+  }
 
 
   //dispose audio player
@@ -166,6 +173,7 @@ class PlayListProvider extends ChangeNotifier {
   Duration get currentDuration => _currentDuration;
   Duration get totalDuration => _totalDuration;
   bool get isShuffleActive => _isShuffleActive;
+  bool get isRepeatActive => _isRepeatActive;
 
 
   /*
@@ -183,6 +191,11 @@ class PlayListProvider extends ChangeNotifier {
 
   set isShuffleActive(bool newValue) {
     _isShuffleActive = newValue;
+    notifyListeners();
+  }
+
+  set isRepeatActive(bool newValue) {
+    _isRepeatActive = newValue;
     notifyListeners();
   }
 }
