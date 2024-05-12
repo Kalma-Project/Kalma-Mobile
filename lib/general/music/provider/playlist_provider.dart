@@ -3,6 +3,7 @@ import 'package:audioplayers/audioplayers.dart';
 import '../data/song.dart';
 import 'dart:math';
 import 'package:flutter/foundation.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class PlayListProvider extends ChangeNotifier {
   final List<Song> _playlist = [
@@ -41,6 +42,7 @@ class PlayListProvider extends ChangeNotifier {
 
   //constructor
   PlayListProvider() {
+    loadFavoriteStatus();
     listenToDuration();
   }
 
@@ -161,6 +163,28 @@ class PlayListProvider extends ChangeNotifier {
     }
   }
 
+  //favorite song
+  void toggleFavorite(int songIndex) async {
+    if (songIndex >= 0 && songIndex < _playlist.length) {
+      _playlist[songIndex].isFav = !_playlist[songIndex].isFav;
+
+      SharedPreferences prefs = await SharedPreferences.getInstance();
+      await prefs.setBool('isFavorite_$songIndex', _playlist[songIndex].isFav);
+
+      notifyListeners();
+    }
+  }
+
+  void loadFavoriteStatus() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    for (int i = 0; i < _playlist.length; i++) {
+      bool isFavorite = prefs.getBool('isFavorite_$i') ?? false;
+      _playlist[i].setFavorite(isFavorite);
+    }
+    notifyListeners();
+  }
+
+
 
   //dispose audio player
 
@@ -174,6 +198,7 @@ class PlayListProvider extends ChangeNotifier {
   Duration get totalDuration => _totalDuration;
   bool get isShuffleActive => _isShuffleActive;
   bool get isRepeatActive => _isRepeatActive;
+
 
 
   /*
@@ -198,4 +223,8 @@ class PlayListProvider extends ChangeNotifier {
     _isRepeatActive = newValue;
     notifyListeners();
   }
+
+
+
+
 }

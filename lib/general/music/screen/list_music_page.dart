@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_ta/general/music/screen/song_page.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
-
 import '../data/song.dart';
 import '../provider/playlist_provider.dart';
 
@@ -72,7 +71,7 @@ class _ListMusicState extends State<ListMusic> {
                     ],
                   ),
                   const SizedBox(
-                    height: 35,
+                    height: 20,
                   ),
                   Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 14.0),
@@ -103,13 +102,13 @@ class _ListMusicState extends State<ListMusic> {
                                       crossAxisAlignment:
                                           CrossAxisAlignment.center,
                                       children: [
-                                        Text((index + 1).toString(),  style:
-                                        GoogleFonts.plusJakartaSans(
-                                            color: const Color(
-                                                0xff7D7D7D),
-                                            fontSize: 16,
-                                            fontWeight:
-                                            FontWeight.w400),),
+                                        Text(
+                                          (index + 1).toString(),
+                                          style: GoogleFonts.plusJakartaSans(
+                                              color: const Color(0xff7D7D7D),
+                                              fontSize: 16,
+                                              fontWeight: FontWeight.w400),
+                                        ),
                                         const SizedBox(
                                           width: 16,
                                         ),
@@ -156,9 +155,16 @@ class _ListMusicState extends State<ListMusic> {
                                     ),
                                   ),
                                   IconButton(
-                                    onPressed: () {},
-                                    icon: const Icon(Icons.favorite_border, color: Color(0xff7D7D7D),),
-                                  )
+                                    icon: song.isFav
+                                        ? Icon(Icons.favorite)
+                                        : Icon(Icons.favorite_border),
+                                    color: song.isFav
+                                        ? Colors.green.shade500
+                                        : Colors.grey.shade700,
+                                    onPressed: (){
+                                      playListProvider.toggleFavorite(index);
+                                    },
+                                  ),
                                 ],
                               ),
                             );

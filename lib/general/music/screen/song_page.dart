@@ -42,17 +42,16 @@ class SongPage extends StatelessWidget {
               Positioned.fill(
                 child: Container(
                   decoration: BoxDecoration(
-                    gradient: LinearGradient(
-                      begin: Alignment.topCenter,
-                      end: Alignment.bottomCenter,
-                      colors: [
-                        Colors.black.withOpacity(0.0),
-                        Colors.black.withOpacity(1.0),
-                        Colors.black.withOpacity(1.0),
-                      ],
-                      stops: [0.0, 0.7,1.0],
-                    )
-                  ),
+                      gradient: LinearGradient(
+                    begin: Alignment.topCenter,
+                    end: Alignment.bottomCenter,
+                    colors: [
+                      Colors.black.withOpacity(0.0),
+                      Colors.black.withOpacity(1.0),
+                      Colors.black.withOpacity(1.0),
+                    ],
+                    stops: [0.0, 0.7, 1.0],
+                  )),
                 ),
               ),
               SizedBox(
@@ -68,7 +67,9 @@ class SongPage extends StatelessWidget {
                         children: [
                           IconButton(
                             icon: Icon(Icons.arrow_downward),
-                            onPressed: () {},
+                            onPressed: () {
+                              Navigator.pop(context);
+                            },
                             color: Colors.grey.shade50,
                           ),
                           Expanded(
@@ -113,11 +114,15 @@ class SongPage extends StatelessWidget {
                                   ],
                                 ),
                                 IconButton(
-                                  onPressed: () {},
-                                  icon: Icon(
-                                    Icons.favorite,
-                                    color: Colors.green.shade500,
-                                  ),
+                                  icon: playlist[value.currentSongIndex ?? 0].isFav
+                                      ? Icon(Icons.favorite)
+                                      : Icon(Icons.favorite_border),
+                                  color: playlist[value.currentSongIndex ?? 0].isFav
+                                      ? Colors.green.shade500
+                                      : Colors.grey.shade700,
+                                  onPressed: (){
+                                    value.toggleFavorite(value.currentSongIndex ?? 0);
+                                  },
                                 ),
                               ],
                             ),
@@ -218,7 +223,7 @@ class SongPage extends StatelessWidget {
                                 IconButton(
                                   onPressed: () {
                                     value.isRepeatActive =
-                                    !value.isRepeatActive;
+                                        !value.isRepeatActive;
                                     if (value.isRepeatActive) {
                                       value.repeatCurrentSong();
                                     }
@@ -226,8 +231,8 @@ class SongPage extends StatelessWidget {
                                   icon: Icon(
                                     Icons.repeat,
                                     color: value.isRepeatActive
-                                  ? Colors.green.shade500
-                                      : Colors.grey.shade50,
+                                        ? Colors.green.shade500
+                                        : Colors.grey.shade50,
                                   ),
                                   iconSize: 35,
                                 ),
