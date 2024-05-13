@@ -17,7 +17,7 @@ class HistoryJournalWidget extends StatelessWidget {
             context,
             MaterialPageRoute(
               builder: (context) => DetailJournaling(index: index),
-            ),
+            ), 
           );
         },
         child: Column(

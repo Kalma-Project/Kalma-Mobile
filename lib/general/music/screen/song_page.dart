@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_ta/general/music/provider/playlist_provider.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -50,7 +49,7 @@ class SongPage extends StatelessWidget {
                       Colors.black.withOpacity(1.0),
                       Colors.black.withOpacity(1.0),
                     ],
-                    stops: [0.0, 0.7, 1.0],
+                    stops: const [0.0, 0.7, 1.0],
                   )),
                 ),
               ),
@@ -58,7 +57,7 @@ class SongPage extends StatelessWidget {
                 height: screenHeight,
                 width: screenWidth,
                 child: Padding(
-                  padding: EdgeInsets.all(14),
+                  padding: const EdgeInsets.all(14),
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     crossAxisAlignment: CrossAxisAlignment.center,
@@ -66,7 +65,7 @@ class SongPage extends StatelessWidget {
                       Row(
                         children: [
                           IconButton(
-                            icon: Icon(Icons.arrow_downward),
+                            icon: const Icon(Icons.arrow_downward),
                             onPressed: () {
                               Navigator.pop(context);
                             },
@@ -115,8 +114,8 @@ class SongPage extends StatelessWidget {
                                 ),
                                 IconButton(
                                   icon: playlist[value.currentSongIndex ?? 0].isFav
-                                      ? Icon(Icons.favorite)
-                                      : Icon(Icons.favorite_border),
+                                      ? const Icon(Icons.favorite)
+                                      : const Icon(Icons.favorite_border),
                                   color: playlist[value.currentSongIndex ?? 0].isFav
                                       ? Colors.green.shade500
                                       : Colors.grey.shade700,
@@ -192,7 +191,7 @@ class SongPage extends StatelessWidget {
                                         ? Colors.green.shade500
                                         : Colors.grey.shade50,
                                   ),
-                                  iconSize: 35,
+                                  iconSize: 24,
                                 ),
                                 IconButton(
                                   onPressed: value.playPreviousSong,
@@ -200,7 +199,7 @@ class SongPage extends StatelessWidget {
                                     Icons.skip_previous_sharp,
                                     color: Colors.grey.shade50,
                                   ),
-                                  iconSize: 35,
+                                  iconSize: 24,
                                 ),
                                 IconButton(
                                   onPressed: value.pauseOrResume,
@@ -210,7 +209,7 @@ class SongPage extends StatelessWidget {
                                         : Icons.play_circle,
                                     color: Colors.grey.shade50,
                                   ),
-                                  iconSize: 50,
+                                  iconSize: 46,
                                 ),
                                 IconButton(
                                   onPressed: value.playNextSong,
@@ -218,7 +217,7 @@ class SongPage extends StatelessWidget {
                                     Icons.skip_next_sharp,
                                     color: Colors.grey.shade50,
                                   ),
-                                  iconSize: 35,
+                                  iconSize: 24,
                                 ),
                                 IconButton(
                                   onPressed: () {
@@ -234,7 +233,7 @@ class SongPage extends StatelessWidget {
                                         ? Colors.green.shade500
                                         : Colors.grey.shade50,
                                   ),
-                                  iconSize: 35,
+                                  iconSize: 24,
                                 ),
                               ],
                             )

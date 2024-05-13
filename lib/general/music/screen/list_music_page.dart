@@ -97,67 +97,65 @@ class _ListMusicState extends State<ListMusic> {
                                     MainAxisAlignment.spaceBetween,
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
-                                  Container(
-                                    child: Row(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.center,
-                                      children: [
-                                        Text(
-                                          (index + 1).toString(),
-                                          style: GoogleFonts.plusJakartaSans(
-                                              color: const Color(0xff7D7D7D),
-                                              fontSize: 16,
-                                              fontWeight: FontWeight.w400),
+                                  Row(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.center,
+                                    children: [
+                                      Text(
+                                        (index + 1).toString(),
+                                        style: GoogleFonts.plusJakartaSans(
+                                            color: const Color(0xff7D7D7D),
+                                            fontSize: 16,
+                                            fontWeight: FontWeight.w400),
+                                      ),
+                                      const SizedBox(
+                                        width: 16,
+                                      ),
+                                      SizedBox(
+                                        width: 44,
+                                        height: 44,
+                                        child: Image.asset(
+                                          song.imgUrl,
+                                          fit: BoxFit.cover,
                                         ),
-                                        const SizedBox(
-                                          width: 16,
-                                        ),
-                                        SizedBox(
-                                          width: 44,
-                                          height: 44,
-                                          child: Image.asset(
-                                            song.imgUrl,
-                                            fit: BoxFit.cover,
+                                      ),
+                                      const SizedBox(
+                                        width: 16,
+                                      ),
+                                      Column(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.center,
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        children: [
+                                          Text(
+                                            song.titleSong,
+                                            style:
+                                                GoogleFonts.plusJakartaSans(
+                                                    color: const Color(
+                                                        0xff2F9296),
+                                                    fontSize: 16,
+                                                    fontWeight:
+                                                        FontWeight.w600),
                                           ),
-                                        ),
-                                        const SizedBox(
-                                          width: 16,
-                                        ),
-                                        Column(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.center,
-                                          crossAxisAlignment:
-                                              CrossAxisAlignment.start,
-                                          children: [
-                                            Text(
-                                              song.titleSong,
-                                              style:
-                                                  GoogleFonts.plusJakartaSans(
-                                                      color: const Color(
-                                                          0xff2F9296),
-                                                      fontSize: 16,
-                                                      fontWeight:
-                                                          FontWeight.w600),
-                                            ),
-                                            Text(
-                                              song.artistName,
-                                              style:
-                                                  GoogleFonts.plusJakartaSans(
-                                                      color: const Color(
-                                                          0xff7D7D7D),
-                                                      fontSize: 16,
-                                                      fontWeight:
-                                                          FontWeight.w400),
-                                            ),
-                                          ],
-                                        ),
-                                      ],
-                                    ),
+                                          Text(
+                                            song.artistName,
+                                            style:
+                                                GoogleFonts.plusJakartaSans(
+                                                    color: const Color(
+                                                        0xff7D7D7D),
+                                                    fontSize: 16,
+                                                    fontWeight:
+                                                        FontWeight.w400),
+                                          ),
+                                        ],
+                                      ),
+                                    ],
                                   ),
                                   IconButton(
                                     icon: song.isFav
-                                        ? Icon(Icons.favorite)
-                                        : Icon(Icons.favorite_border),
+                                        ? const Icon(Icons.favorite)
+                                        : const Icon(Icons.favorite_border),
                                     color: song.isFav
                                         ? Colors.green.shade500
                                         : Colors.grey.shade700,
