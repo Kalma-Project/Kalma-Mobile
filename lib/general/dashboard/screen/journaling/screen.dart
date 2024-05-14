@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_ta/general/dashboard/screen/journaling/data/data_dummy.dart';
-import 'package:flutter_ta/general/dashboard/screen/journaling/widget/journal_history_widget.dart';
+import 'package:flutter_ta/self_management/journaling/widget/journal_history_widget.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class JournalingScreen extends StatefulWidget {
