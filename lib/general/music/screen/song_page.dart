@@ -230,7 +230,7 @@ class SongPage extends StatelessWidget {
                                   icon: Icon(
                                     Icons.repeat,
                                     color: value.isRepeatActive
-                                        ? Colors.green.shade500
+                                        ? const Color(0xff2F9296)
                                         : Colors.grey.shade50,
                                   ),
                                   iconSize: 24,
