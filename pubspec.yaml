@@ -15,6 +15,8 @@ dependencies:
   google_fonts: 6.1.0
   flutter_svg: ^2.0.10+1
   provider: ^6.1.2
+  audioplayers: ^6.0.0
+  shared_preferences: ^2.0.8
 
 dev_dependencies:
   flutter_test:
@@ -52,4 +54,6 @@ flutter:
     - images/onboarding_4.png
     - images/profile_icon.png
     - images/clear_icon.png
+    - music_images/
+    - assets/audio/
   uses-material-design: true

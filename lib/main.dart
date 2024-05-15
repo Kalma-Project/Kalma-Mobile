@@ -1,9 +1,15 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_ta/general/dashboard/screen/dashboard_screen.dart';
 import 'package:flutter_ta/general/splach_screen.dart';
+import 'package:provider/provider.dart';
+import 'package:flutter_ta/general/music/provider/playlist_provider.dart';
 
 void main() {
-  runApp(const MyApp());
+  runApp(
+    ChangeNotifierProvider(
+      create: (context) => PlayListProvider(),
+      child: const MyApp(),
+    ),
+  );
 }
 
 class MyApp extends StatelessWidget {

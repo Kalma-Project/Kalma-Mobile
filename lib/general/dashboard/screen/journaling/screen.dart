@@ -33,7 +33,7 @@ class _JournalingScreenState extends State<JournalingScreen> {
   void _toggleSortOrder() {
     setState(() {
       isAscending = !isAscending;
-      _sortContents(); // Panggil fungsi untuk mengurutkan konten dengan status pengurutan yang baru
+      _sortContents();
     });
   }
 

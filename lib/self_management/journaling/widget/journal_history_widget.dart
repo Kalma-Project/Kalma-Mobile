@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_ta/general/dashboard/screen/journaling/data/data_dummy.dart';
-import 'package:flutter_ta/general/dashboard/screen/journaling/detail_journaling.dart';
 import 'package:flutter_ta/self_management/journaling/screen/detail_journaling_screen.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
