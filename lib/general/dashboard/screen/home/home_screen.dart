@@ -9,6 +9,7 @@ import 'package:flutter_ta/general/article/screen/articlelist_page.dart';
 import 'package:flutter_ta/self_management/journaling/screen/journaling_screen.dart';
 import 'package:flutter_ta/self_screening/screen/self_screening_screen.dart';
 
+import '../../../article/screen/articledetail_screen.dart';
 import '../../../profile/screen/profile_screen.dart';
 
 class HomeScreen extends StatelessWidget {
@@ -169,7 +170,15 @@ class HomeScreen extends StatelessWidget {
                                   ArticleData articleModel = articleData[index];
                                   return GestureDetector(
                                     onTap: () {
-                                      // diisi nanti setelah ada API
+                                      Navigator.pushReplacement(
+                                          context,
+                                          MaterialPageRoute(builder: (context) => ArticleDetail(
+                                            title: articleModel.title,
+                                            imageUrl: articleModel.imageUrl,
+                                            author: articleModel.author,
+                                            description: articleModel.description,
+                                          ))
+                                      );
                                     },
                                     child: Container(
                                       margin: const EdgeInsets.only(right: 10),

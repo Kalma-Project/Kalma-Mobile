@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_ta/general/dashboard/screen/journaling/data/data_dummy.dart';
-import 'package:flutter_ta/general/dashboard/screen/journaling/detail_journaling.dart';
+import 'package:flutter_ta/self_management/journaling/screen/detail_journaling_screen.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
 
@@ -16,8 +16,12 @@ class HistoryJournalWidget extends StatelessWidget {
           Navigator.push(
             context,
             MaterialPageRoute(
-              builder: (context) => DetailJournaling(index: index),
-            ), 
+              builder: (context) => JournalingDetail(
+                  title: data.title,
+                  emotion: data.emotion,
+                  description: data.content,
+              ),
+            ),
           );
         },
         child: Column(
@@ -27,10 +31,10 @@ class HistoryJournalWidget extends StatelessWidget {
               height: 100,
               width: double.infinity,
               decoration: BoxDecoration(
-                color: Color(0xffF0E7E7),
+                color: const Color(0xffF0E7E7),
                 borderRadius: BorderRadius.circular(20),
                 border: Border.all(
-                  color: Color(0xff2F9296),
+                  color: const Color(0xff2F9296),
                 ),
               ),
               child: Padding(
@@ -43,12 +47,12 @@ class HistoryJournalWidget extends StatelessWidget {
                     fontSize: 12, fontWeight: FontWeight.w400),),
               ),
             ),
-            SizedBox(
+            const SizedBox(
               height: 8,
             ),
             Text(data.title, style: GoogleFonts.plusJakartaSans(
                 fontWeight: FontWeight.w700, fontSize: 12),),
-            SizedBox(
+            const SizedBox(
               height: 5,
             ),
             Text(DateFormat('dd MMM yyyy').format(data.date), style: GoogleFonts.plusJakartaSans(

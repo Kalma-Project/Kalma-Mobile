@@ -17,13 +17,16 @@ class InputJournal extends StatefulWidget {
 class _InputJournalState extends State<InputJournal> {
 
   TextEditingController journalingController = TextEditingController();
+  TextEditingController titleController = TextEditingController();
   bool journalError = false;
+  bool titleError = false;
 
   void submitJournal() async{
-    if (journalingController.text.isNotEmpty) {
+    if (journalingController.text.isNotEmpty && titleController.text.isNotEmpty) {
 
       var submitJournal = {
         "emotion":widget.emotion,
+        "title": titleController.text,
         "journal":journalingController.text
       };
       log('Journal $submitJournal');
@@ -60,13 +63,29 @@ class _InputJournalState extends State<InputJournal> {
                   const SizedBox(
                     height: 18.0,
                   ),
-                  SizedBox(
-                    height: MediaQuery.of(context).size.height * 0.5,
+                  TextFormField(
+                    controller: titleController,
+                    keyboardType: TextInputType.text,
+                    decoration: InputDecoration(
+                        border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(16)
+                        ),
+                        labelText: 'Berikan judul untuk cerita kamu hari ini',
+                        errorText: titleError ? "Form harus diisi" : null
+                    ),
+                  ),
+                  const SizedBox(
+                    height: 10,
+                  ),
+                  Container(
+                    height: 275,
                     child: TextFormField(
                       controller: journalingController,
                       keyboardType: TextInputType.text,
                       decoration: InputDecoration(
-                          border: const OutlineInputBorder(),
+                          border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(16)
+                          ),
                           labelText: 'Tuangkan perasaanmu disini!',
                           errorText: journalError ? "Form harus diisi" : null
                       ),

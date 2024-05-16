@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_ta/general/article/screen/articledetail_screen.dart';
 import 'package:flutter_ta/general/dashboard/screen/home/data/card_data_dummy.dart';
+import 'package:flutter_ta/widget/back_button.dart';
 
 import '../../../model/general/general.dart';
 import '../../dashboard/widget/home/article_card_widget.dart';
@@ -25,30 +27,10 @@ class _ArticleListPageState extends State<ArticleListPage> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
-              Row(
-                children: [
-                  TextButton(
-                    onPressed: () {
-                      Navigator.pop(context);
-                    },
-                    child: const Row(
-                      children: [
-                        Icon(Icons.arrow_back, color: Color(0xff3D3D3D)),
-                        SizedBox(width: 12,),
-                        Text(
-                          'Artikel Terkini',
-                          style: TextStyle(
-                              fontSize: 20,
-                              fontWeight: FontWeight.w500,
-                              color: Color(0xff3D3D3D)
-                          ),
-                        )
-                      ],
-                    ),
-                  )
-                ],
+              const CustomBackButton(text: 'Artikel Terkini'),
+              const SizedBox(
+                height: 14,
               ),
-              const SizedBox(height: 32.0),
               Column(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: <Widget>[
@@ -63,7 +45,15 @@ class _ArticleListPageState extends State<ArticleListPage> {
                         ArticleData articleModel = articleData[index];
                         return GestureDetector(
                           onTap: () {
-                            // diisi nanti setelah ada API
+                            Navigator.pushReplacement(
+                                context,
+                                MaterialPageRoute(builder: (context) => ArticleDetail(
+                                  title: articleModel.title,
+                                  imageUrl: articleModel.imageUrl,
+                                  author: articleModel.author,
+                                  description: articleModel.description,
+                                ))
+                            );
                           },
                           child: Container(
                             margin: const EdgeInsets.only(bottom: 18),
