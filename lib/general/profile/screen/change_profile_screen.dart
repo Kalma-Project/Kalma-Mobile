@@ -1,6 +1,7 @@
 import 'dart:typed_data';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_ta/general/profile/data/user_data.dart';
 import 'package:flutter_ta/general/profile/widget/pick_image.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:image_picker/image_picker.dart';
@@ -130,13 +131,13 @@ class _ChangeProfileState extends State<ChangeProfile> {
                   height: 41,
                 ),
                 CustomTextField(
-                    labelText: 'Nama Lengkap', placeHolder: 'Jokowi', controller: fullNameController,
+                    labelText: 'Nama Lengkap', placeHolder: dataUser.userName, controller: fullNameController,
                 ),
                 CustomTextField(
-                    labelText: 'Nomor HP', placeHolder: '081233448879', controller: phoneController,
+                    labelText: 'Nomor HP', placeHolder: dataUser.userPhoneNumber, controller: phoneController,
                 ),
                 CustomTextField(
-                    labelText: 'Email', placeHolder: 'jokowi@gmail.com', controller: emailController,
+                    labelText: 'Email', placeHolder: dataUser.userEmail, controller: emailController,
                 ),
                 const SizedBox(
                   height: 24,

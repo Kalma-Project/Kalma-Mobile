@@ -4,6 +4,7 @@ import 'package:flutter_ta/general/dashboard/screen/home/card_home_widget.dart';
 import 'package:flutter_ta/general/dashboard/screen/home/data/card_data_dummy.dart';
 import 'package:flutter_ta/general/dashboard/widget/home/article_card_widget.dart';
 import 'package:flutter_ta/general/dashboard/widget/home/icons_card_widget.dart';
+import 'package:flutter_ta/general/profile/data/user_data.dart';
 import 'package:flutter_ta/model/general/general.dart';
 import 'package:flutter_ta/general/article/screen/articlelist_page.dart';
 import 'package:flutter_ta/self_management/journaling/screen/journaling_screen.dart';
@@ -46,10 +47,10 @@ class HomeScreen extends StatelessWidget {
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: <Widget>[
-                          const Column(
+                           Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: <Widget>[
-                              Text(
+                              const Text(
                                 'Selamat Pagi',
                                 style: TextStyle(
                                     fontSize: 16.0,
@@ -59,8 +60,8 @@ class HomeScreen extends StatelessWidget {
                                 textAlign: TextAlign.start,
                               ),
                               Text(
-                                'Jok Owi',
-                                style: TextStyle(
+                                dataUser.userName,
+                                style: const TextStyle(
                                     fontSize: 20.0,
                                     fontWeight: FontWeight.w700,
                                     color: Color(0xFFF6F1F1)
@@ -70,9 +71,9 @@ class HomeScreen extends StatelessWidget {
                             ],
                           ),
                           IconButton(
-                            icon : const Icon(Icons.account_circle,
+                            icon : dataUser.userImg == null ? const Icon(Icons.account_circle,
                               color: Color(0xFFF6F1F1),
-                              size: 36.0,),
+                              size: 36.0,) : CircleAvatar(radius: 18, backgroundImage: NetworkImage(dataUser.userImg), backgroundColor: Colors.transparent,),
                             onPressed: (){
                               Navigator.push(context, MaterialPageRoute(builder: (context) => const Profile(),),);
                             },
