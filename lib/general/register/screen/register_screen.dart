@@ -1,8 +1,13 @@
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:flutter_ta/config/endpoints.dart';
+import 'package:flutter_ta/config/requests/general/register_requests.dart';
 import 'package:flutter_ta/general/login/screen/login_screen.dart';
 import 'dart:developer';
 
 import 'package:flutter_ta/general/register/screen/success_register_screen.dart';
+import 'package:flutter_ta/model/general/general.dart';
 
 class RegisterScreen extends StatefulWidget {
   const RegisterScreen({super.key});
@@ -17,10 +22,11 @@ class _RegisterScreenState extends State<RegisterScreen> {
   TextEditingController emailController = TextEditingController();
   TextEditingController ageController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
+  final dio = Dio();
 
   bool isChecked = false;
 
-  void registerUser() async{
+  void registerUser() async {
     List<TextEditingController> controllers = [
       fullnameController,
       usernameController,
@@ -29,21 +35,18 @@ class _RegisterScreenState extends State<RegisterScreen> {
       passwordController,
     ];
 
-    if(controllers.every((element) => element.text.isNotEmpty)){
-      var register = {
-        "email":emailController.text,
-        "password":passwordController.text,
-        "username":usernameController.text,
-        "full_name":fullnameController.text,
-        "age":ageController.text
-      };
+    if (controllers.every((element) => element.text.isNotEmpty)) {
 
-      log('register: $register');
-
-      Navigator.pushReplacement(
-        context,
-        MaterialPageRoute(builder: (context) => const SuccessRegisterScreen()),
+      await registerUserRequest(
+          emailController.text,
+          passwordController.text,
+          usernameController.text,
+          fullnameController.text,
+          ageController.text
       );
+
+    } else {
+      log('Please fill all the fields');
     }
   }
 
@@ -123,7 +126,10 @@ class _RegisterScreenState extends State<RegisterScreen> {
                       ),
                       TextFormField(
                         controller: ageController,
-                        keyboardType: TextInputType.text,
+                        keyboardType: TextInputType.number,
+                        inputFormatters: <TextInputFormatter>[
+                          FilteringTextInputFormatter.digitsOnly,
+                        ],
                         decoration: const InputDecoration(
                           border: UnderlineInputBorder(),
                           labelText: 'Umur',

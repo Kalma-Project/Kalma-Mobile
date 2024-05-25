@@ -6,6 +6,7 @@ import 'package:flutter_ta/general/dashboard/widget/home/article_card_widget.dar
 import 'package:flutter_ta/general/dashboard/widget/home/icons_card_widget.dart';
 import 'package:flutter_ta/model/general/general.dart';
 import 'package:flutter_ta/general/article/screen/articlelist_page.dart';
+import 'package:flutter_ta/self_management/breathing_meditation/screen/breathing_screen.dart';
 import 'package:flutter_ta/self_management/journaling/screen/journaling_screen.dart';
 import 'package:flutter_ta/self_screening/screen/self_screening_screen.dart';
 
@@ -91,7 +92,7 @@ class HomeScreen extends StatelessWidget {
                         children: <Widget>[
                           IconCard(iconData: Icons.sticky_note_2_rounded, title: 'Self Screening', urlPage: SelfScreening(),),
                           IconCard(iconData: Icons.note_alt_rounded, title: 'Journal', urlPage: JournalingPage(),),
-                          IconCard(iconData: Icons.air_sharp, title: 'Breath Work', urlPage: UnderConstruction()),
+                          IconCard(iconData: Icons.air_sharp, title: 'Breath Work', urlPage: BreathingMeditation()),
                           IconCard(iconData: Icons.music_note_rounded, title: 'Melodies', urlPage: UnderConstruction()),
                         ],
                       ),
