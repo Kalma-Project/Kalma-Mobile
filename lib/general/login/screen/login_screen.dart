@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_ta/general/dashboard/screen/dashboard_screen.dart';
 import 'package:flutter_ta/general/forgot_password/screen/forgotpass_screen.dart';
+import 'package:flutter_ta/general/login/data/authUser.dart';
+import 'package:flutter_ta/general/login/sevice/auth_service.dart';
 import 'dart:developer';
 
 import 'package:flutter_ta/general/register/screen/register_screen.dart';
@@ -13,6 +15,7 @@ class LoginScreen extends StatefulWidget {
 }
 
 class _LoginScreenState extends State<LoginScreen> {
+  final AuthService _loginService = AuthService();
   TextEditingController emailunameController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
   bool isChecked = false;
@@ -29,17 +32,20 @@ class _LoginScreenState extends State<LoginScreen> {
 
   void loginUser() async{
     if (emailunameController.text.isNotEmpty && passwordController.text.isNotEmpty) {
+      AuthUser? user = await _loginService.login(emailunameController.text, passwordController.text);
 
-      var login = {
-        "email_or_username":emailunameController.text,
-        "password":passwordController.text
-      };
-
-      log('credentials: $login');
-      Navigator.pushReplacement(
-        context,
-        MaterialPageRoute(builder: (context) => const DashboardScreen()),
-      );
+     if(user != null){
+       Navigator.pushReplacement(
+         context,
+         MaterialPageRoute(builder: (context) => DashboardScreen(user: user,)),
+       );
+     }else{
+       log('Login failed: user is null');
+       setState(() {
+         emailError = true;
+         passwordError = true;
+       });
+     }
 
     } else {
       setState(() {

@@ -2,11 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_ta/general/dashboard/screen/home/home_screen.dart';
 import 'package:flutter_ta/general/music/screen/list_music_page.dart';
+import '../../login/data/authUser.dart';
 import 'journaling/screen.dart';
 
 
 class DashboardScreen extends StatefulWidget {
-  const DashboardScreen({super.key});
+  final AuthUser user;
+  const DashboardScreen({super.key, required this.user});
 
   @override
   State<DashboardScreen> createState() => _DashboardScreenState();
@@ -15,15 +17,21 @@ class DashboardScreen extends StatefulWidget {
 class _DashboardScreenState extends State<DashboardScreen> {
   int _selectedIndex = 0;
   static const TextStyle optionStyle = TextStyle(fontSize: 12.0, fontWeight: FontWeight.w600);
-  static  final List<Widget> _widgetOptions = <Widget>[
-    const HomeScreen(),
-    Text(
-      'Index 1: Business',
-      style: optionStyle,
-    ),
-   JournalingScreen(),
-    ListMusic(),
-  ];
+  late List<Widget> _widgetOptions;
+
+  @override
+  void initState() {
+    super.initState();
+    _widgetOptions = <Widget>[
+      HomeScreen(user: widget.user),
+      const Text(
+        'Index 1: Business',
+        style: optionStyle,
+      ),
+      const JournalingScreen(),
+      const ListMusic(),
+    ];
+  }
 
 
   void _onItemTapped(int index) {

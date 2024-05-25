@@ -134,7 +134,7 @@ class _ChangeProfileState extends State<ChangeProfile> {
                     labelText: 'Nama Lengkap', placeHolder: dataUser.userName, controller: fullNameController,
                 ),
                 CustomTextField(
-                    labelText: 'Nomor HP', placeHolder: dataUser.userPhoneNumber, controller: phoneController,
+                    labelText: 'Nomor HP', placeHolder: dataUser.userPhoneNumber!, controller: phoneController,
                 ),
                 CustomTextField(
                     labelText: 'Email', placeHolder: dataUser.userEmail, controller: emailController,

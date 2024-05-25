@@ -4,6 +4,7 @@ import 'package:flutter_ta/general/dashboard/screen/home/card_home_widget.dart';
 import 'package:flutter_ta/general/dashboard/screen/home/data/card_data_dummy.dart';
 import 'package:flutter_ta/general/dashboard/widget/home/article_card_widget.dart';
 import 'package:flutter_ta/general/dashboard/widget/home/icons_card_widget.dart';
+import 'package:flutter_ta/general/login/data/authUser.dart';
 import 'package:flutter_ta/general/profile/data/user_data.dart';
 import 'package:flutter_ta/model/general/general.dart';
 import 'package:flutter_ta/general/article/screen/articlelist_page.dart';
@@ -14,7 +15,8 @@ import '../../../article/screen/articledetail_screen.dart';
 import '../../../profile/screen/profile_screen.dart';
 
 class HomeScreen extends StatelessWidget {
-  const HomeScreen({super.key});
+  final AuthUser user;
+  const HomeScreen({super.key, required this.user});
 
   @override
   Widget build(BuildContext context) {
@@ -60,7 +62,7 @@ class HomeScreen extends StatelessWidget {
                                 textAlign: TextAlign.start,
                               ),
                               Text(
-                                dataUser.userName,
+                                user.token!, //nyobak mo ngeliat tokennya berhasil apa engga
                                 style: const TextStyle(
                                     fontSize: 20.0,
                                     fontWeight: FontWeight.w700,
@@ -87,10 +89,10 @@ class HomeScreen extends StatelessWidget {
                       const SizedBox(
                         height: 24.0,
                       ),
-                      const Row(
+                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: <Widget>[
-                          IconCard(iconData: Icons.sticky_note_2_rounded, title: 'Self Screening', urlPage: SelfScreening(),),
+                          IconCard(iconData: Icons.sticky_note_2_rounded, title: 'Self Screening', urlPage: SelfScreening(user: user ,),),
                           IconCard(iconData: Icons.note_alt_rounded, title: 'Journal', urlPage: JournalingPage(),),
                           IconCard(iconData: Icons.air_sharp, title: 'Breath Work', urlPage: UnderConstruction()),
                           IconCard(iconData: Icons.music_note_rounded, title: 'Melodies', urlPage: UnderConstruction()),

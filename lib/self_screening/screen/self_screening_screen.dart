@@ -1,12 +1,14 @@
   import 'package:flutter/material.dart';
   import 'package:flutter_ta/general/dashboard/screen/home/home_screen.dart';
+import 'package:flutter_ta/general/login/data/authUser.dart';
   import 'package:flutter_ta/model/self_screening/screening.dart';
   import 'package:flutter_ta/self_screening/data/answers.dart';
   import 'package:flutter_ta/widget/back_button.dart';
   import 'dart:developer';
 
   class SelfScreening extends StatefulWidget {
-    const SelfScreening({super.key});
+    final AuthUser user;
+    const SelfScreening({super.key, required this.user});
 
     @override
     State<SelfScreening> createState() => _SelfScreeningState();
@@ -217,7 +219,7 @@
                 onPressed: () {
                   Navigator.push(
                       context,
-                      MaterialPageRoute(builder: (context) => const HomeScreen(),)
+                      MaterialPageRoute(builder: (context) => HomeScreen(user: widget.user),)
                   );
                 },
                 child: Text('OK'),
