@@ -7,8 +7,8 @@ import 'package:flutter_ta/general/login/data/authUser.dart';
   import 'dart:developer';
 
   class SelfScreening extends StatefulWidget {
-    final AuthUser user;
-    const SelfScreening({super.key, required this.user});
+    // final AuthUser user;
+    const SelfScreening({super.key});
 
     @override
     State<SelfScreening> createState() => _SelfScreeningState();
@@ -219,7 +219,7 @@ import 'package:flutter_ta/general/login/data/authUser.dart';
                 onPressed: () {
                   Navigator.push(
                       context,
-                      MaterialPageRoute(builder: (context) => HomeScreen(user: widget.user),)
+                      MaterialPageRoute(builder: (context) => HomeScreen(),)
                   );
                 },
                 child: Text('OK'),

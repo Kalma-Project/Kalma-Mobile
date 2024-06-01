@@ -6,6 +6,7 @@ import 'package:flutter_ta/general/login/sevice/auth_service.dart';
 import 'dart:developer';
 
 import 'package:flutter_ta/general/register/screen/register_screen.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
@@ -34,11 +35,14 @@ class _LoginScreenState extends State<LoginScreen> {
     if (emailunameController.text.isNotEmpty && passwordController.text.isNotEmpty) {
       AuthUser? user = await _loginService.login(emailunameController.text, passwordController.text);
 
-     if(user != null){
-       Navigator.pushReplacement(
-         context,
-         MaterialPageRoute(builder: (context) => DashboardScreen(user: user,)),
-       );
+      if (user != null && user.token != null) {
+        final prefs = await SharedPreferences.getInstance();
+        prefs.setString('token', user.token!); // Simpan token
+
+        Navigator.pushReplacement(
+          context,
+          MaterialPageRoute(builder: (context) => DashboardScreen()),
+        );
      }else{
        log('Login failed: user is null');
        setState(() {
@@ -46,7 +50,6 @@ class _LoginScreenState extends State<LoginScreen> {
          passwordError = true;
        });
      }
-
     } else {
       setState(() {
         emailError = true;
@@ -225,10 +228,7 @@ class _LoginScreenState extends State<LoginScreen> {
                             ),
                           GestureDetector(
                             onTap: () {
-                              Navigator.push(
-                                context,
-                                MaterialPageRoute(builder: (context) => const RegisterScreen()),
-                              );
+                              Navigator.pushNamed(context, '/register');
                             },
                             child: const Text(
                               'Daftar Akun',

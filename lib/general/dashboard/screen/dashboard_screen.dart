@@ -7,8 +7,7 @@ import 'journaling/screen.dart';
 
 
 class DashboardScreen extends StatefulWidget {
-  final AuthUser user;
-  const DashboardScreen({super.key, required this.user});
+  const DashboardScreen({super.key});
 
   @override
   State<DashboardScreen> createState() => _DashboardScreenState();
@@ -23,7 +22,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
   void initState() {
     super.initState();
     _widgetOptions = <Widget>[
-      HomeScreen(user: widget.user),
+      HomeScreen(),
       const Text(
         'Index 1: Business',
         style: optionStyle,

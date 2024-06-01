@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_ta/general/login/screen/login_screen.dart';
 import 'package:flutter_ta/general/onboarding/screen/onboarding_page.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+
+import 'dashboard/screen/dashboard_screen.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});
@@ -10,7 +13,6 @@ class SplashScreen extends StatefulWidget {
 }
 
 class _SplashScreenState extends State<SplashScreen> {
-
   bool visible = false;
 
   @override
@@ -21,12 +23,25 @@ class _SplashScreenState extends State<SplashScreen> {
         visible = true;
       });
     });
-    Future.delayed(const Duration(seconds: 3), () {
+    _navigateToNextScreen();
+  }
+
+  Future<void> _navigateToNextScreen() async {
+    await Future.delayed(const Duration(seconds: 3));
+    final prefs = await SharedPreferences.getInstance();
+    String? token = prefs.getString('token');
+
+    if (token != null) {
       Navigator.pushReplacement(
         context,
-        MaterialPageRoute(builder: (context) => const Onboarding()),
+        MaterialPageRoute(builder: (context) => DashboardScreen()),
       );
-    });
+    } else {
+      Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(builder: (context) => Onboarding()),
+      );
+    }
   }
 
   @override
