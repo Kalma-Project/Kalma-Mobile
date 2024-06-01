@@ -14,6 +14,7 @@ import '../../../article/screen/articledetail_screen.dart';
 import '../../../profile/screen/profile_screen.dart';
 
 class HomeScreen extends StatelessWidget {
+
   final String user;
   final UserProperty userProperty;
   const HomeScreen({super.key, required this.user, required this.userProperty});

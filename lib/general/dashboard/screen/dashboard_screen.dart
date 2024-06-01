@@ -1,15 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:flutter_ta/config/api_service.dart';
 import 'package:flutter_ta/config/requests/general/auth_user.dart';
+import 'package:flutter_ta/config/token/constants.dart';
 import 'package:flutter_ta/general/dashboard/screen/home/home_screen.dart';
 import 'package:flutter_ta/general/music/screen/list_music_page.dart';
 import '../../../model/general/general.dart';
 import 'journaling/screen.dart';
 
 class DashboardScreen extends StatefulWidget {
-  final String token;
-  const DashboardScreen({super.key, required this.token});
+
+  const DashboardScreen({super.key});
 
   @override
   State<DashboardScreen> createState() => _DashboardScreenState();
@@ -18,6 +20,7 @@ class DashboardScreen extends StatefulWidget {
 class _DashboardScreenState extends State<DashboardScreen> {
   int _selectedIndex = 0;
   final AuthService _getUserProperty = AuthService();
+  final FlutterSecureStorage _secureStorage = const FlutterSecureStorage();
   static const TextStyle optionStyle = TextStyle(fontSize: 12.0, fontWeight: FontWeight.w600);
   late List<Widget> _widgetOptions;
   UserProperty? userProperty;
@@ -30,10 +33,11 @@ class _DashboardScreenState extends State<DashboardScreen> {
 
   Future<void> _fetchUserProperty() async {
     userProperty = await _getUserProperty.getUserProperty();
+    String? token = await _secureStorage.read(key: accessToken);
     setState(() {
-      if (userProperty != null) {
+      if (userProperty != null && token != null) {
         _widgetOptions = <Widget>[
-          HomeScreen(user: widget.token, userProperty: userProperty!),
+          HomeScreen(user: token, userProperty: userProperty!),
           const Text(
             'Index 1: Business',
             style: optionStyle,

@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_ta/general/login/screen/login_screen.dart';
 import 'package:flutter_ta/general/onboarding/screen/onboarding_page.dart';
 
 class SplashScreen extends StatefulWidget {
@@ -10,7 +9,6 @@ class SplashScreen extends StatefulWidget {
 }
 
 class _SplashScreenState extends State<SplashScreen> {
-
   bool visible = false;
 
   @override
@@ -21,17 +19,19 @@ class _SplashScreenState extends State<SplashScreen> {
         visible = true;
       });
     });
-    Future.delayed(const Duration(seconds: 3), () {
-      Navigator.pushReplacement(
-        context,
-        MaterialPageRoute(builder: (context) => const Onboarding()),
-      );
-    });
+    _navigateToNextScreen();
+  }
+
+  Future<void> _navigateToNextScreen() async {
+    await Future.delayed(const Duration(seconds: 3));
+    Navigator.pushReplacement(
+      context,
+      MaterialPageRoute(builder: (context) => const Onboarding()),
+    );
   }
 
   @override
   Widget build(BuildContext context) {
-
     return Scaffold(
       body: Stack(
         fit: StackFit.expand,
@@ -54,6 +54,3 @@ class _SplashScreenState extends State<SplashScreen> {
     );
   }
 }
-
-
-

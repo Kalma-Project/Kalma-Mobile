@@ -2,11 +2,11 @@ import 'dart:developer';
 
 import 'package:dio/dio.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
-import 'package:flutter_ta/config/requests/token.dart';
 
 import '../../../model/general/general.dart';
 import '../../api_service.dart';
 import '../../endpoints.dart';
+import '../../token/constants.dart';
 
 class AuthService {
   ApiService apiService = ApiService();

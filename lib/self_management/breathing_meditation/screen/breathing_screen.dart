@@ -25,7 +25,8 @@ class _BreathingMeditationState extends State<BreathingMeditation> {
   int breathingTime = 0;
   Timer? _timer;
   Timer? _breathingTimer;
-  Duration breathingDuration = const Duration(seconds: 57);
+  Duration breathingDuration = const Duration(seconds: 19);
+  Duration lineDuration = const Duration(seconds: 57);
 
   void _startCountdown() {
     _timer?.cancel();
@@ -204,7 +205,7 @@ class _BreathingMeditationState extends State<BreathingMeditation> {
                   child: Positioned(
                     bottom: 40,
                     child: BreathingAttempIndicator(
-                        breathingDuration: breathingDuration,
+                        breathingDuration: lineDuration,
                         isLineAppeared: isLineAppeared,
                     ),
                   )

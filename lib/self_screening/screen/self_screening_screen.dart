@@ -6,8 +6,10 @@
 import '../../model/general/general.dart';
 
   class SelfScreening extends StatefulWidget {
+
     final UserProperty userProperty;
     const SelfScreening({super.key, required this.userProperty});
+
 
     @override
     State<SelfScreening> createState() => _SelfScreeningState();

@@ -44,7 +44,7 @@ class _LoginScreenState extends State<LoginScreen> {
        if (user.token != null) {
          Navigator.pushReplacement(
            context,
-           MaterialPageRoute(builder: (context) => DashboardScreen(token: user.token!,)),
+           MaterialPageRoute(builder: (context) => DashboardScreen()),
          );
        }
        setState(() {
@@ -60,7 +60,6 @@ class _LoginScreenState extends State<LoginScreen> {
          isLoading = false;
        });
      }
-
     } else {
       setState(() {
         emailError = true;
@@ -224,10 +223,7 @@ class _LoginScreenState extends State<LoginScreen> {
                             ),
                           GestureDetector(
                             onTap: () {
-                              Navigator.push(
-                                context,
-                                MaterialPageRoute(builder: (context) => const RegisterScreen()),
-                              );
+                              Navigator.pushNamed(context, '/register');
                             },
                             child: const Text(
                               'Daftar Akun',

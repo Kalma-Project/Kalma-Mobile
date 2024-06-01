@@ -12,8 +12,7 @@ class CustomPrimaryButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      home: FilledButton.tonal(
+    return FilledButton.tonal(
         onPressed: function,
         style: ButtonStyle(
           backgroundColor: WidgetStateProperty.all<Color>(
@@ -29,7 +28,6 @@ class CustomPrimaryButton extends StatelessWidget {
             fontWeight: FontWeight.w600,
           ),
         ),
-      ),
     );
   }
 }

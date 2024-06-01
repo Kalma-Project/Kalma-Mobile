@@ -1,13 +1,11 @@
 import 'dart:io';
 import 'package:dio/dio.dart';
-import 'package:flutter/cupertino.dart';
-import 'package:flutter/material.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:flutter_ta/config/endpoints.dart';
 import 'dart:developer';
 
-import 'package:flutter_ta/config/requests/token.dart';
-import 'package:flutter_ta/general/login/screen/login_screen.dart';
+import 'package:flutter_ta/config/token/constants.dart';
+import 'package:flutter_ta/main.dart';
 
 class ApiService {
   static final ApiService _instance = ApiService._internal();
@@ -75,11 +73,9 @@ class ApiService {
               await clearTokens();
             }
           } else {
-            log('no refreshed token found');
-            // Navigator.push(
-            //     context,
-            //     MaterialPageRoute(builder: (context) => const LoginScreen())
-            // );
+            log('no token found');
+            await clearTokens();
+            navigatorKey.currentState?.pushNamed('/login');
           }
         }
         return handler.next(error);

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_ta/general/login/screen/login_screen.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 void showLogoutConfirmationDialog(BuildContext context) {
   showDialog(
@@ -16,10 +17,14 @@ void showLogoutConfirmationDialog(BuildContext context) {
             child: Text("Tidak"),
           ),
           TextButton(
-            onPressed: () {
-              Navigator.push(context, MaterialPageRoute(builder: (context)=> const LoginScreen()));
-              // Kalo dah jadi sama API logout
-              print("User logged out");
+            onPressed: () async {
+              final prefs = await SharedPreferences.getInstance();
+              prefs.setBool('isLoggedIn', false);
+
+              Navigator.pushReplacement(
+                context,
+                MaterialPageRoute(builder: (context) => LoginScreen()),
+              );
             },
             child: Text("Ya"),
           ),

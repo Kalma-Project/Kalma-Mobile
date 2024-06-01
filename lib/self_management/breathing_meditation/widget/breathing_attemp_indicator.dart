@@ -41,12 +41,9 @@ class _BreathingAttempIndicatorState extends State<BreathingAttempIndicator> wit
       builder: (context, child) {
         return Row(
           children: <Widget>[
-            Visibility(
-              visible: widget.isLineAppeared ? true : false,
-              child: CustomPaint(
-                size: const Size(48, 3),
-                painter: LinePainter(_controller.value),
-              ),
+            CustomPaint(
+              size: const Size(48, 3),
+              painter: LinePainter(_controller.value),
             ),
           ]
         );
