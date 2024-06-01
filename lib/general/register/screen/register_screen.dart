@@ -1,13 +1,9 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_ta/config/endpoints.dart';
-import 'package:flutter_ta/config/requests/general/register_requests.dart';
+import 'package:flutter_ta/config/requests/general/auth_user.dart';
 import 'package:flutter_ta/general/login/screen/login_screen.dart';
 import 'dart:developer';
-
-import 'package:flutter_ta/general/register/screen/success_register_screen.dart';
-import 'package:flutter_ta/model/general/general.dart';
 
 class RegisterScreen extends StatefulWidget {
   const RegisterScreen({super.key});
@@ -22,6 +18,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
   TextEditingController emailController = TextEditingController();
   TextEditingController ageController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
+  final AuthService _registerService = AuthService();
   final dio = Dio();
 
   bool isChecked = false;
@@ -34,17 +31,14 @@ class _RegisterScreenState extends State<RegisterScreen> {
       ageController,
       passwordController,
     ];
-
     if (controllers.every((element) => element.text.isNotEmpty)) {
-
-      await registerUserRequest(
+      await _registerService.registerUserRequest(
           emailController.text,
           passwordController.text,
           usernameController.text,
           fullnameController.text,
           ageController.text
       );
-
     } else {
       log('Please fill all the fields');
     }

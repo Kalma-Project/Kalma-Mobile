@@ -17,7 +17,7 @@ class PlayListProvider extends ChangeNotifier {
         titleSong: 'Secukupnya',
         artistName: 'Hindia',
         audioPath:
-            'audio/Hindia - Secukupnya (Lyric Video) - OST. Nanti Kita Cerita Tentang Hari Ini.mp3'),
+        'audio/Hindia - Secukupnya (Lyric Video) - OST. Nanti Kita Cerita Tentang Hari Ini.mp3'),
     Song(
         imgUrl: 'music_images/3.jpeg',
         titleSong: 'Terlalu Lama Sendiri',
@@ -28,10 +28,8 @@ class PlayListProvider extends ChangeNotifier {
   //current song index
   int? _currentSongIndex;
 
-
-  /*
-  AUDIO PLAYER
-   */
+  // Store the current audio path
+  String? _currentAudioPath;
 
   //audio player
   final AudioPlayer _audioPlayer = AudioPlayer();
@@ -51,11 +49,15 @@ class PlayListProvider extends ChangeNotifier {
   bool _isShuffleActive = false;
   bool _isRepeatActive = false;
 
-
   //play the song
   void play() async {
     final String path = _playlist[_currentSongIndex!].audioPath;
+    if (_isPlaying && _currentAudioPath == path) {
+      // If the current song is already playing, do nothing
+      return;
+    }
     _isPlaying = true;
+    _currentAudioPath = path;
 
     await _audioPlayer.stop(); //stop current song
     await _audioPlayer.play(AssetSource(path)); //play the selected song
@@ -184,8 +186,6 @@ class PlayListProvider extends ChangeNotifier {
     notifyListeners();
   }
 
-
-
   //dispose audio player
 
   /*
@@ -198,8 +198,6 @@ class PlayListProvider extends ChangeNotifier {
   Duration get totalDuration => _totalDuration;
   bool get isShuffleActive => _isShuffleActive;
   bool get isRepeatActive => _isRepeatActive;
-
-
 
   /*
   S E T T E R S
@@ -223,8 +221,4 @@ class PlayListProvider extends ChangeNotifier {
     _isRepeatActive = newValue;
     notifyListeners();
   }
-
-
-
-
 }

@@ -20,14 +20,12 @@ class _BreathingMeditationState extends State<BreathingMeditation> {
   bool isInhale = false;
   bool isHold = false;
   bool isExhale = false;
-  bool isFirstLine = false;
-  bool isSecondLine = false;
-  bool isThirdLine = false;
+  bool isLineAppeared = false;
   int countdown = 3;
   int breathingTime = 0;
   Timer? _timer;
   Timer? _breathingTimer;
-  Duration breathingDuration = const Duration(seconds: 19);
+  Duration breathingDuration = const Duration(seconds: 57);
 
   void _startCountdown() {
     _timer?.cancel();
@@ -51,22 +49,14 @@ class _BreathingMeditationState extends State<BreathingMeditation> {
       if (breathingTime <= 0) {
         setState(() {
           breathingTime++;
+          isLineAppeared = true;
         });
-        if (breathingTime >= 0 && breathingTime < 19) {
-          setState(() {
-            isFirstLine = true;
-          });
-        } else if (breathingTime > 19 && breathingTime < 38) {
-          setState(() {
-            isSecondLine = true;
-          });
-        } else if (breathingTime > 38 && breathingTime <= 57) {
-          setState(() {
-            isThirdLine = true;
-          });
-        }
+      } else if (breathingTime > 57) {
+        timer.cancel();
+        setState(() {
+          breathingTime = 0;
+        });
       }
-      log('$isFirstLine $isSecondLine $isThirdLine');
     });
   }
 
@@ -215,9 +205,7 @@ class _BreathingMeditationState extends State<BreathingMeditation> {
                     bottom: 40,
                     child: BreathingAttempIndicator(
                         breathingDuration: breathingDuration,
-                        isFirstLine: isFirstLine,
-                        isSecondLine: isSecondLine,
-                        isThirdLine: isThirdLine,
+                        isLineAppeared: isLineAppeared,
                     ),
                   )
               )

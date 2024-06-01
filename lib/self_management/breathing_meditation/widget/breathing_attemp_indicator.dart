@@ -2,16 +2,12 @@ import 'package:flutter/material.dart';
 
 class BreathingAttempIndicator extends StatefulWidget {
   final Duration breathingDuration;
-  final bool isFirstLine;
-  final bool isSecondLine;
-  final bool isThirdLine;
+  final bool isLineAppeared;
 
   const BreathingAttempIndicator({
     Key? key,
     required this.breathingDuration,
-    required this.isFirstLine,
-    required this.isSecondLine,
-    required this.isThirdLine
+    required this.isLineAppeared,
   }): super(key: key);
 
   @override
@@ -46,27 +42,7 @@ class _BreathingAttempIndicatorState extends State<BreathingAttempIndicator> wit
         return Row(
           children: <Widget>[
             Visibility(
-              visible: widget.isFirstLine ? true : false,
-              child: CustomPaint(
-                size: const Size(48, 3),
-                painter: LinePainter(_controller.value),
-              ),
-            ),
-            const SizedBox(
-              width: 12,
-            ),
-            Visibility(
-              visible: widget.isSecondLine ? true : false,
-              child: CustomPaint(
-                size: const Size(48, 3),
-                painter: LinePainter(_controller.value),
-              ),
-            ),
-            const SizedBox(
-              width: 12,
-            ),
-            Visibility(
-              visible: widget.isThirdLine ? true : false,
+              visible: widget.isLineAppeared ? true : false,
               child: CustomPaint(
                 size: const Size(48, 3),
                 painter: LinePainter(_controller.value),

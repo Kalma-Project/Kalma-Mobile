@@ -14,10 +14,13 @@ import '../../../article/screen/articledetail_screen.dart';
 import '../../../profile/screen/profile_screen.dart';
 
 class HomeScreen extends StatelessWidget {
-  const HomeScreen({super.key});
+  final String user;
+  final UserProperty userProperty;
+  const HomeScreen({super.key, required this.user, required this.userProperty});
 
   @override
   Widget build(BuildContext context) {
+
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
@@ -47,10 +50,10 @@ class HomeScreen extends StatelessWidget {
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: <Widget>[
-                          const Column(
+                           Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: <Widget>[
-                              Text(
+                              const Text(
                                 'Selamat Pagi',
                                 style: TextStyle(
                                     fontSize: 16.0,
@@ -60,8 +63,8 @@ class HomeScreen extends StatelessWidget {
                                 textAlign: TextAlign.start,
                               ),
                               Text(
-                                'Jok Owi',
-                                style: TextStyle(
+                                userProperty.data.username,
+                                style: const TextStyle(
                                     fontSize: 20.0,
                                     fontWeight: FontWeight.w700,
                                     color: Color(0xFFF6F1F1)
@@ -71,11 +74,13 @@ class HomeScreen extends StatelessWidget {
                             ],
                           ),
                           IconButton(
-                            icon : const Icon(Icons.account_circle,
+                            icon : const Icon(
+                              Icons.account_circle,
                               color: Color(0xFFF6F1F1),
-                              size: 36.0,),
+                              size: 36.0,
+                              ),
                             onPressed: (){
-                              Navigator.push(context, MaterialPageRoute(builder: (context) => const Profile(),),);
+                              Navigator.push(context, MaterialPageRoute(builder: (context) => Profile(data: userProperty.data,),),);
                             },
                           ),
                         ],
@@ -87,10 +92,10 @@ class HomeScreen extends StatelessWidget {
                       const SizedBox(
                         height: 24.0,
                       ),
-                      const Row(
+                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: <Widget>[
-                          IconCard(iconData: Icons.sticky_note_2_rounded, title: 'Self Screening', urlPage: SelfScreening(),),
+                          IconCard(iconData: Icons.sticky_note_2_rounded, title: 'Self Screening', urlPage: SelfScreening(userProperty: userProperty,),),
                           IconCard(iconData: Icons.note_alt_rounded, title: 'Journal', urlPage: JournalingPage(),),
                           IconCard(iconData: Icons.air_sharp, title: 'Breath Work', urlPage: BreathingMeditation()),
                           IconCard(iconData: Icons.music_note_rounded, title: 'Melodies', urlPage: UnderConstruction()),

@@ -1,9 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_ta/config/requests/general/auth_user.dart';
 import 'package:flutter_ta/general/dashboard/screen/dashboard_screen.dart';
 import 'package:flutter_ta/general/forgot_password/screen/forgotpass_screen.dart';
 import 'dart:developer';
 
 import 'package:flutter_ta/general/register/screen/register_screen.dart';
+import 'package:flutter_ta/widget/primary_custom_button.dart';
+
+import '../../../model/general/general.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
@@ -13,12 +17,14 @@ class LoginScreen extends StatefulWidget {
 }
 
 class _LoginScreenState extends State<LoginScreen> {
+  final AuthService _authService = AuthService();
   TextEditingController emailunameController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
   bool isChecked = false;
   bool passwordVisible = false;
   bool emailError = false;
   bool passwordError = false;
+  bool isLoading = false;
 
 
   @override
@@ -28,23 +34,38 @@ class _LoginScreenState extends State<LoginScreen> {
   }
 
   void loginUser() async{
+    setState(() {
+      isLoading = true;
+    });
     if (emailunameController.text.isNotEmpty && passwordController.text.isNotEmpty) {
+      AuthUser? user = await _authService.login(emailunameController.text, passwordController.text);
 
-      var login = {
-        "email_or_username":emailunameController.text,
-        "password":passwordController.text
-      };
-
-      log('credentials: $login');
-      Navigator.pushReplacement(
-        context,
-        MaterialPageRoute(builder: (context) => const DashboardScreen()),
-      );
+     if(user != null){
+       if (user.token != null) {
+         Navigator.pushReplacement(
+           context,
+           MaterialPageRoute(builder: (context) => DashboardScreen(token: user.token!,)),
+         );
+       }
+       setState(() {
+         isLoading = false;
+       });
+     }else{
+       log('Login failed: user is null');
+       setState(() {
+         emailError = true;
+         passwordError = true;
+       });
+       setState(() {
+         isLoading = false;
+       });
+     }
 
     } else {
       setState(() {
         emailError = true;
         passwordError = true;
+        isLoading = false;
       });
     }
   }
@@ -186,23 +207,7 @@ class _LoginScreenState extends State<LoginScreen> {
                         const SizedBox(
                           height: 18.0,
                         ),
-                        FilledButton.tonal(
-                          onPressed: ()=>{
-                            loginUser()
-                          },
-                          style: ButtonStyle(
-                            backgroundColor: MaterialStateProperty.all<Color>(
-                                const Color(0xFF2F9296)),
-                          ),
-                          child: const Text(
-                            'Login',
-                            style: TextStyle(
-                              color: Colors.white,
-                              fontSize: 14.0,
-                              fontWeight: FontWeight.w600,
-                            ),
-                          ),
-                        ),
+                        CustomPrimaryButton(function: loginUser, isLoading: isLoading,),
                       ],
                     ),
                     Container(
