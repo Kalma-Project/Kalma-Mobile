@@ -51,7 +51,7 @@ class _JournalingScreenState extends State<JournalingScreen> {
                 Row(
                   children: [
                     TextButton(
-                      onPressed: () {},
+                      onPressed: () => Navigator.pop(context),
                       child: Row(
                         children: [
                           const Icon(
@@ -62,7 +62,7 @@ class _JournalingScreenState extends State<JournalingScreen> {
                             width: 12,
                           ),
                           Text(
-                            'Daftar Journal',
+                            'Journal',
                             style: GoogleFonts.plusJakartaSans(
                                 color: const Color(0xff3D3D3D),
                                 fontSize: 20,

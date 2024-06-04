@@ -30,13 +30,13 @@ class ArticleDetail extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
-                  const CustomBackButton(text: 'Artikel'),
+                  CustomBackButton(text: 'Artikel',  onPressed: () => Navigator.pop(context),),
                   const SizedBox(
                     height: 24,
                   ),
                   ClipRRect(
                     borderRadius: BorderRadius.circular(20),
-                    child: Container(
+                    child: SizedBox(
                       width: MediaQuery.of(context).size.width * 1,
                       height: MediaQuery.of(context).size.height * 0.17,
                       child: Image.asset(

@@ -48,7 +48,7 @@ class _InputJournalState extends State<InputJournal> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: <Widget>[
-                  const CustomBackButton(text: 'Journaling'),
+                  CustomBackButton(text: 'Journaling', onPressed: () => Navigator.pop(context),),
                   const SizedBox(
                     height: 40.0,
                   ),

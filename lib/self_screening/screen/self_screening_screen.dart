@@ -41,7 +41,7 @@ import '../../model/general/general.dart';
               padding: const EdgeInsets.symmetric(horizontal: 14.0),
               child: Column(
                 children: [
-                  const CustomBackButton(text: 'Self Screening'),
+                  CustomBackButton(text: 'Self Screening', onPressed: () => Navigator.pop(context),),
                   const SizedBox(
                     height: 24.0,
                   ),

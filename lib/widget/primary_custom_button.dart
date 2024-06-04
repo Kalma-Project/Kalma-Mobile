@@ -15,7 +15,7 @@ class CustomPrimaryButton extends StatelessWidget {
     return FilledButton.tonal(
         onPressed: function,
         style: ButtonStyle(
-          backgroundColor: WidgetStateProperty.all<Color>(
+          backgroundColor: MaterialStateProperty.all<Color>(
               const Color(0xFF2F9296)),
         ),
         child: isLoading ? const CircularProgressIndicator(

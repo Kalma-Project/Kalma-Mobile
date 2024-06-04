@@ -27,14 +27,14 @@ class _ArticleListPageState extends State<ArticleListPage> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
-              const CustomBackButton(text: 'Artikel Terkini'),
+              CustomBackButton(text: 'Artikel Terkini', onPressed: () => Navigator.pop(context),),
               const SizedBox(
                 height: 14,
               ),
               Column(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: <Widget>[
-                  Container(
+                  SizedBox(
                     width: MediaQuery.of(context).size.width * 1,
                     height: MediaQuery.of(context).size.height * 0.863,
                     child: ListView.builder(
@@ -45,7 +45,7 @@ class _ArticleListPageState extends State<ArticleListPage> {
                         ArticleData articleModel = articleData[index];
                         return GestureDetector(
                           onTap: () {
-                            Navigator.pushReplacement(
+                            Navigator.push(
                                 context,
                                 MaterialPageRoute(builder: (context) => ArticleDetail(
                                   title: articleModel.title,

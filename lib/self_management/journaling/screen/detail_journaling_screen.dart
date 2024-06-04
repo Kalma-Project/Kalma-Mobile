@@ -58,7 +58,7 @@ class _JournalingDetailState extends State<JournalingDetail> {
               padding: const EdgeInsets.symmetric(horizontal: 14),
               child: Column(
                 children: <Widget>[
-                  CustomBackButton(text: widget.title),
+                  CustomBackButton(text: widget.title,  onPressed: () => Navigator.pop(context),),
                   const SizedBox(
                     height: 20,
                   ),

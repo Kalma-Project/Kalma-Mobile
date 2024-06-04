@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_ta/general/login/screen/login_screen.dart';
-import 'package:shared_preferences/shared_preferences.dart';
+import 'package:flutter_ta/config/api_service.dart';
 
 void showLogoutConfirmationDialog(BuildContext context) {
   showDialog(
     context: context,
     builder: (BuildContext context) {
+      ApiService apiService = ApiService();
       return AlertDialog(
         title: Text("Konfirmasi Logout"),
         content: Text("Apakah Anda yakin ingin logout?"),
@@ -17,13 +18,12 @@ void showLogoutConfirmationDialog(BuildContext context) {
             child: Text("Tidak"),
           ),
           TextButton(
-            onPressed: () async {
-              final prefs = await SharedPreferences.getInstance();
-              prefs.setBool('isLoggedIn', false);
-
-              Navigator.pushReplacement(
+            onPressed:() async {
+              await apiService.clearTokens();
+              Navigator.pushAndRemoveUntil(
                 context,
-                MaterialPageRoute(builder: (context) => LoginScreen()),
+                MaterialPageRoute(builder: (context) => const LoginScreen()),
+                    (route) => false,
               );
             },
             child: Text("Ya"),

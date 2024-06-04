@@ -42,9 +42,10 @@ class _LoginScreenState extends State<LoginScreen> {
 
      if(user != null){
        if (user.token != null) {
-         Navigator.pushReplacement(
-           context,
-           MaterialPageRoute(builder: (context) => DashboardScreen()),
+         Navigator.pushAndRemoveUntil(
+             context,
+             MaterialPageRoute(builder: (context) => DashboardScreen()),
+                 (route) => false,
          );
        }
        setState(() {
