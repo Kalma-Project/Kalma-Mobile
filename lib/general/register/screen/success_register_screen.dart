@@ -88,7 +88,7 @@ class SuccessRegisterScreen extends StatelessWidget {
                           )
                         },
                         style: ButtonStyle(
-                          backgroundColor: WidgetStateProperty.all<Color>(
+                          backgroundColor: MaterialStateProperty.all<Color>(
                               const Color(0xFFFFFFFF)),
                         ),
                         child: const Text(

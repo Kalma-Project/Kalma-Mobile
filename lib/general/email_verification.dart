@@ -83,7 +83,7 @@ class EmailVerification extends StatelessWidget {
                         // later will added
                       },
                       style: ButtonStyle(
-                        backgroundColor: WidgetStateProperty.all<Color>(
+                        backgroundColor: MaterialStateProperty.all<Color>(
                             const Color(0xFFFFFFFF)),
                       ),
                       child: const Text(
@@ -107,7 +107,7 @@ class EmailVerification extends StatelessWidget {
                         // later will added
                       },
                       style: ButtonStyle(
-                        backgroundColor: WidgetStateProperty.all<Color>(
+                        backgroundColor: MaterialStateProperty.all<Color>(
                           Colors.transparent
                         )
                       ),

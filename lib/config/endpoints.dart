@@ -5,6 +5,7 @@ const String register_user = 'user/register';
 const String login_user = 'user/authenticate';
 const String get_refresh_token = 'user/refresh-token';
 const String get_user_property = 'user/user-property';
+const String update_user_property = 'user/user-property/update';
 const String post_reset_password = 'user/forgot-password';
 
 // Self Management API Endpoints

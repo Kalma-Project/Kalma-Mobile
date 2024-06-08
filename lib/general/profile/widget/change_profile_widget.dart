@@ -5,12 +5,14 @@ class CustomTextField extends StatefulWidget {
   final String labelText;
   final String placeHolder;
   final TextEditingController? controller;
+  final FocusNode? focusNode;
 
   const CustomTextField({
     Key? key,
     required this.labelText,
     required this.placeHolder,
     this.controller,
+    this.focusNode,
   }) : super(key: key);
 
   @override
@@ -19,7 +21,7 @@ class CustomTextField extends StatefulWidget {
 
 class _CustomTextFieldState extends State<CustomTextField> {
   late TextEditingController _controller;
-  FocusNode focusNode = FocusNode();
+  late FocusNode _focusNode;
   bool isFocused = false;
 
   @override
@@ -27,9 +29,10 @@ class _CustomTextFieldState extends State<CustomTextField> {
     super.initState();
     _controller = widget.controller ?? TextEditingController();
     _controller.text = widget.placeHolder;
-    focusNode.addListener(() {
+    _focusNode = widget.focusNode ?? FocusNode();
+    _focusNode.addListener(() {
       setState(() {
-        isFocused = focusNode.hasFocus;
+        isFocused = _focusNode.hasFocus;
       });
     });
   }
@@ -41,7 +44,7 @@ class _CustomTextFieldState extends State<CustomTextField> {
       child: TextField(
         cursorColor: const Color(0xff2F9296),
         controller: _controller,
-        focusNode: focusNode,
+        focusNode: _focusNode,
         style: GoogleFonts.plusJakartaSans(
           color: const Color(0xff3D3D3D),
           fontWeight: FontWeight.w700,
@@ -83,7 +86,7 @@ class _CustomTextFieldState extends State<CustomTextField> {
   @override
   void dispose() {
     _controller.dispose();
-    focusNode.dispose();
+    _focusNode.dispose();
     super.dispose();
   }
 }

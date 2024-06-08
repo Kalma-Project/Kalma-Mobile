@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_ta/config/api_service.dart';
-import 'package:flutter_ta/general/login/screen/login_screen.dart';
 import 'package:flutter_ta/general/profile/screen/change_profile_screen.dart';
 import 'package:flutter_ta/model/general/general.dart';
 import 'package:flutter_ta/self_screening/screen/history_self_screening_screen.dart';
@@ -12,13 +11,11 @@ class Profile extends StatelessWidget {
   final UserPropertyData data;
 
   const Profile({
-    Key? key,
-    required this.data
+    Key? key, required this.data
   }): super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    ApiService apiService = ApiService();
 
     return Scaffold(
       body: SafeArea(
@@ -71,10 +68,12 @@ class Profile extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
-                      const Image(
-                        image: AssetImage('images/profile_icon.png'),
-                        width: 36,
-                        height: 36,
+                      Container(
+                        child: data.avatarLink != null ? CircleAvatar(
+                    radius: 20,
+                    backgroundImage: NetworkImage(data.avatarLink!),
+                  )
+                      : Icon(Icons.account_circle, size: 40, color: Color(0xff137378),),
                       ),
                       SizedBox(
                         width: 204,
@@ -105,7 +104,7 @@ class Profile extends StatelessWidget {
                           Navigator.push(
                             context,
                             MaterialPageRoute(
-                              builder: (context) => const ChangeProfile(),
+                              builder: (context) => ChangeProfile(data: data,),
                             ),
                           );
                         },
