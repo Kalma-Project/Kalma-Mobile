@@ -1,9 +1,5 @@
-import 'dart:ffi';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:flutter_ta/utils/icons/internalIcons.dart';
-import 'dart:developer';
 
 class EmotionCardWidget extends StatefulWidget {
   final String emotion;

@@ -1,4 +1,4 @@
-import 'package:flutter_ta/config/requests/general/auth_user.dart';
+import 'package:flutter_ta/config/requests/general/service.dart';
 import 'package:flutter_ta/model/general/general.dart';
 import 'package:flutter_test/flutter_test.dart';
 

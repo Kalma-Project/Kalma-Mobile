@@ -16,7 +16,13 @@ class ArticleData{
 class AuthUser{
   String? token;
   String? message;
-  AuthUser({this.token,  this.message});
+  bool? is_email_verified;
+
+  AuthUser({
+    this.token,
+    this.message,
+    this.is_email_verified
+  });
 }
 
 class RefreshToken{
@@ -85,7 +91,7 @@ class UserPropertyData {
   String email;
   int age;
   String? avatarLink;
-  bool userPrivacy;
+  bool allowJournal;
   String lastLoggedIn;
 
   UserPropertyData({
@@ -94,7 +100,7 @@ class UserPropertyData {
     required this.email,
     required this.age,
     this.avatarLink,
-    required this.userPrivacy,
+    required this.allowJournal,
     required this.lastLoggedIn,
   });
 
@@ -105,8 +111,20 @@ class UserPropertyData {
       email: json['email'],
       age: json['age'],
       avatarLink: json['avatar_link'],
-      userPrivacy: json['user_privacy'],
+      allowJournal: json['allow_journal'],
       lastLoggedIn: json['last_logged_in'],
     );
+  }
+}
+
+class ForgotPasswordPayload {
+  String email_or_username;
+
+  ForgotPasswordPayload({
+    required this.email_or_username
+  });
+
+  factory ForgotPasswordPayload.fromJson(Map<String, dynamic> json) {
+    return ForgotPasswordPayload(email_or_username: json['email_or_username']);
   }
 }

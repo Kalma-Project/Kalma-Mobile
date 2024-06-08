@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_ta/config/requests/general/auth_user.dart';
+import 'package:flutter_ta/config/requests/general/service.dart';
 import 'package:flutter_ta/general/dashboard/screen/dashboard_screen.dart';
 import 'package:flutter_ta/general/forgot_password/screen/forgotpass_screen.dart';
 import 'dart:developer';
 
-import 'package:flutter_ta/general/register/screen/register_screen.dart';
 import 'package:flutter_ta/widget/primary_custom_button.dart';
 
 import '../../../model/general/general.dart';
@@ -41,16 +40,26 @@ class _LoginScreenState extends State<LoginScreen> {
       AuthUser? user = await _authService.login(emailunameController.text, passwordController.text);
 
      if(user != null){
-       if (user.token != null) {
-         Navigator.pushReplacement(
-           context,
-           MaterialPageRoute(builder: (context) => DashboardScreen()),
-         );
-       }
+       // if (user.is_email_verified != null && user.is_email_verified == true) {
+       //   Navigator.pushReplacement(
+       //     context,
+       //     MaterialPageRoute(builder: (context) => const DashboardScreen()),
+       //   );
+       // }
+
+       Navigator.pushReplacement(
+         context,
+         MaterialPageRoute(builder: (context) => const DashboardScreen()),
+       );
+
+       // Navigator.pushReplacement(
+       //     context,
+       //     MaterialPageRoute(builder: (context) => const EmailVerification())
+       // );
        setState(() {
          isLoading = false;
        });
-     }else{
+     } else {
        log('Login failed: user is null');
        setState(() {
          emailError = true;
@@ -175,9 +184,9 @@ class _LoginScreenState extends State<LoginScreen> {
                               children: <Widget>[
                                 Checkbox(
                                   checkColor: Colors.white,
-                                  fillColor: MaterialStateProperty.resolveWith<Color>(
-                                          (Set<MaterialState> states) {
-                                        if (states.contains(MaterialState.selected)) {
+                                  fillColor: WidgetStateProperty.resolveWith<Color>(
+                                          (Set<WidgetState> states) {
+                                        if (states.contains(WidgetState.selected)) {
                                           return const Color(0xFF2F9296);
                                         }
                                         return Colors.white;
@@ -206,7 +215,7 @@ class _LoginScreenState extends State<LoginScreen> {
                         const SizedBox(
                           height: 18.0,
                         ),
-                        CustomPrimaryButton(function: loginUser, isLoading: isLoading,),
+                        CustomPrimaryButton(function: loginUser, isLoading: isLoading, buttonTitle: 'Login',),
                       ],
                     ),
                     Container(

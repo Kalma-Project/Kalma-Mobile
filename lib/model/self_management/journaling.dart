@@ -10,3 +10,14 @@ class JournalingData{
     this.emotionBgColor
   });
 }
+class JournalingPayload{
+  String title;
+  String emotion;
+  String content;
+
+  JournalingPayload({
+    required this.title,
+    required this.emotion,
+    required this.content
+  });
+}

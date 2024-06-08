@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
-import 'dart:developer';
+
+import 'package:flutter_ta/config/requests/general/service.dart';
+import 'package:flutter_ta/model/general/general.dart';
+import 'package:flutter_ta/widget/primary_custom_button.dart';
 
 class ForgotPassScreen extends StatefulWidget {
   const ForgotPassScreen({super.key});
@@ -9,8 +12,10 @@ class ForgotPassScreen extends StatefulWidget {
 }
 
 class _ForgotPassScreenState extends State<ForgotPassScreen> {
+  AuthService authService = AuthService();
   TextEditingController emailunameController = TextEditingController();
   bool emailunameError = false;
+  bool isLoading = false;
 
   void onInputChange(String value) {
     if (value.isNotEmpty){
@@ -21,11 +26,29 @@ class _ForgotPassScreenState extends State<ForgotPassScreen> {
   }
 
   void forgotPassSubmit() async{
+    setState(() {
+      isLoading = true;
+    });
     if (emailunameController.text.isNotEmpty) {
-      var forgotPassword = {
-        "email_or_username":emailunameController.text
-      };
-      log('email_or_username: $forgotPassword');
+      ForgotPasswordPayload? sendForgotPassword = await authService.sendForgotPassword(emailunameController.text);
+      if (!mounted) return;
+      if (sendForgotPassword != null) {
+        const successSnackBar = SnackBar(
+          content: Text('Email telah dikirimkan!'),
+        );
+        ScaffoldMessenger.of(context).showSnackBar(successSnackBar);
+        setState(() {
+          isLoading = false;
+        });
+      } else {
+        const failSnackBar = SnackBar(
+          content: Text('Email gagal dikirimkan!'),
+        );
+        ScaffoldMessenger.of(context).showSnackBar(failSnackBar);
+        setState(() {
+          isLoading = false;
+        });
+      }
     } else {
       setState(() {
         emailunameError = true;
@@ -64,7 +87,7 @@ class _ForgotPassScreenState extends State<ForgotPassScreen> {
                             ),
                             const SizedBox(height: 12,),
                             SizedBox(
-                              width: MediaQuery.of(context).size.width * 0.8, // Adjust the width as needed
+                              width: MediaQuery.of(context).size.width * 0.8,
                               child: const Text(
                                 'Masukkan Email dan akan kami kirimkan link untuk membuat kata sandi baru',
                                 style: TextStyle(
@@ -97,22 +120,10 @@ class _ForgotPassScreenState extends State<ForgotPassScreen> {
                       const SizedBox(
                         height: 18.0,
                       ),
-                      FilledButton.tonal(
-                        onPressed: ()=>{
-                          forgotPassSubmit()
-                        },
-                        style: ButtonStyle(
-                          backgroundColor: MaterialStateProperty.all<Color>(
-                              const Color(0xFF2F9296)),
-                        ),
-                        child: const Text(
-                          'Lanjutkan',
-                          style: TextStyle(
-                            color: Colors.white,
-                            fontSize: 14.0,
-                            fontWeight: FontWeight.w600,
-                          ),
-                        ),
+                      CustomPrimaryButton(
+                          function: forgotPassSubmit,
+                          isLoading: isLoading,
+                          buttonTitle: 'Lanjutkan'
                       )
                     ],
                   )

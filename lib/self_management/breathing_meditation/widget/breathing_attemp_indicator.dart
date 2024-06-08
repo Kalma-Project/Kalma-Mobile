@@ -41,9 +41,17 @@ class _BreathingAttempIndicatorState extends State<BreathingAttempIndicator> wit
       builder: (context, child) {
         return Row(
           children: <Widget>[
-            CustomPaint(
-              size: const Size(48, 3),
-              painter: LinePainter(_controller.value),
+            ClipRRect(
+              borderRadius: BorderRadius.circular(9.0),
+              child: Container(
+                width: 200,
+                height: 5.5,
+                color: const Color(0xFF163533),
+                child: CustomPaint(
+                  size: const Size(200, 3),
+                  painter: LinePainter(_controller.value),
+                ),
+              ),
             ),
           ]
         );
@@ -65,7 +73,7 @@ class LinePainter extends CustomPainter {
       ..strokeWidth = 5.0;
 
     const double startX = 0;
-    const double endX = 48;
+    const double endX = 200;
     final double y = size.height / 2;
 
     final double currentX = startX + (endX - startX) * animationValue;

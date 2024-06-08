@@ -22,27 +22,22 @@ class HomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      theme: ThemeData(
-        fontFamily: 'JakartaSans'
-      ),
-      home: Scaffold(
-        resizeToAvoidBottomInset: false,
-        body: SafeArea(
-          child: Container(
-            height: double.infinity,
-            decoration: const BoxDecoration(
-                gradient: LinearGradient(
-                    begin: Alignment.bottomCenter,
-                    end: Alignment.topCenter,
-                    colors: [
-                      Color(0xFF64CDC2),
-                      Color(0xFF137378)
-                    ]
-                )
-            ),
-            child: Column(
+    return Scaffold(
+      resizeToAvoidBottomInset: false,
+      body: SafeArea(
+        child: Container(
+          height: double.infinity,
+          decoration: const BoxDecoration(
+              gradient: LinearGradient(
+                  begin: Alignment.bottomCenter,
+                  end: Alignment.topCenter,
+                  colors: [
+                    Color(0xFF64CDC2),
+                    Color(0xFF137378)
+                  ]
+              )
+          ),
+          child: Column(
               children: <Widget>[
                 Padding(
                   padding: const EdgeInsets.only(left: 16.0, top: 40.0, right: 16.0),
@@ -51,7 +46,7 @@ class HomeScreen extends StatelessWidget {
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: <Widget>[
-                           Column(
+                          Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: <Widget>[
                               const Text(
@@ -79,7 +74,7 @@ class HomeScreen extends StatelessWidget {
                               Icons.account_circle,
                               color: Color(0xFFF6F1F1),
                               size: 36.0,
-                              ),
+                            ),
                             onPressed: (){
                               Navigator.push(context, MaterialPageRoute(builder: (context) => Profile(data: userProperty.data,),),);
                             },
@@ -93,7 +88,7 @@ class HomeScreen extends StatelessWidget {
                       const SizedBox(
                         height: 24.0,
                       ),
-                       Row(
+                      Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: <Widget>[
                           IconCard(iconData: Icons.sticky_note_2_rounded, title: 'Self Screening', urlPage: SelfScreening(userProperty: userProperty,),),
@@ -112,11 +107,11 @@ class HomeScreen extends StatelessWidget {
                     width: double.infinity,
                     height: double.infinity,
                     decoration: const BoxDecoration(
-                      color: Color(0xFFF6F1F1),
-                      borderRadius: BorderRadius.only(
-                        topLeft: Radius.circular(40),
-                        topRight: Radius.circular(40)
-                      )
+                        color: Color(0xFFF6F1F1),
+                        borderRadius: BorderRadius.only(
+                            topLeft: Radius.circular(40),
+                            topRight: Radius.circular(40)
+                        )
                     ),
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.start,
@@ -128,18 +123,18 @@ class HomeScreen extends StatelessWidget {
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: <Widget>[
                             const Text(
-                                'Bacaan Hari Ini!',
+                              'Bacaan Hari Ini!',
                               style: TextStyle(
-                                fontSize: 20.0,
-                                fontWeight: FontWeight.w600,
-                                color: Color(0xFF3D3D3D)
+                                  fontSize: 20.0,
+                                  fontWeight: FontWeight.w600,
+                                  color: Color(0xFF3D3D3D)
                               ),
                             ),
                             ElevatedButton(
                                 style: ButtonStyle(
                                   elevation: MaterialStateProperty.all<double>(0),
                                   backgroundColor: MaterialStateProperty.all<Color>(
-                                    const Color(0xFFE9E0E0)
+                                      const Color(0xFFE9E0E0)
                                   ),
                                   shape: MaterialStateProperty.all<RoundedRectangleBorder>(
                                     RoundedRectangleBorder(
@@ -151,11 +146,11 @@ class HomeScreen extends StatelessWidget {
                                   Navigator.push(context, MaterialPageRoute(builder: (context) => const ArticleListPage(),),);
                                 },
                                 child: const Text(
-                                    'Lihat Semua',
+                                  'Lihat Semua',
                                   style: TextStyle(
-                                    fontWeight: FontWeight.w600,
-                                    fontSize: 14.0,
-                                    color: Color(0xFF2F9296)
+                                      fontWeight: FontWeight.w600,
+                                      fontSize: 14.0,
+                                      color: Color(0xFF2F9296)
                                   ),
                                 )
                             )
@@ -195,8 +190,8 @@ class HomeScreen extends StatelessWidget {
                                           Container(
                                             width: MediaQuery.of(context).size.width / 1.0,
                                             decoration: BoxDecoration(
-                                              color: const Color(0xFFE9E0E0),
-                                              borderRadius: BorderRadius.circular(20)
+                                                color: const Color(0xFFE9E0E0),
+                                                borderRadius: BorderRadius.circular(20)
                                             ),
                                           ),
                                           ArticleCard(
@@ -218,7 +213,6 @@ class HomeScreen extends StatelessWidget {
                   ),
                 )
               ]
-            ),
           ),
         ),
       ),

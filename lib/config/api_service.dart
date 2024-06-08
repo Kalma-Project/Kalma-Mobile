@@ -28,6 +28,7 @@ class ApiService {
         options.headers.addAll({
           "Content-Type": "application/json",
           "Authorization": "Bearer $token",
+          "Accept-Language": "id"
         });
         if (token != null && !options.extra.containsKey('retry')) {
           log('token still exist...');

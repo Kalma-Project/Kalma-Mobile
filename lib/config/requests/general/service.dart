@@ -24,11 +24,11 @@ class AuthService {
         await _secureStorage.write(key: accessToken, value: body['access_token']);
         apiService.storeCookies(response);
         log('Login successful. Access token and refresh token stored.');
-        return AuthUser(token: body['access_token'], message: body['message']);
+        return AuthUser(token: body['access_token'], message: body['message'], is_email_verified: body['is_email_verified']);
       } else {
         final body = response.data;
         log('Login failed: ${response.data}');
-        return AuthUser(message: body['message']);
+        return AuthUser(message: body['message'], is_email_verified: body['is_email_verified']);
       }
     } catch (e) {
       log('Login failed: $e');
@@ -71,8 +71,27 @@ class AuthService {
         return UserProperty.fromJson(data);
       }
       log('User property fetched');
+      log(response.data);
     } catch (e) {
       log('User property failed: server error $e');
+    }
+    return null;
+  }
+
+  Future<ForgotPasswordPayload?> sendForgotPassword(String email_or_username) async {
+    try {
+      Response response = await apiService.dio.post(
+        post_reset_password,
+        data: {
+          "email_or_username": email_or_username
+        }
+      );
+      if (response.statusCode == 200) {
+        final body = response.data;
+        log(body['message']);
+      }
+    } catch (e) {
+      log('Forgot password failed sended: server error $e');
     }
     return null;
   }
