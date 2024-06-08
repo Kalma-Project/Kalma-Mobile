@@ -6,6 +6,8 @@ import 'package:flutter_ta/model/general/general.dart';
 import 'package:flutter_ta/self_screening/screen/history_self_screening_screen.dart';
 import 'package:google_fonts/google_fonts.dart';
 
+import '../widget/logout_dialog.dart';
+
 class Profile extends StatelessWidget {
   final UserPropertyData data;
 
@@ -154,13 +156,7 @@ class Profile extends StatelessWidget {
               ),
               const SizedBox(height: 12,),
               GestureDetector(
-                onTap: () async {
-                  await apiService.clearTokens();
-                  Navigator.push(
-                      context,
-                      MaterialPageRoute(builder: (context) => const LoginScreen())
-                  );
-                },
+                onTap: () => showLogoutConfirmationDialog(context),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   crossAxisAlignment: CrossAxisAlignment.center,

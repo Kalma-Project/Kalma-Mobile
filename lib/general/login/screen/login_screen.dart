@@ -39,23 +39,14 @@ class _LoginScreenState extends State<LoginScreen> {
     if (emailunameController.text.isNotEmpty && passwordController.text.isNotEmpty) {
       AuthUser? user = await _authService.login(emailunameController.text, passwordController.text);
 
-     if(user != null){
-       // if (user.is_email_verified != null && user.is_email_verified == true) {
-       //   Navigator.pushReplacement(
-       //     context,
-       //     MaterialPageRoute(builder: (context) => const DashboardScreen()),
-       //   );
-       // }
-
-       Navigator.pushReplacement(
-         context,
-         MaterialPageRoute(builder: (context) => const DashboardScreen()),
-       );
-
-       // Navigator.pushReplacement(
-       //     context,
-       //     MaterialPageRoute(builder: (context) => const EmailVerification())
-       // );
+     if (user != null){
+       if (user.token != null) {
+         Navigator.pushAndRemoveUntil(
+             context,
+             MaterialPageRoute(builder: (context) => const DashboardScreen()),
+                 (route) => false,
+         );
+       }
        setState(() {
          isLoading = false;
        });

@@ -41,8 +41,11 @@ class _SelfScreeningState extends State<SelfScreening> {
         body: SingleChildScrollView(
           child: Padding(
             padding: const EdgeInsets.symmetric(horizontal: 14.0),
-            child: Column(children: [
-              const CustomBackButton(text: 'Self Screening'),
+            child: Column(
+                children: [
+              CustomBackButton(text: 'Self Screening', onPressed: (){
+                Navigator.pop(context);
+              },),
               const SizedBox(
                 height: 24.0,
               ),

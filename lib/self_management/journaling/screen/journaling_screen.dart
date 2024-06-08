@@ -4,6 +4,8 @@ import 'package:flutter_ta/self_management/journaling/widget/emotion_card.dart';
 import 'package:flutter_ta/widget/back_button.dart';
 import 'dart:developer';
 
+import '../widget/journal_history_button.dart';
+
 class JournalingPage extends StatefulWidget {
   const JournalingPage({super.key});
 
@@ -35,7 +37,18 @@ class _JournalingPageState extends State<JournalingPage> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.center,
             children: <Widget>[
-              const CustomBackButton(text: 'Journaling'),
+               Padding(
+                padding: EdgeInsets.all(10.0),
+                child: Row(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    CustomBackButton(text: 'Journaling',  onPressed: () => Navigator.pop(context),),
+                    HistoryJournalButton(),
+                  ],
+                ),
+              ),
+
               const SizedBox(
                 height: 60.0,
               ),

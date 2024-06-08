@@ -11,6 +11,7 @@ import 'package:flutter_ta/self_management/journaling/screen/journaling_screen.d
 import 'package:flutter_ta/self_screening/screen/self_screening_screen.dart';
 
 import '../../../article/screen/articledetail_screen.dart';
+import '../../../music/screen/list_music_page.dart';
 import '../../../profile/screen/profile_screen.dart';
 
 class HomeScreen extends StatelessWidget {
@@ -92,9 +93,9 @@ class HomeScreen extends StatelessWidget {
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: <Widget>[
                           IconCard(iconData: Icons.sticky_note_2_rounded, title: 'Self Screening', urlPage: SelfScreening(userProperty: userProperty,),),
-                          IconCard(iconData: Icons.note_alt_rounded, title: 'Journal', urlPage: JournalingPage(),),
-                          IconCard(iconData: Icons.air_sharp, title: 'Breath Work', urlPage: BreathingMeditation()),
-                          IconCard(iconData: Icons.music_note_rounded, title: 'Melodies', urlPage: UnderConstruction()),
+                          const IconCard(iconData: Icons.note_alt_rounded, title: 'Journal', urlPage: JournalingPage(),),
+                          const IconCard(iconData: Icons.air_sharp, title: 'Breath Work', urlPage: BreathingMeditation()),
+                          const IconCard(iconData: Icons.music_note_rounded, title: 'Melodies', urlPage: ListMusic()),
                         ],
                       ),
                     ],

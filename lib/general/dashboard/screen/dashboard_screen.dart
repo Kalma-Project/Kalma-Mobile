@@ -6,8 +6,9 @@ import 'package:flutter_ta/config/requests/general/service.dart';
 import 'package:flutter_ta/config/token/constants.dart';
 import 'package:flutter_ta/general/dashboard/screen/home/home_screen.dart';
 import 'package:flutter_ta/general/music/screen/list_music_page.dart';
+import 'package:flutter_ta/self_management/breathing_meditation/screen/breathing_screen.dart';
 import '../../../model/general/general.dart';
-import 'journaling/screen.dart';
+import '../../../self_management/journaling/screen/journaling_screen.dart';
 
 class DashboardScreen extends StatefulWidget {
 
@@ -39,8 +40,8 @@ class _DashboardScreenState extends State<DashboardScreen> {
       if (userProperty != null && token != null) {
         _widgetOptions = <Widget>[
           HomeScreen(user: token, userProperty: userProperty!),
-          const Text('Under Construction'),
-          const JournalingScreen(),
+          const BreathingMeditation(),
+          const JournalingPage(),
           const ListMusic(),
         ];
       }
@@ -93,8 +94,8 @@ class _DashboardScreenState extends State<DashboardScreen> {
                   label: 'Home'
               ),
               BottomNavigationBarItem(
-                  icon: Icon(Icons.article),
-                  label: 'Article'
+                  icon: Icon(Icons.air_sharp),
+                  label: 'Breathing'
               ),
               BottomNavigationBarItem(
                   icon: Icon(Icons.edit_square),
