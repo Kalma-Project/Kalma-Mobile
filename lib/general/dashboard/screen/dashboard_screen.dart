@@ -11,7 +11,6 @@ import '../../../model/general/general.dart';
 import '../../../self_management/journaling/screen/journaling_screen.dart';
 
 class DashboardScreen extends StatefulWidget {
-
   const DashboardScreen({super.key});
 
   @override
@@ -39,28 +38,44 @@ class _DashboardScreenState extends State<DashboardScreen> {
     setState(() {
       if (userProperty != null && token != null) {
         _widgetOptions = <Widget>[
-          HomeScreen(user: token, userProperty: userProperty!),
+          HomeScreen(
+              key: ValueKey<int>(_selectedIndex),
+              user: token,
+              userProperty: userProperty!,
+            onItemTapped: _onItemTapped,
+          ),
+           const JournalingPage(),
           const BreathingMeditation(),
-          const JournalingPage(),
-          const ListMusic(),
+           const ListMusic(),
         ];
       }
     });
   }
 
-  void _onItemTapped(int index) {
-    setState(() {
-      _selectedIndex = index;
-    });
+  void _onItemTapped(int index) async {
+    if (index == 0) {
+      String? token = await _secureStorage.read(key: accessToken);
+      setState(() {
+        _selectedIndex = index;
+        _widgetOptions[0] = HomeScreen(
+          key: ValueKey<int>(DateTime.now().millisecondsSinceEpoch),
+          user: token!,
+          userProperty: userProperty!,
+          onItemTapped: _onItemTapped,
+        );
+      });
+    } else {
+      setState(() {
+        _selectedIndex = index;
+      });
+    }
   }
 
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      theme: ThemeData(
-        fontFamily: 'JakartaSans'
-      ),
+      theme: ThemeData(fontFamily: 'JakartaSans'),
       home: WillPopScope(
         onWillPop: () async {
           SystemNavigator.pop();
@@ -73,15 +88,12 @@ class _DashboardScreenState extends State<DashboardScreen> {
                 gradient: LinearGradient(
                   begin: Alignment.bottomCenter,
                   end: Alignment.topCenter,
-                  colors: [
-                    Color(0xFF64CDC2),
-                    Color(0xFF137378)
-                  ],
+                  colors: [Color(0xFF64CDC2), Color(0xFF137378)],
                 ),
               ),
               child: Center(
                 child: userProperty == null
-                    ? const CircularProgressIndicator()
+                    ? const CircularProgressIndicator(color:Color(0xFF64CDC2),)
                     : _widgetOptions.elementAt(_selectedIndex),
               ),
             ),
@@ -89,27 +101,15 @@ class _DashboardScreenState extends State<DashboardScreen> {
           bottomNavigationBar: BottomNavigationBar(
             backgroundColor: const Color(0xFFF6F1F1),
             items: const <BottomNavigationBarItem>[
-              BottomNavigationBarItem(
-                  icon: Icon(Icons.home),
-                  label: 'Home'
-              ),
-              BottomNavigationBarItem(
-                  icon: Icon(Icons.air_sharp),
-                  label: 'Breathing'
-              ),
-              BottomNavigationBarItem(
-                  icon: Icon(Icons.edit_square),
-                  label: 'Journaling'
-              ),
-              BottomNavigationBarItem(
-                  icon: Icon(Icons.music_note),
-                  label: 'Music'
-              ),
+              BottomNavigationBarItem(icon: Icon(Icons.home), label: 'Home'),
+              BottomNavigationBarItem(icon: Icon(Icons.edit_square), label: 'Journaling'),
+              BottomNavigationBarItem(icon: Icon(Icons.air_sharp), label: 'Breathing'),
+              BottomNavigationBarItem(icon: Icon(Icons.music_note), label: 'Music'),
             ],
             currentIndex: _selectedIndex,
             selectedItemColor: const Color(0xFF2F9296),
             unselectedItemColor: const Color(0xFF2F9296),
-            onTap: _onItemTapped,
+            onTap: (index) => _onItemTapped(index),
           ),
         ),
       ),

@@ -11,11 +11,13 @@ import 'package:flutter_ta/self_screening/screen/self_screening_screen.dart';
 import '../../../article/screen/articledetail_screen.dart';
 import '../../../music/screen/list_music_page.dart';
 import '../../../profile/screen/profile_screen.dart';
+import '../../widget/home/icon_card_2_widget.dart';
 
 class HomeScreen extends StatelessWidget {
   final String user;
   final UserProperty userProperty;
-  const HomeScreen({super.key, required this.user, required this.userProperty});
+  final Function(int index) onItemTapped;
+  const HomeScreen({super.key, required this.user, required this.userProperty,  required this.onItemTapped,});
 
   @override
   Widget build(BuildContext context) {
@@ -65,22 +67,27 @@ class HomeScreen extends StatelessWidget {
                         GestureDetector(
                           child: userProperty.data.avatarLink != null
                               ? CircleAvatar(
-                            radius: 30,
-                            backgroundImage: NetworkImage(userProperty.data.avatarLink!),
-                          )
+                                  radius: 30,
+                                  backgroundImage: NetworkImage(
+                                      userProperty.data.avatarLink!),
+                                )
                               : IconButton(
-                            icon: Icon(Icons.account_circle, size: 50, color: Colors.white,),
-                            onPressed: () {
-                              Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                  builder: (context) => Profile(
-                                    data: userProperty.data,
+                                  icon: const Icon(
+                                    Icons.account_circle,
+                                    size: 50,
+                                    color: Colors.white,
                                   ),
+                                  onPressed: () {
+                                    Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                        builder: (context) => Profile(
+                                          data: userProperty.data,
+                                        ),
+                                      ),
+                                    );
+                                  },
                                 ),
-                              );
-                            },
-                          ),
                           onTap: () {
                             Navigator.push(
                               context,
@@ -92,7 +99,6 @@ class HomeScreen extends StatelessWidget {
                             );
                           },
                         ),
-
                       ],
                     ),
                     const SizedBox(
@@ -112,19 +118,23 @@ class HomeScreen extends StatelessWidget {
                             userProperty: userProperty,
                           ),
                         ),
-                        const IconCard(
+                         IconCard2(
                           iconData: Icons.note_alt_rounded,
                           title: 'Journal',
-                          urlPage: JournalingPage(),
+                          onPressed: ()=> onItemTapped.call(1),
                         ),
-                        const IconCard(
+                         IconCard2(
                             iconData: Icons.air_sharp,
                             title: 'Breath Work',
-                            urlPage: BreathingMeditation()),
-                        const IconCard(
+                           onPressed: ()=> onItemTapped.call(2),
+                          // onPressed: onItemTapped(1),
+                            ),
+                         IconCard2(
                             iconData: Icons.music_note_rounded,
                             title: 'Melodies',
-                            urlPage: ListMusic()),
+                           onPressed: ()=> onItemTapped.call(3),
+                          // onPressed: onItemTapped(3),
+                            ),
                       ],
                     ),
                   ],
@@ -194,7 +204,7 @@ class HomeScreen extends StatelessWidget {
                       ),
                       Row(
                         children: <Widget>[
-                          Container(
+                          SizedBox(
                             width: MediaQuery.of(context).size.width * 0.89,
                             height: MediaQuery.of(context).size.height * 0.26,
                             child: ListView.builder(
@@ -206,16 +216,16 @@ class HomeScreen extends StatelessWidget {
                                 return GestureDetector(
                                   onTap: () {
                                     Navigator.pushReplacement(
-                                        context,
-                                        MaterialPageRoute(
-                                            builder: (context) => ArticleDetail(
-                                                  title: articleModel.title,
-                                                  imageUrl:
-                                                      articleModel.imageUrl,
-                                                  author: articleModel.author,
-                                                  description:
-                                                      articleModel.description,
-                                                )));
+                                      context,
+                                      MaterialPageRoute(
+                                        builder: (context) => ArticleDetail(
+                                          title: articleModel.title,
+                                          imageUrl: articleModel.imageUrl,
+                                          author: articleModel.author,
+                                          description: articleModel.description,
+                                        ),
+                                      ),
+                                    );
                                   },
                                   child: Container(
                                     margin: const EdgeInsets.only(right: 10),
@@ -257,3 +267,4 @@ class HomeScreen extends StatelessWidget {
     );
   }
 }
+

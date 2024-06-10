@@ -67,7 +67,7 @@ class _SelfScreeningDetailScreenState extends State<SelfScreeningDetailScreen> {
         ),
         home: Scaffold(
           body: Center(
-            child: CircularProgressIndicator(),
+            child: CircularProgressIndicator(color: Color(0xFF64CDC2)),
           ),
         ),
       );
