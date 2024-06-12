@@ -179,7 +179,7 @@ class HomeScreen extends StatelessWidget {
                                             title: articleModel.title,
                                             imageUrl: articleModel.imageUrl,
                                             author: articleModel.author,
-                                            description: articleModel.description,
+                                            paragraph: articleModel.paragraph.map((p) => p.paragraph).toList(),
                                           ))
                                       );
                                     },

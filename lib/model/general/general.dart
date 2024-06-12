@@ -3,13 +3,21 @@ class ArticleData{
   String title;
   String imageUrl;
   String author;
-  String? description;
+  List<ArticleParagraph> paragraph;
 
   ArticleData({
     required this.title,
     required this.imageUrl,
     required this.author,
-    this.description,
+    required this.paragraph
+  });
+}
+
+class ArticleParagraph {
+  String paragraph;
+
+  ArticleParagraph({
+    required this.paragraph
   });
 }
 

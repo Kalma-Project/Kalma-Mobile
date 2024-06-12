@@ -52,7 +52,7 @@ class MyApp extends StatelessWidget {
         '/dashboard' : (context) => const DashboardScreen(),
         '/login' : (context) => const LoginScreen(),
         '/register' : (context) => const RegisterScreen(),
-        '/forgorPassword' : (context) => const ForgotPassScreen(),
+        '/forgotPassword' : (context) => const ForgotPassScreen(),
         '/changeProfile': (context) => const ChangeProfile(),
         '/detailMusic': (context) => const SongPage(),
         '/breathwork' : (context) => const BreathingMeditation(),

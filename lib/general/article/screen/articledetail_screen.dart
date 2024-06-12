@@ -5,14 +5,14 @@ class ArticleDetail extends StatelessWidget {
   final String title;
   final String imageUrl;
   final String author;
-  final String? description;
+  final List<String>? paragraph;
 
   const ArticleDetail({
     Key? key,
     required this.title,
     required this.imageUrl,
     required this.author,
-    this.description
+    this.paragraph
   }): super(key: key);
 
   @override
@@ -72,15 +72,18 @@ class ArticleDetail extends StatelessWidget {
                   const SizedBox(
                     height: 40,
                   ),
-                  Text(
-                    description!,
-                    style: const TextStyle(
-                      fontSize: 16,
-                      fontWeight: FontWeight.w400,
-                      color: Color(0xFF7D7D7D)
+                  ...?paragraph?.map((p) => Padding(
+                    padding: const EdgeInsets.only(bottom: 30),
+                    child: Text(
+                      p,
+                      style: const TextStyle(
+                        fontSize: 16,
+                        fontWeight: FontWeight.w400,
+                        color: Color(0xFF7D7D7D),
+                      ),
+                      textAlign: TextAlign.justify,
                     ),
-                    textAlign: TextAlign.justify,
-                  )
+                  )),
                 ],
               ),
             ),

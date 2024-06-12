@@ -28,27 +28,27 @@ class _JournalingPageState extends State<JournalingPage> {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      theme: ThemeData(
-        fontFamily: 'JakartaSans'
-      ),
+      theme: ThemeData(fontFamily: 'JakartaSans'),
       home: Scaffold(
         backgroundColor: const Color(0xFFF6F1F1),
         body: SafeArea(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.center,
             children: <Widget>[
-               Padding(
+              Padding(
                 padding: EdgeInsets.all(10.0),
                 child: Row(
                   crossAxisAlignment: CrossAxisAlignment.center,
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    CustomBackButton(text: 'Journaling',  onPressed: () => Navigator.pop(context),),
+                    CustomBackButton(
+                      text: 'Journaling',
+                      onPressed: () => Navigator.pop(context),
+                    ),
                     HistoryJournalButton(),
                   ],
                 ),
               ),
-
               const SizedBox(
                 height: 60.0,
               ),
@@ -57,10 +57,9 @@ class _JournalingPageState extends State<JournalingPage> {
                 child: Text(
                   'Bagaimana perasaanmu hari ini?',
                   style: TextStyle(
-                    fontWeight: FontWeight.w600,
-                    fontSize: 24.0,
-                    color: Color(0xFF383838)
-                  ),
+                      fontWeight: FontWeight.w600,
+                      fontSize: 24.0,
+                      color: Color(0xFF383838)),
                   textAlign: TextAlign.center,
                 ),
               ),
@@ -114,15 +113,18 @@ class _JournalingPageState extends State<JournalingPage> {
                 ),
               ),
               FilledButton.tonal(
-                onPressed: ()=>{
+                onPressed: () => {
                   Navigator.push(
                     context,
-                    MaterialPageRoute(builder: (context) => InputJournal(emotion: selectedEmotion,)),
+                    MaterialPageRoute(
+                        builder: (context) => InputJournal(
+                              emotion: selectedEmotion,
+                            )),
                   )
                 },
                 style: ButtonStyle(
-                  backgroundColor: MaterialStateProperty.all<Color>(
-                      const Color(0xFF2F9296)),
+                  backgroundColor:
+                      MaterialStateProperty.all<Color>(const Color(0xFF2F9296)),
                 ),
                 child: const Text(
                   'Selanjutnya',

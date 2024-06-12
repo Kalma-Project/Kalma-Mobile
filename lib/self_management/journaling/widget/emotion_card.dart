@@ -9,15 +9,15 @@ class EmotionCardWidget extends StatefulWidget {
   final String selectedEmotion;
   final Function(String emotion) onEmotionSelected;
 
-  const EmotionCardWidget({
-    Key? key,
-    required this.icons,
-    required this.emotion,
-    this.emotionBgColor,
-    this.borderColor,
-    required this.selectedEmotion,
-    required this.onEmotionSelected
-  }): super(key: key);
+  const EmotionCardWidget(
+      {Key? key,
+      required this.icons,
+      required this.emotion,
+      this.emotionBgColor,
+      this.borderColor,
+      required this.selectedEmotion,
+      required this.onEmotionSelected})
+      : super(key: key);
 
   @override
   State<EmotionCardWidget> createState() => _EmotionCardWidgetState();
@@ -32,13 +32,13 @@ class _EmotionCardWidgetState extends State<EmotionCardWidget> {
   void initState() {
     super.initState();
     svgEmotionIcons = SvgPicture.asset(
-        widget.icons,
+      widget.icons,
       semanticsLabel: 'Emotion Icons',
     );
     emotionData = '';
   }
 
-  void toggleCard(){
+  void toggleCard() {
     setState(() {
       isTapped = !isTapped;
       if (widget.selectedEmotion == widget.emotion) {
@@ -53,9 +53,7 @@ class _EmotionCardWidgetState extends State<EmotionCardWidget> {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      theme: ThemeData(
-        fontFamily: 'JakartaSans'
-      ),
+      theme: ThemeData(fontFamily: 'JakartaSans'),
       home: Container(
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(20),
@@ -67,36 +65,34 @@ class _EmotionCardWidgetState extends State<EmotionCardWidget> {
         child: ClipRRect(
           borderRadius: BorderRadius.circular(20),
           child: Scaffold(
-            backgroundColor: widget.emotionBgColor,
-            body: GestureDetector(
-              onTap: toggleCard,
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: <Widget>[
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: <Widget>[
-                      svgEmotionIcons,
-                    ],
-                  ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: <Widget>[
-                      Text(
-                        widget.emotion,
-                        style: const TextStyle(
-                            fontSize: 16,
-                            fontWeight: FontWeight.w600,
-                            color: Color(0xFF2B2B2B)
-                        ),
-                        textAlign: TextAlign.center,
-                      )
-                    ],
-                  )
-                ],
-              ),
-            )
-          ),
+              backgroundColor: widget.emotionBgColor,
+              body: GestureDetector(
+                onTap: toggleCard,
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: <Widget>[
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: <Widget>[
+                        svgEmotionIcons,
+                      ],
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: <Widget>[
+                        Text(
+                          widget.emotion,
+                          style: const TextStyle(
+                              fontSize: 16,
+                              fontWeight: FontWeight.w600,
+                              color: Color(0xFF2B2B2B)),
+                          textAlign: TextAlign.center,
+                        )
+                      ],
+                    )
+                  ],
+                ),
+              )),
         ),
       ),
     );

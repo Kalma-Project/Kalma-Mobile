@@ -51,7 +51,7 @@ class _ArticleListPageState extends State<ArticleListPage> {
                                   title: articleModel.title,
                                   imageUrl: articleModel.imageUrl,
                                   author: articleModel.author,
-                                  description: articleModel.description,
+                                  paragraph: articleModel.paragraph.map((p) => p.paragraph).toList(),
                                 ))
                             );
                           },

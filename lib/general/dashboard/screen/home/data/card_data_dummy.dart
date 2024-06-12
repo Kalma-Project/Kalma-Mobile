@@ -26,24 +26,40 @@ final List<ArticleData> articleData = [
       title: "Mengapa Mental Health Remaja?",
       imageUrl: "images/mental_image.png",
       author: "John Doe",
-      description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam ligula orci, lacinia vitae varius nec, lacinia et quam. Aenean et convallis urna. Proin efficitur luctus ultrices. Pellentesque ultrices dignissim mattis. Suspendisse blandit nunc erat, a fringilla diam posuere commodo. Ut erat tortor, viverra et lacinia et, mattis nec arcu. Mauris hendrerit vehicula pharetra."
+      paragraph: [
+        ArticleParagraph(paragraph: "lorem ipsum lorem ipsum lorem ipsum lorem ipsum"),
+        ArticleParagraph(paragraph: "lorem ipsum lorem ipsum lorem ipsum lorem ipsum"),
+        ArticleParagraph(paragraph: "lorem ipsum lorem ipsum lorem ipsum lorem ipsum")
+      ]
   ),
   ArticleData(
       title: "Pentingnya Mental Health",
       imageUrl: "images/mental_image.png",
       author: "John Doe",
-      description: ""
+      paragraph: [
+        ArticleParagraph(paragraph: "lorem ipsum lorem ipsum lorem ipsum lorem ipsum"),
+        ArticleParagraph(paragraph: "lorem ipsum lorem ipsum lorem ipsum lorem ipsum"),
+        ArticleParagraph(paragraph: "lorem ipsum lorem ipsum lorem ipsum lorem ipsum")
+      ]
   ),
   ArticleData(
       title: "Pentingnya Mental Health",
       imageUrl: "images/mental_image.png",
       author: "John Doe",
-      description: ""
+      paragraph: [
+        ArticleParagraph(paragraph: "lorem ipsum lorem ipsum lorem ipsum lorem ipsum"),
+        ArticleParagraph(paragraph: "lorem ipsum lorem ipsum lorem ipsum lorem ipsum"),
+        ArticleParagraph(paragraph: "lorem ipsum lorem ipsum lorem ipsum lorem ipsum")
+      ]
   ),
   ArticleData(
       title: "Pentingnya Mental Health",
       imageUrl: "images/mental_image.png",
       author: "John Doe",
-      description: ""
+      paragraph: [
+        ArticleParagraph(paragraph: "lorem ipsum lorem ipsum lorem ipsum lorem ipsum"),
+        ArticleParagraph(paragraph: "lorem ipsum lorem ipsum lorem ipsum lorem ipsum"),
+        ArticleParagraph(paragraph: "lorem ipsum lorem ipsum lorem ipsum lorem ipsum")
+      ]
   ),
 ];
