@@ -7,19 +7,18 @@ import 'package:flutter_ta/general/dashboard/screen/dashboard_screen.dart';
 import 'package:flutter_ta/general/forgot_password/screen/forgotpass_screen.dart';
 import 'package:flutter_ta/general/login/screen/login_screen.dart';
 import 'package:flutter_ta/general/music/screen/song_page.dart';
-import 'package:flutter_ta/general/profile/screen/change_profile_screen.dart';
 import 'package:flutter_ta/general/register/screen/register_screen.dart';
 import 'package:provider/provider.dart';
-import 'dart:developer';
-
 import 'general/music/provider/playlist_provider.dart';
 
 final GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
 
 void main() {
   runApp(
-    ChangeNotifierProvider(
-      create: (context) => PlayListProvider(),
+    MultiProvider(
+      providers: [
+        ChangeNotifierProvider(create: (context) => PlayListProvider()),
+      ],
       child: const MyApp(),
     ),
   );
@@ -38,7 +37,7 @@ class MyApp extends StatelessWidget {
         builder: (context, snapshot) {
 
           if (snapshot.connectionState == ConnectionState.waiting) {
-            return const Center(child: CircularProgressIndicator());
+            return const Center(child: CircularProgressIndicator(color: Color(0xFF64CDC2)));
           }
 
           if (!snapshot.hasData || snapshot.data == null) {
@@ -53,7 +52,6 @@ class MyApp extends StatelessWidget {
         '/login' : (context) => const LoginScreen(),
         '/register' : (context) => const RegisterScreen(),
         '/forgotPassword' : (context) => const ForgotPassScreen(),
-        '/changeProfile': (context) => const ChangeProfile(),
         '/detailMusic': (context) => const SongPage(),
         '/breathwork' : (context) => const BreathingMeditation(),
       },

@@ -9,6 +9,7 @@ import '../provider/playlist_provider.dart';
 class ListMusic extends StatefulWidget {
   const ListMusic({Key? key}) : super(key: key);
 
+
   @override
   State<ListMusic> createState() => _ListMusicState();
 }
@@ -51,29 +52,17 @@ class _ListMusicState extends State<ListMusic> {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Row(
-                        children: [
-                          TextButton(
-                            onPressed: () {},
-                            child: const Row(
-                              children: [
-                                Icon(
-                                  Icons.arrow_back,
-                                  color: Color(0xff3D3D3D),
-                                ),
-                                SizedBox(width: 12),
-                                Text(
-                                  'Musik',
-                                  style: TextStyle(
-                                    color: Color(0xff3D3D3D),
-                                    fontSize: 20,
-                                    fontWeight: FontWeight.w500,
-                                  ),
-                                ),
-                              ],
+                      const Padding(
+                        padding: EdgeInsets.symmetric(horizontal: 20,),
+                        child: 
+                          Text(
+                            'Musik',
+                            style: TextStyle(
+                              color: Color(0xff3D3D3D),
+                              fontSize: 20,
+                              fontWeight: FontWeight.w500,
                             ),
                           ),
-                        ],
                       ),
                       const SizedBox(
                         height: 2,

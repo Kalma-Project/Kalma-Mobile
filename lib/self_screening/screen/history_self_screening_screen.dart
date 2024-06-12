@@ -54,10 +54,10 @@ class _HistorySelfScreeningState extends State<HistorySelfScreening> {
             ),
           ),
           firstPageProgressIndicatorBuilder: (context) => const Center(
-            child: CircularProgressIndicator(),
+            child: CircularProgressIndicator(color: Color(0xFF64CDC2)),
           ),
           newPageProgressIndicatorBuilder: (context) => const Center(
-            child: CircularProgressIndicator(),
+            child: CircularProgressIndicator(color: Color(0xFF64CDC2)),
           ),
           firstPageErrorIndicatorBuilder: (context) => const Center(
             child: Text('Failed to load data. Please try again.'),

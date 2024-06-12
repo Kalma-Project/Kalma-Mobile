@@ -1,13 +1,18 @@
 import 'package:flutter_ta/config/requests/general/service.dart';
 import 'package:flutter_ta/model/general/general.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
+import 'package:mockito/mockito.dart';
+import 'package:mockito/annotations.dart';
 
+@GenerateMocks([FlutterSecureStorage])
 void main() {
+  TestWidgetsFlutterBinding.ensureInitialized();
   group('Login User', () {
     final AuthService authService = AuthService();
 
     test('login dengan credentials valid', () async {
-      AuthUser? user = await authService.login('owigiri', 'kopkopL321');
+      AuthUser? user = await authService.login('cakuakz', 'kopkopL321');
       expect(user, isNotNull);
       // expect(user.email, 'valid@example.com');
     });
@@ -35,7 +40,7 @@ void main() {
 
     test('register with already used email', () async {
       await authService.registerUserRequest(
-        'existing@example.com',
+        'rafiirvansyah88@gmail.com',
         'password123',
         'existinguser',
         'Existing User',

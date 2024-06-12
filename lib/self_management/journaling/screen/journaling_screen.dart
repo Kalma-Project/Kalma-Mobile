@@ -7,7 +7,8 @@ import 'dart:developer';
 import '../widget/journal_history_button.dart';
 
 class JournalingPage extends StatefulWidget {
-  const JournalingPage({super.key});
+  const JournalingPage({super.key,});
+
 
   @override
   State<JournalingPage> createState() => _JournalingPageState();
@@ -35,15 +36,19 @@ class _JournalingPageState extends State<JournalingPage> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.center,
             children: <Widget>[
-              Padding(
-                padding: EdgeInsets.all(10.0),
+               const Padding(
+                padding: EdgeInsets.symmetric(horizontal: 30.0, vertical: 10),
                 child: Row(
                   crossAxisAlignment: CrossAxisAlignment.center,
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    CustomBackButton(
-                      text: 'Journaling',
-                      onPressed: () => Navigator.pop(context),
+                    Text(
+                      'Journaling',
+                      style: TextStyle(
+                        color: Color(0xff3D3D3D),
+                        fontSize: 20,
+                        fontWeight: FontWeight.w500,
+                      ),
                     ),
                     HistoryJournalButton(),
                   ],

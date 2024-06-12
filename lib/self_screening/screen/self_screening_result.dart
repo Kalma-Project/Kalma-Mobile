@@ -188,7 +188,7 @@ class SelfScreeningResult extends StatelessWidget {
                       Navigator.pop(context);
                     },
                     style: ButtonStyle(
-                        backgroundColor: WidgetStateProperty.all<Color>(
+                        backgroundColor: MaterialStateProperty.all<Color>(
                             const Color(0xFF2F9296)
                         ),
                     ),

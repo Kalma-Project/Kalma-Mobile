@@ -175,9 +175,9 @@ class _LoginScreenState extends State<LoginScreen> {
                               children: <Widget>[
                                 Checkbox(
                                   checkColor: Colors.white,
-                                  fillColor: WidgetStateProperty.resolveWith<Color>(
-                                          (Set<WidgetState> states) {
-                                        if (states.contains(WidgetState.selected)) {
+                                  fillColor: MaterialStateProperty.resolveWith<Color>(
+                                          (Set<MaterialState> states) {
+                                        if (states.contains(MaterialState.selected)) {
                                           return const Color(0xFF2F9296);
                                         }
                                         return Colors.white;
