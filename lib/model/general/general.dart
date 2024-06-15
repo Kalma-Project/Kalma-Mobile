@@ -136,3 +136,84 @@ class ForgotPasswordPayload {
     return ForgotPasswordPayload(email_or_username: json['email_or_username']);
   }
 }
+
+class JournalHistoryResponse {
+  final int size;
+  final int page;
+  final int totalItems;
+  final int totalPages;
+  final List<JournalData> data;
+  final bool isSuccess;
+  final String message;
+
+  JournalHistoryResponse({
+    required this.size,
+    required this.page,
+    required this.totalItems,
+    required this.totalPages,
+    required this.data,
+    required this.isSuccess,
+    required this.message,
+  });
+
+  factory JournalHistoryResponse.fromJson(Map<String, dynamic> json) {
+    return JournalHistoryResponse(
+      size: json['size'],
+      page: json['page'],
+      totalItems: json['total_items'],
+      totalPages: json['total_pages'],
+      data: (json['data'] as List).map((i) => JournalData.fromJson(i)).toList(),
+      isSuccess: json['is_success'],
+      message: json['message'],
+    );
+  }
+
+  Map<String, dynamic> toJson() {
+    return {
+      'size': size,
+      'page': page,
+      'total_items': totalItems,
+      'total_pages': totalPages,
+      'data': data.map((i) => i.toJson()).toList(),
+      'is_success': isSuccess,
+      'message': message,
+    };
+  }
+}
+
+class JournalData {
+  final String id;
+  final String title;
+  final String emotion;
+  final String content;
+  final String createdDate;
+
+  JournalData({
+    required this.id,
+    required this.title,
+    required this.emotion,
+    required this.content,
+    required this.createdDate,
+  });
+
+  factory JournalData.fromJson(Map<String, dynamic> json) {
+    return JournalData(
+      id: json['id'],
+      title: json['title'],
+      emotion: json['emotion'],
+      content: json['content'],
+      createdDate: json['created_date'],
+    );
+  }
+
+  Map<String, dynamic> toJson() {
+    return {
+      'id': id,
+      'title': title,
+      'emotion': emotion,
+      'content': content,
+      'created_date': createdDate,
+    };
+  }
+}
+
