@@ -1,16 +1,19 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_ta/general/dashboard/screen/journaling/data/data_dummy.dart';
+import 'package:flutter_ta/model/general/general.dart';
 import 'package:flutter_ta/self_management/journaling/screen/detail_journaling_screen.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
 
 class HistoryJournalWidget extends StatelessWidget {
-  const HistoryJournalWidget({super.key, required this.index, required this.data});
-  final int index;
-  final DataCardJournaling data;
+  const HistoryJournalWidget({super.key, required this.data});
+
+  final JournalData data;
 
   @override
   Widget build(BuildContext context) {
+    DateTime originalDate = DateFormat("MMMM d'th' y, HH:mm:ss").parse(data.createdDate);
+    String createdDate = DateFormat('dd MMM yyyy').format(originalDate);
+
     return GestureDetector(
         onTap: () {
           Navigator.push(
@@ -40,7 +43,9 @@ class HistoryJournalWidget extends StatelessWidget {
               child: Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: Text(
-                  data.content.substring(0, 200),
+                  data.content.length > 200
+                      ? '${data.content.substring(0, 200)}...'
+                      : data.content,
                   overflow: TextOverflow.ellipsis,
                   maxLines: 4,
                 style: GoogleFonts.plusJakartaSans(
@@ -55,7 +60,7 @@ class HistoryJournalWidget extends StatelessWidget {
             const SizedBox(
               height: 5,
             ),
-            Text(DateFormat('dd MMM yyyy').format(data.date), style: GoogleFonts.plusJakartaSans(
+            Text(createdDate, style: GoogleFonts.plusJakartaSans(
                 color: const Color(0xff7D7D7D),
                 fontSize: 12,
                 fontWeight: FontWeight.w500),),
