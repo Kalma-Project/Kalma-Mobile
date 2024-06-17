@@ -216,4 +216,104 @@ class JournalData {
     };
   }
 }
+//music
+class MusicDataResponse {
+  final int size;
+  final int page;
+  final int totalItems;
+  final int totalPages;
+  final List<MusicData> data;
+  final bool isSuccess;
+  final String message;
+
+  MusicDataResponse({
+    required this.size,
+    required this.page,
+    required this.totalItems,
+    required this.totalPages,
+    required this.data,
+    required this.isSuccess,
+    required this.message,
+  });
+
+  factory MusicDataResponse.fromJson(Map<String, dynamic> json) {
+    var dataList = json['data'] as List;
+    List<MusicData> data = dataList.map((item) => MusicData.fromJson(item)).toList();
+
+    return MusicDataResponse(
+      size: json['size'],
+      page: json['page'],
+      totalItems: json['total_items'],
+      totalPages: json['total_pages'],
+      data: data,
+      isSuccess: json['is_success'],
+      message: json['message'],
+    );
+  }
+
+  Map<String, dynamic> toJson() {
+    return {
+      'size': size,
+      'page': page,
+      'total_items': totalItems,
+      'total_pages': totalPages,
+      'data': data.map((item) => item.toJson()).toList(),
+      'is_success': isSuccess,
+      'message': message,
+    };
+  }
+}
+
+class MusicData {
+  final String id;
+  final String title;
+  final String author;
+  final String genre;
+  final String musicLink;
+  final String createdBy;
+  final String createdDate;
+  final String updatedBy;
+  final String updatedDate;
+
+  MusicData({
+    required this.id,
+    required this.title,
+    required this.author,
+    required this.genre,
+    required this.musicLink,
+    required this.createdBy,
+    required this.createdDate,
+    required this.updatedBy,
+    required this.updatedDate,
+  });
+
+  factory MusicData.fromJson(Map<String, dynamic> json) {
+    return MusicData(
+      id: json['id'],
+      title: json['title'],
+      author: json['author'],
+      genre: json['genre'],
+      musicLink: json['music_link'],
+      createdBy: json['created_by'],
+      createdDate: json['created_date'],
+      updatedBy: json['updated_by'],
+      updatedDate: json['updated_date'],
+    );
+  }
+
+  Map<String, dynamic> toJson() {
+    return {
+      'id': id,
+      'title': title,
+      'author': author,
+      'genre': genre,
+      'music_link': musicLink,
+      'created_by': createdBy,
+      'created_date': createdDate,
+      'updated_by': updatedBy,
+      'updated_date': updatedDate,
+    };
+  }
+}
+
 

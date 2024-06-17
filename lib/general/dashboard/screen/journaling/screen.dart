@@ -1,10 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_ta/config/requests/self_management/service.dart';
-import 'package:flutter_ta/general/dashboard/screen/journaling/data/data_dummy.dart';
 import 'package:flutter_ta/self_management/journaling/widget/journal_history_widget.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
-
 import '../../../../model/general/general.dart';
 
 class JournalingScreen extends StatefulWidget {
@@ -27,32 +25,21 @@ class _JournalingScreenState extends State<JournalingScreen> {
   void initState() {
     super.initState();
     _pagingController.addPageRequestListener((pageKey) {
-      _managementService.getJournalData(pageKey, _pagingController, 'asc', 'content');
+      _managementService.getJournalData(pageKey, _pagingController, isAscending ? 'asc' : 'desc', dropDownValue == 'judul' ? 'content' : 'created_at');
     });
   }
 
   void dropDownCallback(String? selectedValue) {
     setState(() {
       dropDownValue = selectedValue!;
-      if (dropDownValue == 'tanggal') {
-        _managementService.getJournalData(
-            _pagingController.nextPageKey ?? 1,
-            _pagingController,
-            isAscending ? 'asc' : 'desc',
-            'created_at');
-      } else {
-        _managementService.getJournalData(
-            _pagingController.nextPageKey ?? 1,
-            _pagingController,
-            isAscending ? 'asc' : 'desc',
-            'content');
-      }
+      _pagingController.refresh();
     });
   }
 
   void _toggleSortOrder() {
     setState(() {
       isAscending = !isAscending;
+      _pagingController.refresh();
     });
   }
 
@@ -98,7 +85,7 @@ class _JournalingScreenState extends State<JournalingScreen> {
                   )
                 ],
               ),
-              SizedBox(
+              const SizedBox(
                 height: 27,
               ),
               Row(
@@ -108,7 +95,7 @@ class _JournalingScreenState extends State<JournalingScreen> {
                     height: 32,
                     alignment: Alignment.center,
                     decoration: BoxDecoration(
-                      border: Border.all(color: Color(0xffAAA4A4)),
+                      border: Border.all(color: const Color(0xffAAA4A4)),
                       borderRadius: const BorderRadius.all(Radius.circular(8)),
                     ),
                     child: Padding(
@@ -140,10 +127,10 @@ class _JournalingScreenState extends State<JournalingScreen> {
                     ),
                   ),
                   IconButton(
-                      onPressed: _toggleSortOrder, icon: Icon(Icons.swap_vert)),
+                      onPressed: _toggleSortOrder, icon: const Icon(Icons.swap_vert)),
                 ],
               ),
-              SizedBox(
+              const SizedBox(
                 height: 33,
               ),
               Expanded(
@@ -157,8 +144,7 @@ class _JournalingScreenState extends State<JournalingScreen> {
                           data: journalData,
                         );
                       } else {
-                        // Tampilkan widget atau pesan yang sesuai jika indeks tidak valid
-                        return Center(
+                        return const Center(
                           child: Text('Invalid data index.'),
                         );
                       }

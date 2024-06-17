@@ -87,4 +87,55 @@ class SelfManagementService {
     }
     return null;
   }
+
+  Future<void> getMusicData(int pageKey, PagingController<int, Map<String, dynamic>> pagingController) async {
+    try {
+      Response response = await apiService.dio.get(
+        get_music_data,
+        data: {
+          "size": 6,
+          "page": pageKey,
+        },
+      );
+
+      if (response.statusCode == 200) {
+        var data = response.data;
+
+        if (data['is_success']) {
+          List<Map<String, dynamic>> MusicData = List<Map<String, dynamic>>.from(data['data']);
+
+          bool isLastPage = data['page'] >= data['total_pages'];
+
+          if (isLastPage) {
+            pagingController.appendLastPage(MusicData);
+          } else {
+            final nextPageKey = pageKey + 1;
+            pagingController.appendPage(MusicData, nextPageKey);
+          }
+        } else {
+          log(data['message']);
+        }
+      } else {
+        log('Error: ${response.statusCode}');
+      }
+    } catch (e) {
+      log('Error: $e');
+    }
+  }
+
+  Future<MusicData?> getDetailMusic(String id) async {
+    try {
+      Response response = await apiService.dio.get(
+          'self-management/journals/users-journal/$id'
+      );
+      if (response.statusCode == 200) {
+        final body = response.data;
+        log('data fetched successfully');
+        return MusicData.fromJson(body);
+      }
+    } catch (e) {
+      log('Error getting detail data: $e');
+    }
+    return null;
+  }
 }

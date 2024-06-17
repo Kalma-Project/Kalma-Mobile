@@ -6,10 +6,10 @@ import 'package:flutter_ta/self_management/breathing_meditation/screen/breathing
 import 'package:flutter_ta/general/dashboard/screen/dashboard_screen.dart';
 import 'package:flutter_ta/general/forgot_password/screen/forgotpass_screen.dart';
 import 'package:flutter_ta/general/login/screen/login_screen.dart';
-import 'package:flutter_ta/general/music/screen/song_page.dart';
+import 'package:flutter_ta/self_management/music/screen/song_page.dart';
 import 'package:flutter_ta/general/register/screen/register_screen.dart';
 import 'package:provider/provider.dart';
-import 'general/music/provider/playlist_provider.dart';
+import 'self_management/music/provider/playlist_provider.dart';
 
 final GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
 

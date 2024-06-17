@@ -12,6 +12,8 @@ const String post_reset_password = 'user/forgot-password';
 const String post_journaling = 'self-management/journals/users-journal';
 const String get_journaling_data = 'self-management/journals/users-journal';
 const String get_journaling_data_detail = 'self-management/journals/users-journal/';
+const String get_music_data = 'self-management/music-meditation/';
+const String get_music_data_detail = 'self-management/music-meditation/';
 
 // Self Screening API Endpoints
 const String post_self_screening = 'self-screening/test';
