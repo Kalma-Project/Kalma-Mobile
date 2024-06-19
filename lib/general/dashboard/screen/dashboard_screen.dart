@@ -5,7 +5,7 @@ import 'package:flutter_ta/config/api_service.dart';
 import 'package:flutter_ta/config/requests/general/service.dart';
 import 'package:flutter_ta/config/token/constants.dart';
 import 'package:flutter_ta/general/dashboard/screen/home/home_screen.dart';
-import 'package:flutter_ta/general/music/screen/list_music_page.dart';
+import 'package:flutter_ta/self_management/music/screen/list_music_page.dart';
 import 'package:flutter_ta/self_management/breathing_meditation/screen/breathing_screen.dart';
 import '../../../model/general/general.dart';
 import '../../../self_management/journaling/screen/journaling_screen.dart';

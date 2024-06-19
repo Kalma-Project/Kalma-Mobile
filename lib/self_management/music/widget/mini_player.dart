@@ -49,7 +49,7 @@ class MiniPlayer extends StatelessWidget {
                       children: [
                         Text(
                           currentSong.titleSong,
-                          style: TextStyle(
+                          style: const TextStyle(
                             fontSize: 16,
                             fontWeight: FontWeight.bold,
                           ),
