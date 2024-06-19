@@ -2,7 +2,10 @@ import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_ta/config/requests/general/service.dart';
+import 'package:flutter_ta/widget/failure_alert.dart';
 import 'dart:developer';
+
+import 'package:flutter_ta/widget/primary_custom_button.dart';
 
 class RegisterScreen extends StatefulWidget {
   const RegisterScreen({super.key});
@@ -21,8 +24,13 @@ class _RegisterScreenState extends State<RegisterScreen> {
   final dio = Dio();
 
   bool isChecked = false;
+  bool isLoading = false;
 
   void registerUser() async {
+    setState(() {
+      isLoading = true;
+    });
+
     List<TextEditingController> controllers = [
       fullnameController,
       usernameController,
@@ -30,18 +38,40 @@ class _RegisterScreenState extends State<RegisterScreen> {
       ageController,
       passwordController,
     ];
+
     if (controllers.every((element) => element.text.isNotEmpty)) {
-      await _registerService.registerUserRequest(
+      try {
+        await _registerService.registerUserRequest(
           emailController.text,
           passwordController.text,
           usernameController.text,
           fullnameController.text,
-          ageController.text
-      );
+          ageController.text,
+        );
+      } catch (e) {
+        log('Registration failed: $e');
+        showDialog(
+          context: context,
+          builder: (BuildContext context) {
+            return FailureAlert(
+                title: 'Register Failed',
+                message: e.toString()
+            );
+          },
+        );
+      } finally {
+        setState(() {
+          isLoading = false;
+        });
+      }
     } else {
       log('Please fill all the fields');
+      setState(() {
+        isLoading = false;
+      });
     }
   }
+
 
   @override
   Widget build(BuildContext context) {
@@ -166,22 +196,10 @@ class _RegisterScreenState extends State<RegisterScreen> {
                       const SizedBox(
                         height: 18.0,
                       ),
-                      FilledButton.tonal(
-                        onPressed: ()=>{
-                          registerUser()
-                        },
-                        style: ButtonStyle(
-                          backgroundColor: MaterialStateProperty.all<Color>(
-                              const Color(0xFF2F9296)),
-                        ),
-                        child: const Text(
-                          'Daftar',
-                          style: TextStyle(
-                            color: Colors.white,
-                            fontSize: 14.0,
-                            fontWeight: FontWeight.w600,
-                          ),
-                        ),
+                      CustomPrimaryButton(
+                        function: registerUser,
+                        isLoading: isLoading,
+                        buttonTitle: 'Daftar',
                       ),
                       Container(
                         margin: const EdgeInsets.only(top: 18.0),

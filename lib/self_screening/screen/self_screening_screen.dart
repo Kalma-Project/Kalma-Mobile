@@ -33,95 +33,91 @@ class _SelfScreeningState extends State<SelfScreening> {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      theme: ThemeData(fontFamily: 'JakartaSans'),
-      home: Scaffold(
-        key: _scaffoldKey,
-        body: SingleChildScrollView(
-          child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 14.0),
-            child: Column(
-                children: [
-              CustomBackButton(text: 'Self Screening', onPressed: (){
-                Navigator.pop(context);
-              },),
-              const SizedBox(
-                height: 24.0,
-              ),
-              Container(
-                height: MediaQuery.of(context).size.height * 0.68,
-                child: PageView.builder(
-                    controller: _pageController,
-                    itemCount: questions.length,
-                    physics: const NeverScrollableScrollPhysics(),
-                    onPageChanged: (int page) {
-                      setState(() {
-                        _currentPage = page;
-                      });
-                    },
-                    itemBuilder: (context, index) {
-                      return buildQuestionPage(index);
-                    }),
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  FilledButton.tonal(
-                    onPressed: () {
-                      if (_currentPage > 0) {
-                        _pageController.previousPage(
-                          duration: const Duration(milliseconds: 500),
-                          curve: Curves.ease,
-                        );
-                      }
-                    },
-                    style: ButtonStyle(
-                      backgroundColor: MaterialStateProperty.all<Color>(
-                          const Color(0xFFF0E7E7)),
-                    ),
-                    child: const Text(
-                      'Kembali',
-                      style: TextStyle(
-                        color: Color(0xFF2F9296),
-                        fontSize: 14.0,
-                        fontWeight: FontWeight.w600,
+    return Scaffold(
+      key: _scaffoldKey,
+      body: SingleChildScrollView(
+        child: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 14.0),
+          child: Column(
+              children: [
+                CustomBackButton(text: 'Self Screening', onPressed: (){
+                  Navigator.pop(context);
+                },),
+                const SizedBox(
+                  height: 24.0,
+                ),
+                Container(
+                  height: MediaQuery.of(context).size.height * 0.68,
+                  child: PageView.builder(
+                      controller: _pageController,
+                      itemCount: questions.length,
+                      physics: const NeverScrollableScrollPhysics(),
+                      onPageChanged: (int page) {
+                        setState(() {
+                          _currentPage = page;
+                        });
+                      },
+                      itemBuilder: (context, index) {
+                        return buildQuestionPage(index);
+                      }),
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    FilledButton.tonal(
+                      onPressed: () {
+                        if (_currentPage > 0) {
+                          _pageController.previousPage(
+                            duration: const Duration(milliseconds: 500),
+                            curve: Curves.ease,
+                          );
+                        }
+                      },
+                      style: ButtonStyle(
+                        backgroundColor: MaterialStateProperty.all<Color>(
+                            const Color(0xFFF0E7E7)),
+                      ),
+                      child: const Text(
+                        'Kembali',
+                        style: TextStyle(
+                          color: Color(0xFF2F9296),
+                          fontSize: 14.0,
+                          fontWeight: FontWeight.w600,
+                        ),
                       ),
                     ),
-                  ),
-                  const SizedBox(
-                    width: 20,
-                  ),
-                  FilledButton.tonal(
-                    onPressed: () {
-                      if (_currentPage < questions.length - 1) {
-                        _pageController.nextPage(
-                          duration: const Duration(milliseconds: 500),
-                          curve: Curves.ease,
-                        );
-                      } else {
-                        showScore();
-                      }
-                    },
-                    style: ButtonStyle(
-                      backgroundColor: MaterialStateProperty.all<Color>(
-                          const Color(0xFF2F9296)),
+                    const SizedBox(
+                      width: 20,
                     ),
-                    child: Text(
-                      _currentPage == questions.length - 1
-                          ? 'Kumpulkan'
-                          : 'Selanjutnya',
-                      style: const TextStyle(
-                        color: Colors.white,
-                        fontSize: 14.0,
-                        fontWeight: FontWeight.w600,
+                    FilledButton.tonal(
+                      onPressed: () {
+                        if (_currentPage < questions.length - 1) {
+                          _pageController.nextPage(
+                            duration: const Duration(milliseconds: 500),
+                            curve: Curves.ease,
+                          );
+                        } else {
+                          showScore();
+                        }
+                      },
+                      style: ButtonStyle(
+                        backgroundColor: MaterialStateProperty.all<Color>(
+                            const Color(0xFF2F9296)),
+                      ),
+                      child: Text(
+                        _currentPage == questions.length - 1
+                            ? 'Kumpulkan'
+                            : 'Selanjutnya',
+                        style: const TextStyle(
+                          color: Colors.white,
+                          fontSize: 14.0,
+                          fontWeight: FontWeight.w600,
+                        ),
                       ),
                     ),
-                  ),
-                ],
-              )
-            ]),
-          ),
+                  ],
+                )
+              ]),
         ),
       ),
     );
