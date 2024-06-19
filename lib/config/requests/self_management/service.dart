@@ -62,24 +62,27 @@ class SelfManagementService {
             pagingController.appendPage(journalingData, nextPageKey);
           }
         } else {
-          log(data['message']);
+          log('API response not successful: ${data['message']}');
+          pagingController.error = data['message'];
         }
       } else {
         log('Error: ${response.statusCode}');
+        pagingController.error = 'Error: ${response.statusCode}';
       }
     } catch (e) {
       log('Error: $e');
+      pagingController.error = 'Error: $e';
     }
   }
 
-  Future<JournalData?> getDetailSelfScreening(String id) async {
+  Future<JournalData?> getDetailJournal(String id) async {
     try {
       Response response = await apiService.dio.get(
           'self-management/journals/users-journal/$id'
       );
       if (response.statusCode == 200) {
         final body = response.data;
-        log('data fetched successfully');
+        log('Data fetched successfully');
         return JournalData.fromJson(body);
       }
     } catch (e) {

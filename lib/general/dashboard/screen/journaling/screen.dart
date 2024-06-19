@@ -29,14 +29,14 @@ class _JournalingScreenState extends State<JournalingScreen> {
     });
   }
 
-  void dropDownCallback(String? selectedValue) {
+  void dropDownCallback(String? selectedValue) async {
     setState(() {
       dropDownValue = selectedValue!;
       _pagingController.refresh();
     });
   }
 
-  void _toggleSortOrder() {
+  void _toggleSortOrder() async{
     setState(() {
       isAscending = !isAscending;
       _pagingController.refresh();

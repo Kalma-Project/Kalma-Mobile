@@ -187,6 +187,11 @@ class PlayListProvider extends ChangeNotifier {
   }
 
   //dispose audio player
+  void stop() async {
+    await _audioPlayer.stop();
+    _isPlaying = false;
+    notifyListeners();
+  }
 
   /*
   G E T T E R S

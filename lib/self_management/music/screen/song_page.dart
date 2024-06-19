@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_ta/general/music/provider/playlist_provider.dart';
+import 'package:flutter_ta/self_management/music/provider/playlist_provider.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import '../widget/custom_slider_thumb_shape.dart';

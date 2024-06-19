@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_ta/general/music/screen/song_page.dart';
-import 'package:flutter_ta/general/music/widget/mini_player.dart';
+import 'package:flutter_ta/self_management/music/screen/song_page.dart';
+import 'package:flutter_ta/self_management/music/widget/mini_player.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import '../data/song.dart';
