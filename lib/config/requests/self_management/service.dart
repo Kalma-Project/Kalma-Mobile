@@ -91,12 +91,12 @@ class SelfManagementService {
     return null;
   }
 
-  Future<void> getMusicData(int pageKey, PagingController<int, Map<String, dynamic>> pagingController) async {
+  Future<List<Map<String, dynamic>>> getMusicData(int pageKey, PagingController<int, Map<String, dynamic>> pagingController) async {
     try {
       Response response = await apiService.dio.get(
         get_music_data,
         data: {
-          "size": 6,
+          "size": 10,
           "page": pageKey,
         },
       );
@@ -105,16 +105,17 @@ class SelfManagementService {
         var data = response.data;
 
         if (data['is_success']) {
-          List<Map<String, dynamic>> MusicData = List<Map<String, dynamic>>.from(data['data']);
+          List<Map<String, dynamic>> musicData = List<Map<String, dynamic>>.from(data['data']);
 
           bool isLastPage = data['page'] >= data['total_pages'];
 
           if (isLastPage) {
-            pagingController.appendLastPage(MusicData);
+            pagingController.appendLastPage(musicData);
           } else {
             final nextPageKey = pageKey + 1;
-            pagingController.appendPage(MusicData, nextPageKey);
+            pagingController.appendPage(musicData, nextPageKey);
           }
+          return musicData;
         } else {
           log(data['message']);
         }
@@ -124,6 +125,7 @@ class SelfManagementService {
     } catch (e) {
       log('Error: $e');
     }
+    return [];
   }
 
   Future<MusicData?> getDetailMusic(String id) async {
