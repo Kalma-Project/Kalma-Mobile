@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:flutter_ta/config/token/constants.dart';
+import 'package:flutter_ta/general/register/screen/success_register_screen.dart';
 import 'package:flutter_ta/general/splach_screen.dart';
 import 'package:flutter_ta/self_management/breathing_meditation/screen/breathing_screen.dart';
 import 'package:flutter_ta/general/dashboard/screen/dashboard_screen.dart';
@@ -51,6 +52,7 @@ class MyApp extends StatelessWidget {
         '/dashboard' : (context) => const DashboardScreen(),
         '/login' : (context) => const LoginScreen(),
         '/register' : (context) => const RegisterScreen(),
+        '/success_register' : (context) => const SuccessRegisterScreen(),
         '/forgotPassword' : (context) => const ForgotPassScreen(),
         '/detailMusic': (context) => const SongPage(),
         '/breathwork' : (context) => const BreathingMeditation(),

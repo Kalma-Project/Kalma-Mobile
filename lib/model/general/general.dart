@@ -25,11 +25,13 @@ class AuthUser{
   String? token;
   String? message;
   bool? is_email_verified;
+  String? refresh_token;
 
   AuthUser({
     this.token,
     this.message,
-    this.is_email_verified
+    this.is_email_verified,
+    this.refresh_token
   });
 }
 
