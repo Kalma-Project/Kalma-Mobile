@@ -42,6 +42,11 @@ class _ListMusicState extends State<ListMusic> {
       body: Consumer<PlayListProvider>(
         builder: (context, value, child) {
           final List<Song> playlist = value.playlist;
+          if(value.isLoading){
+            return const Center(
+              child: CircularProgressIndicator(color: Color(0xFF64CDC2)),
+            );
+          }else{
           return Stack(
             children: [
               Container(
@@ -108,7 +113,12 @@ class _ListMusicState extends State<ListMusic> {
                                           SizedBox(
                                             width: 44,
                                             height: 44,
-                                            child: Image.asset(
+                                            child: song.imgUrl.startsWith('http') || song.imgUrl.startsWith('https')
+                                                ? Image.network(
+                                              song.imgUrl,
+                                              fit: BoxFit.cover,
+                                            )
+                                                : Image.asset(
                                               song.imgUrl,
                                               fit: BoxFit.cover,
                                             ),
@@ -185,6 +195,7 @@ class _ListMusicState extends State<ListMusic> {
               ),
             ],
           );
+          }
         },
       ),
     );

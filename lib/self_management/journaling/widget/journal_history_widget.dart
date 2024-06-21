@@ -9,9 +9,15 @@ class HistoryJournalWidget extends StatelessWidget {
 
   final JournalData data;
 
+  String cleanDateString(String dateString) {
+    return dateString.replaceAll(RegExp(r'(st|nd|rd|th)'), '');
+  }
+
+
   @override
   Widget build(BuildContext context) {
-    DateTime originalDate = DateFormat("MMMM d'th' y, HH:mm:ss").parse(data.createdDate);
+    String originalDateStr = cleanDateString(data.createdDate);
+    DateTime originalDate = DateFormat("MMMM d yyyy, HH:mm:ss").parse(originalDateStr);
     String createdDate = DateFormat('dd MMM yyyy').format(originalDate);
 
     return GestureDetector(
