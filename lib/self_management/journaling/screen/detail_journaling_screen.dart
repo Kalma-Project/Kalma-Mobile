@@ -7,7 +7,7 @@ class JournalingDetail extends StatefulWidget {
   final String emotion;
   final String? description;
 
-  const JournalingDetail({
+   const JournalingDetail({
     Key? key,
     required this.title,
     required this.emotion,
@@ -21,19 +21,40 @@ class JournalingDetail extends StatefulWidget {
 class _JournalingDetailState extends State<JournalingDetail> {
   late String emotionImageUrl;
   late Widget svgEmotionIcons;
+  late String emotionText;
+
+  Color getBoxColor(String emotionText) {
+    switch (emotionText) {
+      case 'Senang':
+        return Color(0xFFA0E7D2);
+      case 'Sedih':
+        return Color(0xFFA9C9FF);
+      case 'Marah':
+        return Color(0xFFCDEDE1);
+      case 'Bahagia':
+        return Color(0xFFFEF0CD);
+      default:
+        return Colors.black; 
+    }
+  }
+
 
   @override
   void initState(){
     super.initState();
 
-    if (widget.emotion == 'senang') {
+    if (widget.emotion == 'glad') {
       emotionImageUrl = 'images/happy_face_icon_svg.svg';
-    } else if (widget.emotion == 'sedih') {
+      emotionText = 'Senang';
+    } else if (widget.emotion == 'sad') {
       emotionImageUrl = 'images/sad_icon_svg.svg';
-    } else if (widget.emotion == 'marah') {
+      emotionText = 'Sedih';
+    } else if (widget.emotion == 'angry') {
       emotionImageUrl = 'images/angry_icon_svg.svg';
-    } else if (widget.emotion == 'bahagia') {
+      emotionText = 'Marah';
+    } else if (widget.emotion == 'elated') {
       emotionImageUrl = 'images/excited_icon_svg.svg';
+      emotionText = 'Bahagia';
     } else {
       emotionImageUrl = 'images/default_icon_svg.svg'; // Default image if none matches
     }
@@ -64,14 +85,14 @@ class _JournalingDetailState extends State<JournalingDetail> {
                   ),
                   Card(
                     elevation: 0,
-                    color: const Color(0xFFA0E7D2),
+                    color: getBoxColor(emotionText),
                     child: ListTile(
                       title: Text(
-                          widget.emotion,
+                        emotionText,
                         style: const TextStyle(
                           fontSize: 16,
                           fontWeight: FontWeight.w600,
-                          color: Color(0xFF12936C)
+                          color: Colors.black
                         ),
                       ),
                       leading: svgEmotionIcons,

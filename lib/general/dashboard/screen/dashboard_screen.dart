@@ -101,10 +101,10 @@ class _DashboardScreenState extends State<DashboardScreen> {
           bottomNavigationBar: BottomNavigationBar(
             backgroundColor: const Color(0xFFF6F1F1),
             items: const <BottomNavigationBarItem>[
-              BottomNavigationBarItem(icon: Icon(Icons.home), label: 'Home'),
-              BottomNavigationBarItem(icon: Icon(Icons.edit_square), label: 'Journaling'),
-              BottomNavigationBarItem(icon: Icon(Icons.air_sharp), label: 'Breathing'),
-              BottomNavigationBarItem(icon: Icon(Icons.music_note), label: 'Music'),
+              BottomNavigationBarItem(icon: Icon(Icons.home), label: 'Beranda'),
+              BottomNavigationBarItem(icon: Icon(Icons.edit_square), label: 'Jurnal Harian'),
+              BottomNavigationBarItem(icon: Icon(Icons.air_sharp), label: 'Pernapasan'),
+              BottomNavigationBarItem(icon: Icon(Icons.music_note), label: 'Musik'),
             ],
             currentIndex: _selectedIndex,
             selectedItemColor: const Color(0xFF2F9296),

@@ -1,11 +1,21 @@
+
 import 'package:flutter/material.dart';
 import 'package:audioplayers/audioplayers.dart';
+import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
+import '../../../config/requests/self_management/service.dart';
 import '../data/song.dart';
 import 'dart:math';
 import 'package:flutter/foundation.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class PlayListProvider extends ChangeNotifier {
+  bool _isLoading = false;
+
+  bool get isLoading => _isLoading;
+
+  final SelfManagementService _managementService = SelfManagementService();
+
+
   final List<Song> _playlist = [
     Song(
         imgUrl: 'music_images/1.jpg',
@@ -42,7 +52,41 @@ class PlayListProvider extends ChangeNotifier {
   PlayListProvider() {
     loadFavoriteStatus();
     listenToDuration();
+    getMusicData();
   }
+
+  //fungsi untuk mengambil data musik dari API
+  Future<void> getMusicData() async {
+
+    try {
+      _isLoading = true;
+      notifyListeners();
+
+
+      int pageKey = 1;
+      PagingController<int, Map<String, dynamic>> pagingController = PagingController(firstPageKey: 1);
+
+      List<Map<String, dynamic>> musicData = await _managementService.getMusicData(pageKey, pagingController);
+
+      List<Song> newSongs = musicData.map((data) => Song(
+        imgUrl: data['imgUrl'] ?? 'music_images/3.jpeg', //belom ada di API
+        titleSong: data['title'] ?? '',
+        artistName: data['author'] ?? '',
+        audioPath: data['music_link'] ?? '',
+      )).toList();
+
+      _playlist.addAll(newSongs);
+
+      _isLoading = false;
+
+      notifyListeners();
+    } catch (e) {
+      _isLoading = false;
+      debugPrint('Error fetching music data: $e');
+      log('Error: $e' as num);
+    }
+  }
+
 
   //initially not playing
   bool _isPlaying = false;
@@ -53,14 +97,17 @@ class PlayListProvider extends ChangeNotifier {
   void play() async {
     final String path = _playlist[_currentSongIndex!].audioPath;
     if (_isPlaying && _currentAudioPath == path) {
-      // If the current song is already playing, do nothing
-      return;
+      return; //musik sedang berjalan --> tidak melakukan apa2
     }
     _isPlaying = true;
     _currentAudioPath = path;
 
     await _audioPlayer.stop(); //stop current song
-    await _audioPlayer.play(AssetSource(path)); //play the selected song
+    if (path.startsWith('http') || path.startsWith('https')) {
+      await _audioPlayer.play(UrlSource(path));
+    } else {
+      await _audioPlayer.play(AssetSource(path));
+    }  //play the selected song
     notifyListeners();
   }
 
@@ -136,11 +183,11 @@ class PlayListProvider extends ChangeNotifier {
     //listen for song completion
     _audioPlayer.onPlayerComplete.listen((event) {
       if (_isShuffleActive) {
-        shuffleNextSong(); // Jalankan fungsi shuffle jika shuffled aktif
-      }if (_isRepeatActive) {
+        shuffleNextSong();
+      } if (_isRepeatActive) {
         repeatCurrentSong();
       } else {
-        playNextSong(); // Jalankan fungsi playNextSong jika shuffled tidak aktif
+        playNextSong();
       }
     });
   }
@@ -158,10 +205,11 @@ class PlayListProvider extends ChangeNotifier {
     }
   }
 
-  //repeat the current song after the current son finished
+  //repeat the current song after the current song finished
   void repeatCurrentSong(){
     if (_currentSongIndex != null) {
-      currentSongIndex = _currentSongIndex;
+      seek(Duration.zero);
+      play();
     }
   }
 

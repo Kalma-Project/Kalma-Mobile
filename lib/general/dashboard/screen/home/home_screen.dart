@@ -44,7 +44,7 @@ class HomeScreen extends StatelessWidget {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: <Widget>[
                             const Text(
-                              'Selamat Pagi',
+                              'Bagaimana Kabarmu,',
                               style: TextStyle(
                                   fontSize: 16.0,
                                   fontWeight: FontWeight.w400,
@@ -110,25 +110,25 @@ class HomeScreen extends StatelessWidget {
                       children: <Widget>[
                         IconCard(
                           iconData: Icons.sticky_note_2_rounded,
-                          title: 'Self Screening',
+                          title: 'Pemeriksaan Diri',
                           urlPage: SelfScreening(
                             userProperty: userProperty,
                           ),
                         ),
                         IconCard2(
                           iconData: Icons.note_alt_rounded,
-                          title: 'Journal',
+                          title: 'Jurnal',
                           onPressed: ()=> onItemTapped.call(1),
                         ),
                         IconCard2(
                           iconData: Icons.air_sharp,
-                          title: 'Breath Work',
+                          title: 'Pernapasan',
                           onPressed: ()=> onItemTapped.call(2),
                           // onPressed: onItemTapped(1),
                         ),
                         IconCard2(
                           iconData: Icons.music_note_rounded,
-                          title: 'Melodies',
+                          title: 'Musik',
                           onPressed: ()=> onItemTapped.call(3),
                           // onPressed: onItemTapped(3),
                         ),

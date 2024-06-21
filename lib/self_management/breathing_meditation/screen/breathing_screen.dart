@@ -127,7 +127,7 @@ class _BreathingMeditationState extends State<BreathingMeditation> {
                   height: MediaQuery.of(context).size.height * 0.19,
                   alignment: Alignment.center,
                   child: const Text(
-                    'START',
+                    'Mulai',
                     style: TextStyle(
                         fontSize: 16,
                         fontWeight: FontWeight.w400,

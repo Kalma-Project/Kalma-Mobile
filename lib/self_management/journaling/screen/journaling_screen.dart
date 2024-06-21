@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_ta/self_management/journaling/screen/input_journaling_screen.dart';
 import 'package:flutter_ta/self_management/journaling/widget/emotion_card.dart';
-import 'package:flutter_ta/widget/back_button.dart';
 import 'dart:developer';
 
 import '../widget/journal_history_button.dart';
@@ -40,7 +39,7 @@ class _JournalingPageState extends State<JournalingPage> {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Text(
-                    'Journaling',
+                    'Jurnal Harian',
                     style: TextStyle(
                       color: Color(0xff3D3D3D),
                       fontSize: 20,
