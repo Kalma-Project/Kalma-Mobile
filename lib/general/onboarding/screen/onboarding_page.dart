@@ -100,7 +100,10 @@ class _OnboardingState extends State<Onboarding> {
                     ElevatedButton(
                       onPressed: () {
                         if (currentIndex == contents.length - 1) {
-                          Navigator.pushNamed(context, '/login');
+                          Navigator.pushReplacement(
+                              context,
+                              MaterialPageRoute(builder: (context) => const LoginScreen())
+                          );
                         }
                         _controller.nextPage(
                             duration: const Duration(milliseconds: 100),

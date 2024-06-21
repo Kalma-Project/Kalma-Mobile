@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class SuccessAlert extends StatelessWidget {
   final String title;
@@ -20,9 +21,21 @@ class SuccessAlert extends StatelessWidget {
       actions: <Widget>[
         TextButton(
             onPressed: () => Navigator.pop(context, 'OK'),
-            child: const Text('OK')
+            child: Text(
+                'OK',
+                style: GoogleFonts.plusJakartaSans(
+                  color: const Color(0xff3D3D3D),
+                )
+            )
         )
       ],
+      titleTextStyle: GoogleFonts.plusJakartaSans(
+          color: const Color(0xff3D3D3D),
+          fontSize: 22
+      ),
+      contentTextStyle: GoogleFonts.plusJakartaSans(
+          color: const Color(0xff3D3D3D)
+      ),
     );
   }
 }

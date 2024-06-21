@@ -1,7 +1,9 @@
 import 'dart:developer';
 
 import 'package:dio/dio.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
+import 'package:flutter_ta/general/register/screen/success_register_screen.dart';
 
 import '../../../main.dart';
 import '../../../model/general/general.dart';
@@ -57,8 +59,8 @@ class AuthService {
           'age': age
         },
       );
-      if (response.statusCode == 200) {
-        navigatorKey.currentState?.pushNamed('/success_register');
+      if (response.statusCode == 201) {
+        navigatorKey.currentState?.pushReplacement(MaterialPageRoute(builder: (context) => const SuccessRegisterScreen()));
       } else {
         String message = response.data['message'].toString();
         throw Exception(message);

@@ -1,9 +1,13 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_ta/general/login/screen/login_screen.dart';
+import 'package:flutter_ta/general/dashboard/screen/dashboard_screen.dart';
 
-class SuccessRegisterScreen extends StatelessWidget {
-  const SuccessRegisterScreen({super.key});
+class SuccessEmailVerification extends StatelessWidget {
+  const SuccessEmailVerification({super.key});
 
+  void initState() {
+    
+  }
+  
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -61,20 +65,20 @@ class SuccessRegisterScreen extends StatelessWidget {
                     textAlign: TextAlign.center,
                   ),
                   Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 14.0, vertical: 12.0),
-                      child: SizedBox(
-                        width: MediaQuery.of(context).size.width * 0.8,
-                        child: const Text(
-                          'Akunmu sudah dibuat. Kamu sekarang siap untuk menjelajahi dan menikmati semua fitur dan manfaat yang kami tawarkan',
-                          style: TextStyle(
-                            fontSize: 16.0,
-                            fontWeight: FontWeight.w400,
-                            color: Color(0xFFFFFFFF),
-                          ),
-                          textAlign: TextAlign.center,
-                          softWrap: true,
+                    padding: const EdgeInsets.symmetric(horizontal: 14.0, vertical: 12.0),
+                    child: SizedBox(
+                      width: MediaQuery.of(context).size.width * 0.8,
+                      child: const Text(
+                        'Email sudah terverifikasi. senang dapat membantu anda!',
+                        style: TextStyle(
+                          fontSize: 16.0,
+                          fontWeight: FontWeight.w400,
+                          color: Color(0xFFFFFFFF),
                         ),
+                        textAlign: TextAlign.center,
+                        softWrap: true,
                       ),
+                    ),
                   ),
                   Container(
                     margin: const EdgeInsets.only(top: 100.0),
@@ -82,7 +86,10 @@ class SuccessRegisterScreen extends StatelessWidget {
                       padding: const EdgeInsets.symmetric(horizontal: 14.0),
                       child: FilledButton.tonal(
                         onPressed: ()=>{
-                          Navigator.pop(context)
+                          Navigator.pushReplacement(
+                              context, 
+                              MaterialPageRoute(builder: (context) => const DashboardScreen())
+                          )
                         },
                         style: ButtonStyle(
                           backgroundColor: MaterialStateProperty.all<Color>(
@@ -108,4 +115,3 @@ class SuccessRegisterScreen extends StatelessWidget {
     );
   }
 }
-

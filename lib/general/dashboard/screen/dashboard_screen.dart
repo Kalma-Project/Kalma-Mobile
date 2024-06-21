@@ -45,7 +45,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
             onItemTapped: _onItemTapped,
           ),
            const JournalingPage(),
-          const BreathingMeditation(),
+           const BreathingMeditation(),
            const ListMusic(),
         ];
       }

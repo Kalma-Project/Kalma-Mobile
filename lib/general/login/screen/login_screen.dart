@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_ta/config/requests/general/service.dart';
 import 'package:flutter_ta/general/dashboard/screen/dashboard_screen.dart';
 import 'package:flutter_ta/general/forgot_password/screen/forgotpass_screen.dart';
+import 'package:flutter_ta/widget/action_alert.dart';
 import 'dart:developer';
 
 import 'package:flutter_ta/widget/primary_custom_button.dart';
@@ -85,6 +87,22 @@ class _LoginScreenState extends State<LoginScreen> {
     }
   }
 
+  Future<bool> _onWillPop() async {
+    return (await showDialog(
+      context: context,
+      builder: (context) => ActionAlert(
+          title: 'Keluar Aplikasi',
+          message: 'Apakah anda yakin akan keluar dari aplikasi?',
+          action1: () => Navigator.of(context).pop(false),
+          action2: () {
+            Navigator.of(context).pop(true);
+            SystemNavigator.pop();
+          },
+      ),
+    )) ??
+        false;
+  }
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -92,155 +110,158 @@ class _LoginScreenState extends State<LoginScreen> {
       theme: ThemeData(
         fontFamily: 'JakartaSans'
       ),
-      home: Scaffold(
-        backgroundColor: const Color(0xFFF6F1F1),
-        body: SafeArea(
-            child: SingleChildScrollView(
-              padding: const EdgeInsets.only(top: 100.0),
-              child: Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 14.0),
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: <Widget>[
-                    Container(
-                      margin: const EdgeInsets.only(bottom: 60.0),
-                      child: const Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: <Widget>[
-                          Column(
-                            children: <Widget>[
-                              Text(
-                                'Login',
-                                style: TextStyle(
-                                    fontSize: 32.0,
-                                    fontWeight: FontWeight.w700
-                                ),
-                              ),
-                              Text(
-                                'Selamat Datang Kembali',
-                                style: TextStyle(
-                                    fontSize: 16.0,
-                                    fontWeight: FontWeight.w600,
-                                    color: Color(0xFF585858)
-                                ),
-                              )
-                            ],
-                          )
-                        ],
-                      ),
-                    ),
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.stretch,
-                      children: <Widget>[
-                        TextFormField(
-                          controller: emailunameController,
-                          keyboardType: TextInputType.text,
-                          onChanged: (value) => onInputChange(value, 'email'),
-                          decoration: InputDecoration(
-                              border: const UnderlineInputBorder(),
-                              labelText: 'Email atau Username',
-                              errorText: emailError ? "Isi form dengan benar" : null
-                          ),
-                        ),
-                        TextFormField(
-                          obscureText: passwordVisible,
-                          controller: passwordController,
-                          keyboardType: TextInputType.text,
-                          onChanged: (value) => onInputChange(value, 'password'),
-                          decoration: InputDecoration(
-                              border: const UnderlineInputBorder(),
-                              labelText: 'Password',
-                              errorText: passwordError ? "Password tidak sesuai" : null,
-                              suffixIcon: IconButton(
-                                icon: Icon(passwordVisible
-                                    ? Icons.visibility
-                                    : Icons.visibility_off),
-                                onPressed: () {
-                                  setState(
-                                        () {
-                                      passwordVisible = !passwordVisible;
-                                    },
-                                  );
-                                },
-                              ),
-                            ),
-                        ),
-                        const SizedBox(
-                          height: 18.0,
-                        ),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      home: WillPopScope(
+        onWillPop: _onWillPop,
+        child: Scaffold(
+          backgroundColor: const Color(0xFFF6F1F1),
+          body: SafeArea(
+              child: SingleChildScrollView(
+                padding: const EdgeInsets.only(top: 100.0),
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 14.0),
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: <Widget>[
+                      Container(
+                        margin: const EdgeInsets.only(bottom: 60.0),
+                        child: const Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
                           children: <Widget>[
-                            Row(
+                            Column(
                               children: <Widget>[
-                                Checkbox(
-                                  checkColor: Colors.white,
-                                  fillColor: MaterialStateProperty.resolveWith<Color>(
-                                          (Set<MaterialState> states) {
-                                        if (states.contains(MaterialState.selected)) {
-                                          return const Color(0xFF2F9296);
-                                        }
-                                        return Colors.white;
-                                      }),
-                                  value: isChecked,
-                                  onChanged: (bool? value) {
-                                    setState(() {
-                                      isChecked = value!;
-                                    });
-                                    },
+                                Text(
+                                  'Login',
+                                  style: TextStyle(
+                                      fontSize: 32.0,
+                                      fontWeight: FontWeight.w700
+                                  ),
                                 ),
-                                const Text('Ingatkan Saya')
+                                Text(
+                                  'Selamat Datang Kembali',
+                                  style: TextStyle(
+                                      fontSize: 16.0,
+                                      fontWeight: FontWeight.w600,
+                                      color: Color(0xFF585858)
+                                  ),
+                                )
                               ],
-                            ),
-                            GestureDetector(
-                              onTap: () {
-                                Navigator.push(
-                                    context,
-                                    MaterialPageRoute(builder: (context) => const ForgotPassScreen()),
-                                );
-                              },
-                              child: const Text('Lupa Kata Sandi'),
                             )
                           ],
                         ),
-                        const SizedBox(
-                          height: 18.0,
-                        ),
-                        CustomPrimaryButton(function: loginUser, isLoading: isLoading, buttonTitle: 'Login',),
-                      ],
-                    ),
-                    Container(
-                      margin: const EdgeInsets.only(top: 18.0),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          const Text(
-                              'Belum Punya Akun? ',
-                              style: TextStyle(
-                                fontSize: 12.0,
-                                fontWeight: FontWeight.w500
-                              ),
+                      ),
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.stretch,
+                        children: <Widget>[
+                          TextFormField(
+                            controller: emailunameController,
+                            keyboardType: TextInputType.text,
+                            onChanged: (value) => onInputChange(value, 'email'),
+                            decoration: InputDecoration(
+                                border: const UnderlineInputBorder(),
+                                labelText: 'Email atau Username',
+                                errorText: emailError ? "Isi form dengan benar" : null
                             ),
-                          GestureDetector(
-                            onTap: () {
-                              Navigator.pushNamed(context, '/register');
-                            },
-                            child: const Text(
-                              'Daftar Akun',
-                              style: TextStyle(
-                                fontSize: 12.0,
-                                fontWeight: FontWeight.w600,
-                                color: Color(0xFF2F9296)
+                          ),
+                          TextFormField(
+                            obscureText: passwordVisible,
+                            controller: passwordController,
+                            keyboardType: TextInputType.text,
+                            onChanged: (value) => onInputChange(value, 'password'),
+                            decoration: InputDecoration(
+                                border: const UnderlineInputBorder(),
+                                labelText: 'Password',
+                                errorText: passwordError ? "Password tidak sesuai" : null,
+                                suffixIcon: IconButton(
+                                  icon: Icon(passwordVisible
+                                      ? Icons.visibility
+                                      : Icons.visibility_off),
+                                  onPressed: () {
+                                    setState(
+                                          () {
+                                        passwordVisible = !passwordVisible;
+                                      },
+                                    );
+                                  },
+                                ),
                               ),
-                            ),
-                          )
+                          ),
+                          const SizedBox(
+                            height: 18.0,
+                          ),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: <Widget>[
+                              Row(
+                                children: <Widget>[
+                                  Checkbox(
+                                    checkColor: Colors.white,
+                                    fillColor: MaterialStateProperty.resolveWith<Color>(
+                                            (Set<MaterialState> states) {
+                                          if (states.contains(MaterialState.selected)) {
+                                            return const Color(0xFF2F9296);
+                                          }
+                                          return Colors.white;
+                                        }),
+                                    value: isChecked,
+                                    onChanged: (bool? value) {
+                                      setState(() {
+                                        isChecked = value!;
+                                      });
+                                      },
+                                  ),
+                                  const Text('Ingatkan Saya')
+                                ],
+                              ),
+                              GestureDetector(
+                                onTap: () {
+                                  Navigator.push(
+                                      context,
+                                      MaterialPageRoute(builder: (context) => const ForgotPassScreen()),
+                                  );
+                                },
+                                child: const Text('Lupa Kata Sandi'),
+                              )
+                            ],
+                          ),
+                          const SizedBox(
+                            height: 18.0,
+                          ),
+                          CustomPrimaryButton(function: loginUser, isLoading: isLoading, buttonTitle: 'Login',),
                         ],
                       ),
-                    )
-                  ],
+                      Container(
+                        margin: const EdgeInsets.only(top: 18.0),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            const Text(
+                                'Belum Punya Akun? ',
+                                style: TextStyle(
+                                  fontSize: 12.0,
+                                  fontWeight: FontWeight.w500
+                                ),
+                              ),
+                            GestureDetector(
+                              onTap: () {
+                                Navigator.pushNamed(context, '/register');
+                              },
+                              child: const Text(
+                                'Daftar Akun',
+                                style: TextStyle(
+                                  fontSize: 12.0,
+                                  fontWeight: FontWeight.w600,
+                                  color: Color(0xFF2F9296)
+                                ),
+                              ),
+                            )
+                          ],
+                        ),
+                      )
+                    ],
+                  ),
                 ),
-              ),
-            )
+              )
+          ),
         ),
       ),
     );

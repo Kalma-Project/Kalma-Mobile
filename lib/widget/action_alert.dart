@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class ActionAlert extends StatelessWidget {
   final String title;
   final String message;
   final String? action1Message;
   final String? action2Message;
-  final Function? action1;
-  final Function? action2;
+  final void Function()? action1;
+  final void Function()? action2;
 
   const ActionAlert({
     Key? key,
@@ -15,8 +16,8 @@ class ActionAlert extends StatelessWidget {
     this.action1Message,
     this.action2Message,
     this.action1,
-    this.action2
-  }): super(key: key);
+    this.action2,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -26,15 +27,34 @@ class ActionAlert extends StatelessWidget {
       title: Text(title),
       content: Text(message),
       actions: <Widget>[
-        TextButton(
-            onPressed: () => action1 ?? Navigator.pop(context, 'Cancel'),
-            child: Text(action1Message ?? 'Cancel')
-        ),
-        TextButton(
-            onPressed: () => action2 ?? Navigator.pop(context, 'OK'),
-            child: Text(action2Message ?? 'OK')
-        )
+        if (action1 != null)
+          TextButton(
+            onPressed: action1,
+            child: Text(
+              action1Message ?? 'Cancel',
+              style: GoogleFonts.plusJakartaSans(
+                color: const Color(0xff3D3D3D),
+              ),
+            ),
+          ),
+        if (action2 != null)
+          TextButton(
+            onPressed: action2,
+            child: Text(
+              action2Message ?? 'OK',
+              style: GoogleFonts.plusJakartaSans(
+                color: const Color(0xff3D3D3D),
+              ),
+            ),
+          ),
       ],
+      titleTextStyle: GoogleFonts.plusJakartaSans(
+        color: const Color(0xff3D3D3D),
+        fontSize: 22,
+      ),
+      contentTextStyle: GoogleFonts.plusJakartaSans(
+        color: const Color(0xff3D3D3D),
+      ),
     );
   }
 }

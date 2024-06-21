@@ -55,7 +55,10 @@ class _RegisterScreenState extends State<RegisterScreen> {
           builder: (BuildContext context) {
             return FailureAlert(
                 title: 'Register Failed',
-                message: e.toString()
+                message: e.toString(),
+                action: () {
+                  Navigator.pop(context, 'OK');
+                },
             );
           },
         );
