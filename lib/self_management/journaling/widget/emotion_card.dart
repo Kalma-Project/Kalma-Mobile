@@ -40,11 +40,13 @@ class _EmotionCardWidgetState extends State<EmotionCardWidget> {
 
   void toggleCard() {
     setState(() {
-      isTapped = !isTapped;
-      if (widget.selectedEmotion == widget.emotion) {
-        widget.onEmotionSelected('');
-      } else {
-        widget.onEmotionSelected(widget.emotion);
+      if (widget.selectedEmotion == widget.emotion || widget.selectedEmotion == '') {
+        isTapped = !isTapped;
+        if (widget.selectedEmotion == widget.emotion) {
+          widget.onEmotionSelected('');
+        } else {
+          widget.onEmotionSelected(widget.emotion);
+        }
       }
     });
   }
@@ -54,21 +56,21 @@ class _EmotionCardWidgetState extends State<EmotionCardWidget> {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       theme: ThemeData(fontFamily: 'JakartaSans'),
-      home: Container(
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(20),
-          border: Border.all(
-            color: isTapped ? widget.borderColor! : Colors.transparent,
-            width: isTapped ? 2 : 0,
+      home: GestureDetector(
+        onTap: toggleCard,
+        child: Container(
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(20),
+            border: Border.all(
+              color: isTapped ? widget.borderColor! : Colors.transparent,
+              width: isTapped ? 2 : 0,
+            ),
           ),
-        ),
-        child: ClipRRect(
-          borderRadius: BorderRadius.circular(20),
-          child: Scaffold(
-              backgroundColor: widget.emotionBgColor,
-              body: GestureDetector(
-                onTap: toggleCard,
-                child: Column(
+          child: ClipRRect(
+            borderRadius: BorderRadius.circular(20),
+            child: Scaffold(
+                backgroundColor: widget.emotionBgColor,
+                body: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: <Widget>[
                     Row(
@@ -91,8 +93,8 @@ class _EmotionCardWidgetState extends State<EmotionCardWidget> {
                       ],
                     )
                   ],
-                ),
-              )),
+                )),
+          ),
         ),
       ),
     );

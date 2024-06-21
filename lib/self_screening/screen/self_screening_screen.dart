@@ -28,6 +28,7 @@ class _SelfScreeningState extends State<SelfScreening> {
   Map<int, int> questionAnswers = {};
 
   int _currentPage = 0;
+  bool isAnswerTapped = false;
 
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
 
@@ -71,6 +72,9 @@ class _SelfScreeningState extends State<SelfScreening> {
                             duration: const Duration(milliseconds: 500),
                             curve: Curves.ease,
                           );
+                          setState(() {
+                            isAnswerTapped = true;
+                          });
                         }
                       },
                       style: ButtonStyle(
@@ -91,13 +95,18 @@ class _SelfScreeningState extends State<SelfScreening> {
                     ),
                     FilledButton.tonal(
                       onPressed: () {
-                        if (_currentPage < questions.length - 1) {
-                          _pageController.nextPage(
-                            duration: const Duration(milliseconds: 500),
-                            curve: Curves.ease,
-                          );
-                        } else {
-                          showScore();
+                        if (isAnswerTapped) {
+                          if (_currentPage < questions.length - 1) {
+                            _pageController.nextPage(
+                              duration: const Duration(milliseconds: 500),
+                              curve: Curves.ease,
+                            );
+                            setState(() {
+                              isAnswerTapped = false;
+                            });
+                          } else {
+                            showScore();
+                          }
                         }
                       },
                       style: ButtonStyle(
@@ -196,6 +205,7 @@ class _SelfScreeningState extends State<SelfScreening> {
                               .indexOf(questions[index]);
 
                           categoryScores[category]![categoryIndex] = answerIndex;
+                          isAnswerTapped = true;
                         });
                       },
                     ),
