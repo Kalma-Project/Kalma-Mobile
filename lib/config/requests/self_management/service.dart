@@ -62,24 +62,27 @@ class SelfManagementService {
             pagingController.appendPage(journalingData, nextPageKey);
           }
         } else {
-          log(data['message']);
+          log('API response not successful: ${data['message']}');
+          pagingController.error = data['message'];
         }
       } else {
         log('Error: ${response.statusCode}');
+        pagingController.error = 'Error: ${response.statusCode}';
       }
     } catch (e) {
       log('Error: $e');
+      pagingController.error = 'Error: $e';
     }
   }
 
-  Future<JournalData?> getDetailSelfScreening(String id) async {
+  Future<JournalData?> getDetailJournal(String id) async {
     try {
       Response response = await apiService.dio.get(
           'self-management/journals/users-journal/$id'
       );
       if (response.statusCode == 200) {
         final body = response.data;
-        log('data fetched successfully');
+        log('Data fetched successfully');
         return JournalData.fromJson(body);
       }
     } catch (e) {
@@ -88,12 +91,12 @@ class SelfManagementService {
     return null;
   }
 
-  Future<void> getMusicData(int pageKey, PagingController<int, Map<String, dynamic>> pagingController) async {
+  Future<List<Map<String, dynamic>>> getMusicData(int pageKey, PagingController<int, Map<String, dynamic>> pagingController) async {
     try {
       Response response = await apiService.dio.get(
         get_music_data,
         data: {
-          "size": 6,
+          "size": 10,
           "page": pageKey,
         },
       );
@@ -102,16 +105,17 @@ class SelfManagementService {
         var data = response.data;
 
         if (data['is_success']) {
-          List<Map<String, dynamic>> MusicData = List<Map<String, dynamic>>.from(data['data']);
+          List<Map<String, dynamic>> musicData = List<Map<String, dynamic>>.from(data['data']);
 
           bool isLastPage = data['page'] >= data['total_pages'];
 
           if (isLastPage) {
-            pagingController.appendLastPage(MusicData);
+            pagingController.appendLastPage(musicData);
           } else {
             final nextPageKey = pageKey + 1;
-            pagingController.appendPage(MusicData, nextPageKey);
+            pagingController.appendPage(musicData, nextPageKey);
           }
+          return musicData;
         } else {
           log(data['message']);
         }
@@ -121,6 +125,7 @@ class SelfManagementService {
     } catch (e) {
       log('Error: $e');
     }
+    return [];
   }
 
   Future<MusicData?> getDetailMusic(String id) async {

@@ -1,20 +1,13 @@
-class Song {
-  final String imgUrl;
-  final String titleSong;
-  final String artistName;
-  final String audioPath;
+class Song{
+  Song({required this.imgUrl, required this.titleSong, required this.artistName, required this.audioPath, this.isFav = false});
+
+  String imgUrl;
+  String titleSong;
+  String artistName;
+  String audioPath;
   bool isFav;
 
-  Song({
-    required this.imgUrl,
-    required this.titleSong,
-    required this.artistName,
-    required this.audioPath,
-    this.isFav = false,
-  });
-
-
-  void setFavorite(bool isFavorite) {
-    isFav = isFavorite;
+  void setFavorite(bool value) {
+    isFav = value;
   }
 }

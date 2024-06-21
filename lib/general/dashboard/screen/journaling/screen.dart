@@ -25,22 +25,31 @@ class _JournalingScreenState extends State<JournalingScreen> {
   void initState() {
     super.initState();
     _pagingController.addPageRequestListener((pageKey) {
-      _managementService.getJournalData(pageKey, _pagingController, isAscending ? 'asc' : 'desc', dropDownValue == 'judul' ? 'content' : 'created_at');
+      _fetchPage(pageKey);
     });
   }
 
-  void dropDownCallback(String? selectedValue) {
+  void _fetchPage(int pageKey) {
+    _managementService.getJournalData(
+        pageKey,
+        _pagingController,
+        isAscending ? 'asc' : 'desc',
+        dropDownValue == 'judul' ? 'content' : 'created_at'
+    );
+  }
+
+  void dropDownCallback(String? selectedValue) async {
     setState(() {
       dropDownValue = selectedValue!;
-      _pagingController.refresh();
     });
+      _pagingController.refresh();
   }
 
-  void _toggleSortOrder() {
+  void _toggleSortOrder() async{
     setState(() {
       isAscending = !isAscending;
-      _pagingController.refresh();
     });
+      _pagingController.refresh();
   }
 
   @override

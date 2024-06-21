@@ -12,7 +12,9 @@ class ApiService {
   factory ApiService() => _instance;
 
   final FlutterSecureStorage _secureStorage = const FlutterSecureStorage();
+  String? currentToken = '';
   late Dio dio;
+  bool isRefreshingToken = false;
   final List<Cookie> _cookies = [];
 
   ApiService._internal() {
@@ -24,59 +26,64 @@ class ApiService {
 
     dio.interceptors.add(InterceptorsWrapper(
       onRequest: (RequestOptions options, RequestInterceptorHandler handler) async {
-        String? token = await _secureStorage.read(key: accessToken);
+        currentToken = await _secureStorage.read(key: accessToken);
         options.headers.addAll({
           "Content-Type": "application/json",
-          "Authorization": "Bearer $token",
+          "Authorization": "Bearer $currentToken",
           "Accept-Language": "id"
         });
-        if (token != null && !options.extra.containsKey('retry')) {
-          log('token still exist...');
-        }
+        log('onRequest - URL: ${options.uri}, Token: $currentToken');
         return handler.next(options);
       },
 
       onResponse: (Response response, ResponseInterceptorHandler handler) {
+        log('onResponse - URL: ${response.requestOptions.uri}, Status Code: ${response.statusCode}');
         return handler.next(response);
       },
 
       onError: (DioException error, ErrorInterceptorHandler handler) async {
-        if (error.response?.statusCode == 401 && !error.requestOptions.extra.containsKey('retry')) {
-          String? refreshToken = await _secureStorage.read(key: refresh_token);
-          if (refreshToken != null) {
-            bool tokenRefreshed = await _refreshToken();
-            if (tokenRefreshed) {
-              final opts = error.requestOptions;
-              String? newToken = await _secureStorage.read(key: accessToken);
-              if (newToken != null) {
-                opts.headers["Authorization"] = "Bearer $newToken";
-                opts.extra['retry'] = true;
-                try {
-                  final cloneReq = await dio.request(
-                    opts.path,
-                    options: Options(
-                      method: opts.method,
-                      headers: opts.headers,
-                      extra: opts.extra,
-                    ),
-                    data: opts.data,
-                    queryParameters: opts.queryParameters,
-                  );
-                  return handler.resolve(cloneReq);
-                } catch (e) {
-                  log('Exception during retry: $e');
-                  return handler.reject(e as DioException);
-                }
-              } else {
-                log('New token was null after refresh');
-              }
-            } else {
+        log('onError - URL: ${error.requestOptions.uri}, Status Code: ${error.response?.statusCode}');
+
+        if (error.response?.statusCode == 401 && !isRefreshingToken) {
+          isRefreshingToken = true;
+          bool refreshToken = await _refreshToken();
+          isRefreshingToken = false;
+
+          if (refreshToken) {
+            final opts = error.requestOptions;
+            String? newToken = await _secureStorage.read(key: accessToken);
+
+            if (newToken == null || newToken == currentToken) {
+              log('There is no new token');
               await clearTokens();
+              navigatorKey.currentState?.pushNamed('/login');
+              return handler.next(error);
+            }
+
+            log('current Token: $currentToken');
+            log('newToken: $newToken');
+
+            opts.headers["Authorization"] = "Bearer $newToken";
+            try {
+              final cloneReq = await dio.request(
+                opts.path,
+                options: Options(
+                  method: opts.method,
+                  headers: opts.headers,
+                  extra: opts.extra,
+                ),
+                data: opts.data,
+                queryParameters: opts.queryParameters,
+              );
+              return handler.resolve(cloneReq);
+            } catch (e) {
+              log('Exception during retry: $e');
+              return handler.reject(e as DioException);
             }
           } else {
-            log('no token found');
             await clearTokens();
             navigatorKey.currentState?.pushNamed('/login');
+            return handler.next(error);
           }
         }
         return handler.next(error);
@@ -107,13 +114,11 @@ class ApiService {
     log('Attempting to refresh token...');
     try {
       String? refreshToken = await _secureStorage.read(key: refresh_token);
-      final response = await dio.get(
-          get_refresh_token,
-        options: Options(
-          headers: {
-            'Cookie': 'refreshToken=$refreshToken'
+      final response = await dio.post(
+          post_refresh_token,
+          data: {
+            "refresh_token": refreshToken
           }
-        )
       );
 
       if (response.statusCode == 200) {
@@ -122,11 +127,14 @@ class ApiService {
           String newAccessToken = body['access_token'];
           await _secureStorage.write(key: accessToken, value: newAccessToken);
           log('Token refreshed successfully: $newAccessToken');
-
           return true;
         } else {
           log('Failed to refresh token: ${body['message']}');
         }
+      } else if (response.statusCode == 401) {
+        await clearTokens();
+        navigatorKey.currentState?.pushNamed('/login');
+        log('Failed to refresh token: Server error with status code ${response.statusCode}');
       } else {
         log('Failed to refresh token: Server error with status code ${response.statusCode}');
       }
