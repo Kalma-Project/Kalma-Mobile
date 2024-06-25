@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_ta/general/dashboard/screen/dashboard_screen.dart';
+import 'package:flutter_ta/general/login/screen/login_screen.dart';
 
 class SuccessEmailVerification extends StatelessWidget {
   const SuccessEmailVerification({super.key});
@@ -56,7 +57,7 @@ class SuccessEmailVerification extends StatelessWidget {
                     height: 30.0,
                   ),
                   const Text(
-                    'Selesai!',
+                    'Verifikasi Email Selesai!',
                     style: TextStyle(
                         fontSize: 24.0,
                         fontWeight: FontWeight.w700,
@@ -69,7 +70,7 @@ class SuccessEmailVerification extends StatelessWidget {
                     child: SizedBox(
                       width: MediaQuery.of(context).size.width * 0.8,
                       child: const Text(
-                        'Email sudah terverifikasi. senang dapat membantu anda!',
+                        'Email anda sudah terverifikasi. senang dapat membantu anda agar bisa menggunakan fitur aplikasi kalma dengan bebas!',
                         style: TextStyle(
                           fontSize: 16.0,
                           fontWeight: FontWeight.w400,
@@ -88,7 +89,7 @@ class SuccessEmailVerification extends StatelessWidget {
                         onPressed: ()=>{
                           Navigator.pushReplacement(
                               context, 
-                              MaterialPageRoute(builder: (context) => const DashboardScreen())
+                              MaterialPageRoute(builder: (context) => const LoginScreen())
                           )
                         },
                         style: ButtonStyle(
@@ -96,7 +97,7 @@ class SuccessEmailVerification extends StatelessWidget {
                               const Color(0xFFFFFFFF)),
                         ),
                         child: const Text(
-                          'Login',
+                          'Masuk',
                           style: TextStyle(
                             color: Color(0xFF2F9296),
                             fontSize: 14.0,

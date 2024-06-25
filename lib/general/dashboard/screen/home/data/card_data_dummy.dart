@@ -11,13 +11,13 @@ List<CardContent> contents = [
     text: '"It is better to conquer yourself than to win a thousand battles"'
   ),
   CardContent(
-      text: '"It is better to conquer yourself than to win a thousand battles"'
+      text: '"To fall in love with yourself is the secret to happiness"'
   ),
   CardContent(
-      text: '"It is better to conquer yourself than to win a thousand battles"'
+      text: '"Life is too short to spend another day at war with yourself"'
   ),
   CardContent(
-      text: '"It is better to conquer yourself than to win a thousand battles"'
+      text: '"Stop comparing yourself, flowers are pretty and so are sunsets"'
   ),
 ];
 

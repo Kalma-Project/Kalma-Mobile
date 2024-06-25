@@ -226,27 +226,25 @@ class _SelfScreeningState extends State<SelfScreening> {
     totalAnxietyScore = categoryScores['anxiety']!.reduce((a, b) => a + b);
     totalStressScore = categoryScores['stress']!.reduce((a, b) => a + b);
 
-    if (totalDepressionScore != 0 && totalAnxietyScore != 0 && totalStressScore != 0) {
-      try {
-        await selfScreeningService.postSelfScreening(totalDepressionScore, totalAnxietyScore, totalStressScore);
+    try {
+      await selfScreeningService.postSelfScreening(totalDepressionScore, totalAnxietyScore, totalStressScore);
 
-        Navigator.push(
-            context,
-            MaterialPageRoute(
-                builder: (context) => SelfScreeningResult(
-                  depressionScore: totalDepressionScore.toString(),
-                  anxietyScore: totalAnxietyScore.toString(),
-                  stressScore: totalStressScore.toString(),
-                  depressionStatus: selfScreeningService.depressionStatus,
-                  anxietyStatus: selfScreeningService.anxietyStatus,
-                  stressStatus: selfScreeningService.stressStatus,
-                  message: selfScreeningService.postMessage,
-                )));
+      Navigator.push(
+          context,
+          MaterialPageRoute(
+              builder: (context) => SelfScreeningResult(
+                depressionScore: totalDepressionScore.toString(),
+                anxietyScore: totalAnxietyScore.toString(),
+                stressScore: totalStressScore.toString(),
+                depressionStatus: selfScreeningService.depressionStatus,
+                anxietyStatus: selfScreeningService.anxietyStatus,
+                stressStatus: selfScreeningService.stressStatus,
+                message: selfScreeningService.postMessage,
+              )));
 
-        log('Test Succeed!');
-      } catch (e) {
-        log('Error submitting test: $e');
-      }
+      log('Test Succeed!');
+    } catch (e) {
+      log('Error submitting test: $e');
     }
   }
 }

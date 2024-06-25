@@ -40,16 +40,17 @@ class _CardHomeWidgetState extends State<CardHomeWidget> {
                 });
               },
               itemBuilder: (_,i) {
+                CardContent cardContent = contents[i];
                 return Card(
                     elevation: 0,
                     color: const Color(0xFF4DA9AC),
                     shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(20.0)
                     ),
-                    child: const ListTile(
+                    child: ListTile(
                       title: Text(
-                        '"It is better to conquer yourself than to win a thousand battles"',
-                        style: TextStyle(
+                        cardContent.text,
+                        style: const TextStyle(
                             fontSize: 14.0,
                             fontWeight: FontWeight.w500,
                             color: Color(0xFFF6F1F1)

@@ -139,6 +139,60 @@ class ForgotPasswordPayload {
   }
 }
 
+class ForgotPasswordResponse {
+  bool is_success;
+  String message;
+
+  ForgotPasswordResponse({
+    required this.is_success,
+    required this.message
+  });
+
+  factory ForgotPasswordResponse.fromJson(Map<String, dynamic> json) {
+    return ForgotPasswordResponse(is_success: json['is_success'], message: json['message']);
+  }
+}
+
+class ResetPasswordPayload {
+  String new_password;
+  String new_password_confirmation;
+
+  ResetPasswordPayload({
+    required this.new_password,
+    required this.new_password_confirmation
+  });
+
+  factory ResetPasswordPayload.fromJson(Map<String, dynamic> json) {
+    return ResetPasswordPayload(
+        new_password: json['new_password'],
+        new_password_confirmation: json['new_password_confirmation']
+    );
+  }
+}
+
+class ResetPasswordResponse {
+  String? access_token;
+  String? refresh_token;
+  bool is_success;
+  String message;
+
+  ResetPasswordResponse({
+    this.access_token,
+    this.refresh_token,
+    required this.is_success,
+    required this.message
+  });
+
+  factory ResetPasswordResponse.fromJson(Map<String, dynamic> json) {
+    return ResetPasswordResponse(
+        access_token: json['access_token'],
+        refresh_token: json['refresh_token'],
+        is_success: json['is_success'],
+        message: json['message']
+    );
+  }
+}
+
 class JournalHistoryResponse {
   final int size;
   final int page;

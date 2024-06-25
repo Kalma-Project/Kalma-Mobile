@@ -1,8 +1,12 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 
 import 'package:flutter_ta/config/requests/general/service.dart';
 import 'package:flutter_ta/model/general/general.dart';
 import 'package:flutter_ta/widget/primary_custom_button.dart';
+
+import '../../../widget/failure_alert.dart';
 
 class ForgotPassScreen extends StatefulWidget {
   const ForgotPassScreen({super.key});
@@ -30,21 +34,31 @@ class _ForgotPassScreenState extends State<ForgotPassScreen> {
       isLoading = true;
     });
     if (emailunameController.text.isNotEmpty) {
-      ForgotPasswordPayload? sendForgotPassword = await authService.sendForgotPassword(emailunameController.text);
+      ForgotPasswordResponse? sendForgotPassword = await authService.sendForgotPassword(emailunameController.text);
       if (!mounted) return;
       if (sendForgotPassword != null) {
-        const successSnackBar = SnackBar(
-          content: Text('Email telah dikirimkan!'),
-        );
-        ScaffoldMessenger.of(context).showSnackBar(successSnackBar);
-        setState(() {
-          isLoading = false;
-        });
+        if (sendForgotPassword.is_success == true) {
+          setState(() {
+            isLoading = false;
+          });
+        } else {
+          showDialog(
+            context: context,
+            builder: (BuildContext context) {
+              return FailureAlert(
+                title: 'Permintaan Gagal',
+                message: sendForgotPassword.message,
+                action: () {
+                  Navigator.pop(context, 'OK');
+                },
+              );
+            },
+          );
+          setState(() {
+            isLoading = false;
+          });
+        }
       } else {
-        const failSnackBar = SnackBar(
-          content: Text('Email gagal dikirimkan!'),
-        );
-        ScaffoldMessenger.of(context).showSnackBar(failSnackBar);
         setState(() {
           isLoading = false;
         });
@@ -52,6 +66,7 @@ class _ForgotPassScreenState extends State<ForgotPassScreen> {
     } else {
       setState(() {
         emailunameError = true;
+        isLoading = false;
       });
     }
   }

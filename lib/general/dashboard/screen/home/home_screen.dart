@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_ta/config/requests/article/service.dart';
 import 'package:flutter_ta/general/dashboard/screen/home/card_home_widget.dart';
 import 'package:flutter_ta/general/dashboard/screen/home/data/card_data_dummy.dart';
 import 'package:flutter_ta/general/dashboard/widget/home/article_card_widget.dart';
@@ -6,15 +7,40 @@ import 'package:flutter_ta/general/dashboard/widget/home/icons_card_widget.dart'
 import 'package:flutter_ta/model/general/general.dart';
 import 'package:flutter_ta/general/article/screen/articlelist_page.dart';
 import 'package:flutter_ta/self_screening/screen/self_screening_screen.dart';
+import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 import '../../../article/screen/articledetail_screen.dart';
 import '../../../profile/screen/profile_screen.dart';
 import '../../widget/home/icon_card_2_widget.dart';
 
-class HomeScreen extends StatelessWidget {
+class HomeScreen extends StatefulWidget {
   final String user;
   final UserProperty userProperty;
   final Function(int index) onItemTapped;
   const HomeScreen({super.key, required this.user, required this.userProperty,  required this.onItemTapped,});
+
+  @override
+  State<HomeScreen> createState() => _HomeScreenState();
+}
+
+class _HomeScreenState extends State<HomeScreen> {
+  ArticleService articleService = ArticleService();
+
+  final PagingController<int, Map<String, dynamic>> _pagingController =
+  PagingController(firstPageKey: 1);
+
+  @override
+  void initState() {
+    super.initState();
+    _pagingController.addPageRequestListener((pageKey) {
+      articleService.getArticle(pageKey, _pagingController);
+    });
+  }
+
+  @override
+  void dispose() {
+    _pagingController.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -52,7 +78,7 @@ class HomeScreen extends StatelessWidget {
                               textAlign: TextAlign.start,
                             ),
                             Text(
-                              userProperty.data.username,
+                              widget.userProperty.data.username,
                               style: const TextStyle(
                                   fontSize: 20.0,
                                   fontWeight: FontWeight.w700,
@@ -62,11 +88,11 @@ class HomeScreen extends StatelessWidget {
                           ],
                         ),
                         GestureDetector(
-                          child: userProperty.data.avatarLink != null
+                          child: widget.userProperty.data.avatarLink != null
                               ? CircleAvatar(
                             radius: 30,
                             backgroundImage: NetworkImage(
-                                userProperty.data.avatarLink!),
+                                widget.userProperty.data.avatarLink!),
                           )
                               : IconButton(
                             icon: const Icon(
@@ -79,7 +105,7 @@ class HomeScreen extends StatelessWidget {
                                 context,
                                 MaterialPageRoute(
                                   builder: (context) => Profile(
-                                    data: userProperty.data,
+                                    data: widget.userProperty.data,
                                   ),
                                 ),
                               );
@@ -90,7 +116,7 @@ class HomeScreen extends StatelessWidget {
                               context,
                               MaterialPageRoute(
                                 builder: (context) => Profile(
-                                  data: userProperty.data,
+                                  data: widget.userProperty.data,
                                 ),
                               ),
                             );
@@ -112,24 +138,24 @@ class HomeScreen extends StatelessWidget {
                           iconData: Icons.sticky_note_2_rounded,
                           title: 'Pemeriksaan Diri',
                           urlPage: SelfScreening(
-                            userProperty: userProperty,
+                            userProperty: widget.userProperty,
                           ),
                         ),
                         IconCard2(
                           iconData: Icons.note_alt_rounded,
                           title: 'Jurnal',
-                          onPressed: ()=> onItemTapped.call(1),
+                          onPressed: ()=> widget.onItemTapped.call(1),
                         ),
                         IconCard2(
                           iconData: Icons.air_sharp,
                           title: 'Pernapasan',
-                          onPressed: ()=> onItemTapped.call(2),
+                          onPressed: ()=> widget.onItemTapped.call(2),
                           // onPressed: onItemTapped(1),
                         ),
                         IconCard2(
                           iconData: Icons.music_note_rounded,
                           title: 'Musik',
-                          onPressed: ()=> onItemTapped.call(3),
+                          onPressed: ()=> widget.onItemTapped.call(3),
                           // onPressed: onItemTapped(3),
                         ),
                       ],
@@ -204,22 +230,20 @@ class HomeScreen extends StatelessWidget {
                           SizedBox(
                             width: MediaQuery.of(context).size.width * 0.89,
                             height: MediaQuery.of(context).size.height * 0.25,
-                            child: ListView.builder(
+                            child: PagedListView<int, Map<String, dynamic>>(
+                              pagingController: _pagingController,
                               scrollDirection: Axis.horizontal,
-                              physics: const BouncingScrollPhysics(),
-                              itemCount: articleData.length,
-                              itemBuilder: (context, index) {
-                                ArticleData articleModel = articleData[index];
-                                return GestureDetector(
+                              builderDelegate: PagedChildBuilderDelegate<Map<String, dynamic>>(
+                                itemBuilder: (context, item, index) => GestureDetector(
                                   onTap: () {
-                                    Navigator.pushReplacement(
+                                    Navigator.push(
                                       context,
                                       MaterialPageRoute(
                                         builder: (context) => ArticleDetail(
-                                          title: articleModel.title,
-                                          imageUrl: articleModel.imageUrl,
-                                          author: articleModel.author,
-                                          paragraph: articleModel.paragraph.map((p) => p.paragraph).toList(),
+                                          title: item['title'],
+                                          imageUrl: item['image'],
+                                          author: item['created_by'],
+                                          paragraph: List<String>.from(item['content']),
                                         ),
                                       ),
                                     );
@@ -241,15 +265,15 @@ class HomeScreen extends StatelessWidget {
                                               BorderRadius.circular(20)),
                                         ),
                                         ArticleCard(
-                                            title: articleModel.title,
-                                            author: articleModel.author,
-                                            imageUrl: articleModel.imageUrl
+                                            title: item['title'],
+                                            imageUrl: item['image'],
+                                            author: item['created_by'],
                                         )
                                       ],
                                     ),
                                   ),
-                                );
-                              },
+                                )
+                              )
                             ),
                           )
                         ],

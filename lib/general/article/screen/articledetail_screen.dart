@@ -3,14 +3,14 @@ import 'package:flutter_ta/widget/back_button.dart';
 
 class ArticleDetail extends StatelessWidget {
   final String title;
-  final String imageUrl;
+  final String? imageUrl;
   final String author;
   final List<String>? paragraph;
 
   const ArticleDetail({
     Key? key,
     required this.title,
-    required this.imageUrl,
+    this.imageUrl,
     required this.author,
     this.paragraph
   }): super(key: key);
@@ -40,7 +40,7 @@ class ArticleDetail extends StatelessWidget {
                       width: MediaQuery.of(context).size.width * 1,
                       height: MediaQuery.of(context).size.height * 0.17,
                       child: Image.asset(
-                        imageUrl,
+                        imageUrl ?? 'images/mental_image.png',
                         fit: BoxFit.cover,
                       ),
                     ),

@@ -22,6 +22,9 @@ class ApiService {
       baseUrl: BASE_URL,
       connectTimeout: const Duration(seconds: 60),
       receiveTimeout: const Duration(seconds: 60),
+      validateStatus: (status) {
+        return status! < 500;
+      }
     ));
 
     dio.interceptors.add(InterceptorsWrapper(
@@ -42,8 +45,6 @@ class ApiService {
       },
 
       onError: (DioException error, ErrorInterceptorHandler handler) async {
-        log('onError - URL: ${error.requestOptions.uri}, Status Code: ${error.response?.statusCode}');
-
         if (error.response?.statusCode == 401 && !isRefreshingToken) {
           isRefreshingToken = true;
           bool refreshToken = await _refreshToken();
@@ -52,17 +53,12 @@ class ApiService {
           if (refreshToken) {
             final opts = error.requestOptions;
             String? newToken = await _secureStorage.read(key: accessToken);
-
             if (newToken == null || newToken == currentToken) {
               log('There is no new token');
               await clearTokens();
               navigatorKey.currentState?.pushNamed('/login');
               return handler.next(error);
             }
-
-            log('current Token: $currentToken');
-            log('newToken: $newToken');
-
             opts.headers["Authorization"] = "Bearer $newToken";
             try {
               final cloneReq = await dio.request(

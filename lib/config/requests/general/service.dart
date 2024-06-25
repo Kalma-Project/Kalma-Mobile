@@ -13,6 +13,7 @@ import '../../token/constants.dart';
 
 class AuthService {
   ApiService apiService = ApiService();
+  final dio = Dio();
   final FlutterSecureStorage _secureStorage = const FlutterSecureStorage();
 
   String message = '';
@@ -91,20 +92,63 @@ class AuthService {
     return null;
   }
 
-  Future<ForgotPasswordPayload?> sendForgotPassword(String email_or_username) async {
+  Future<ForgotPasswordResponse?> sendForgotPassword(String email_or_username) async {
     try {
-      Response response = await apiService.dio.post(
-        post_reset_password,
-        data: {
-          "email_or_username": email_or_username
-        }
+      Response response = await dio.post(
+          'https://kalma-backend-production.up.railway.app/api/user/forgot-password',
+          data: {
+            "email_or_username": email_or_username
+          },
+          options: Options(
+            headers: {
+              "Accept-Language" : "id"
+            },
+            validateStatus: (status) {
+              return status! < 500;
+            }
+          )
       );
       if (response.statusCode == 200) {
         final body = response.data;
+        return ForgotPasswordResponse(is_success: body['is_success'], message: body['message']);
+      } else {
+        final body = response.data;
         log(body['message']);
+        return ForgotPasswordResponse(is_success: body['is_success'], message: body['message']);
       }
     } catch (e) {
       log('Forgot password failed sended: server error $e');
+    }
+    return null;
+  }
+
+  Future<ResetPasswordResponse?> resetPassword(String tokenReset, String new_password, String new_password_confirmation) async {
+    try {
+      Response response = await dio.patch(
+          'https://kalma-backend-production.up.railway.app/api/user/reset-password/$tokenReset',
+          data: {
+            "new_password": new_password,
+            "new_password_confirmation": new_password_confirmation
+          },
+          options: Options(
+            headers: {
+              "Accept-Language": "id"
+            },
+            validateStatus: (status) {
+              return status! < 500;
+            },
+          )
+      );
+      final body = response.data;
+      if (response.statusCode == 200) {
+        log(body.toString());
+        return ResetPasswordResponse(access_token: body['access_token'], refresh_token: body['refresh_token'], is_success: body['is_success'], message: body['message']);
+      } else {
+        log(body.toString());
+        return ResetPasswordResponse(is_success: body['is_success'], message: body['message']);
+      }
+    } catch (e) {
+      log('Reset password failed: server error $e');
     }
     return null;
   }

@@ -3,13 +3,13 @@ import 'package:flutter/material.dart';
 class ArticleCard extends StatefulWidget {
   final String title;
   final String author;
-  final String imageUrl;
+  final String? imageUrl;
 
   const ArticleCard({
     Key? key,
     required this.title,
     required this.author,
-    required this.imageUrl
+    this.imageUrl
   }): super(key: key);
 
   @override
@@ -44,7 +44,7 @@ class _ArticleCardState extends State<ArticleCard> {
               width: MediaQuery.of(context).size.width * 1,
               height: MediaQuery.of(context).size.height * 0.16,
               child: Image.asset(
-                widget.imageUrl,
+                widget.imageUrl ?? 'images/mental_image.png',
                 fit: BoxFit.cover,
               ),
             ),

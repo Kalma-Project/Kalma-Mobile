@@ -1,10 +1,11 @@
 import 'dart:async';
-
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:flutter_ta/config/token/constants.dart';
+import 'package:flutter_ta/general/fail_verifymail_screen.dart';
 import 'package:flutter_ta/general/register/screen/success_register_screen.dart';
-import 'package:flutter_ta/general/splach_screen.dart';
+import 'package:flutter_ta/general/reset_password/screen/resetpass_screen.dart';
 import 'package:flutter_ta/general/success_email_verification.dart';
 import 'package:flutter_ta/self_management/breathing_meditation/screen/breathing_screen.dart';
 import 'package:flutter_ta/general/dashboard/screen/dashboard_screen.dart';
@@ -14,6 +15,7 @@ import 'package:flutter_ta/self_management/music/screen/song_page.dart';
 import 'package:flutter_ta/general/register/screen/register_screen.dart';
 import 'package:provider/provider.dart';
 import 'package:uni_links/uni_links.dart';
+import 'general/splach_screen.dart';
 import 'self_management/music/provider/playlist_provider.dart';
 import 'dart:developer';
 
@@ -39,6 +41,12 @@ class MyApp extends StatefulWidget {
 
 class _MyAppState extends State<MyApp> {
   StreamSubscription? _sub;
+  bool _isInitialUriHandled = false;
+  bool _navigateToSuccessEmailVerification = false;
+  bool _navigateToFailVerifyMail = false;
+  bool _navigateToResetPassword = false;
+  String resetPassToken = '';
+  final dio = Dio();
 
   @override
   void initState() {
@@ -53,20 +61,14 @@ class _MyAppState extends State<MyApp> {
   }
 
   Future<void> initUniLinks() async {
-
-    _sub = linkStream.listen((String? link) {
-      if (link != null) {
-        _navigateToPage(link);
-      }
-    }, onError: (err) {
-      // Handle exception
-    });
-
-    // For handling app links on app start
     try {
       final initialLink = await getInitialLink();
       if (initialLink != null) {
-        _navigateToPage(initialLink);
+        log('ini initial link dari button $initialLink');
+        setState(() {
+          _isInitialUriHandled = true;
+        });
+        await _navigateToPage(initialLink);
       }
     } catch (e) {
       // Handle exception
@@ -75,21 +77,34 @@ class _MyAppState extends State<MyApp> {
 
   Future<void> _navigateToPage(String link) async {
     if (link.contains('https://kalma-webapp.vercel.app/verify-email')) {
-      // Parse the URL and extract the token
       final uri = Uri.parse(link);
-      final token = uri.queryParameters['token'];
+      final mailToken = uri.queryParameters['token'];
 
-      if (token != null) {
-        const storage = FlutterSecureStorage();
-        await storage.write(key: accessToken, value: token);
-        log(token);
+      if (mailToken != null) {
+        Response response = await dio.get(
+            'https://kalma-backend-production.up.railway.app/api/user/verify-email/$mailToken'
+        );
+        if (response.statusCode == 200) {
+          log('token from email: $mailToken');
+          setState(() {
+            _navigateToSuccessEmailVerification = true;
+          });
+        } else {
+          setState(() {
+            _navigateToFailVerifyMail = true;
+          });
+        }
       }
+    } else if (link.contains('https://kalma-webapp.vercel.app/reset-password')) {
+      final uri = Uri.parse(link);
+      final passToken = uri.queryParameters['token'];
 
-      // Navigate to the specific page in your app
-      Navigator.push(
-        context,
-        MaterialPageRoute(builder: (context) => const SuccessEmailVerification()),
-      );
+      if (passToken != null) {
+        resetPassToken = passToken;
+        setState(() {
+          _navigateToResetPassword = true;
+        });
+      }
     }
   }
 
@@ -101,9 +116,20 @@ class _MyAppState extends State<MyApp> {
       home: FutureBuilder<String?>(
         future: _checkForToken(),
         builder: (context, snapshot) {
-
           if (snapshot.connectionState == ConnectionState.waiting) {
             return const Center(child: CircularProgressIndicator(color: Color(0xFF64CDC2)));
+          }
+
+          if (_navigateToSuccessEmailVerification && _isInitialUriHandled) {
+            return const SuccessEmailVerification();
+          }
+
+          if (_navigateToFailVerifyMail && _isInitialUriHandled) {
+            return const FailVerifymailScreen();
+          }
+
+          if (_navigateToResetPassword && _isInitialUriHandled) {
+            return ResetPassScreen(resetToken: resetPassToken);
           }
 
           if (!snapshot.hasData || snapshot.data == null) {
@@ -114,13 +140,13 @@ class _MyAppState extends State<MyApp> {
         },
       ),
       routes: {
-        '/dashboard' : (context) => const DashboardScreen(),
-        '/login' : (context) => const LoginScreen(),
-        '/register' : (context) => const RegisterScreen(),
-        '/success_register' : (context) => const SuccessRegisterScreen(),
-        '/forgotPassword' : (context) => const ForgotPassScreen(),
+        '/dashboard': (context) => const DashboardScreen(),
+        '/login': (context) => const LoginScreen(),
+        '/register': (context) => const RegisterScreen(),
+        '/success_register': (context) => const SuccessRegisterScreen(),
+        '/forgotPassword': (context) => const ForgotPassScreen(),
         '/detailMusic': (context) => const SongPage(),
-        '/breathwork' : (context) => const BreathingMeditation(),
+        '/breathwork': (context) => const BreathingMeditation(),
       },
     );
   }

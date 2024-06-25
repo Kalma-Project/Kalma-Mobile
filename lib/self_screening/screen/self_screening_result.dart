@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_ta/general/dashboard/screen/dashboard_screen.dart';
 
 class SelfScreeningResult extends StatelessWidget {
   final String depressionScore;
@@ -185,7 +186,10 @@ class SelfScreeningResult extends StatelessWidget {
                 bottom: 20,
                 child: FilledButton.tonal(
                     onPressed: (){
-                      Navigator.pop(context);
+                      Navigator.pushReplacement(
+                          context,
+                          MaterialPageRoute(builder: (context) => const DashboardScreen()) 
+                      );
                     },
                     style: ButtonStyle(
                         backgroundColor: MaterialStateProperty.all<Color>(
