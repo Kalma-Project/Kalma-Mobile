@@ -134,12 +134,10 @@ class _HomeScreenState extends State<HomeScreen> {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: <Widget>[
-                        IconCard(
+                        const IconCard(
                           iconData: Icons.sticky_note_2_rounded,
-                          title: 'Pemeriksaan Diri',
-                          urlPage: SelfScreening(
-                            userProperty: widget.userProperty,
-                          ),
+                          title: 'Pemeriksaan',
+                          urlPage: SelfScreening(),
                         ),
                         IconCard2(
                           iconData: Icons.note_alt_rounded,

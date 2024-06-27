@@ -23,9 +23,6 @@ class SelfManagementService {
           'content': content,
         },
       );
-      if (response.statusCode == 200) {
-        navigatorKey.currentState?.pushNamed('/dashboard');
-      }
       log('New Journal Post Status: ${response.data.toString()}');
     } catch (e) {
       log('Error Add New Journal: $e');

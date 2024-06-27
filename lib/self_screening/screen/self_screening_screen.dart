@@ -5,11 +5,8 @@ import 'package:flutter_ta/self_screening/screen/self_screening_result.dart';
 import 'package:flutter_ta/widget/back_button.dart';
 import 'dart:developer';
 
-import '../../model/general/general.dart';
-
 class SelfScreening extends StatefulWidget {
-  final UserProperty userProperty;
-  const SelfScreening({super.key, required this.userProperty});
+  const SelfScreening({super.key});
 
   @override
   State<SelfScreening> createState() => _SelfScreeningState();
@@ -28,7 +25,6 @@ class _SelfScreeningState extends State<SelfScreening> {
   Map<int, int> questionAnswers = {};
 
   int _currentPage = 0;
-  bool isAnswerTapped = false;
 
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
 
@@ -40,93 +36,90 @@ class _SelfScreeningState extends State<SelfScreening> {
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 14.0),
           child: Column(
-              children: [
-                CustomBackButton(text: 'Self Screening', onPressed: (){
+            children: [
+              CustomBackButton(
+                text: 'Self Screening',
+                onPressed: () {
                   Navigator.pop(context);
-                },),
-                const SizedBox(
-                  height: 24.0,
+                },
+              ),
+              const SizedBox(
+                height: 24.0,
+              ),
+              Container(
+                height: MediaQuery.of(context).size.height * 0.68,
+                child: PageView.builder(
+                  controller: _pageController,
+                  itemCount: questions.length,
+                  physics: const NeverScrollableScrollPhysics(),
+                  onPageChanged: (int page) {
+                    setState(() {
+                      _currentPage = page;
+                    });
+                  },
+                  itemBuilder: (context, index) {
+                    return buildQuestionPage(index);
+                  },
                 ),
-                Container(
-                  height: MediaQuery.of(context).size.height * 0.68,
-                  child: PageView.builder(
-                      controller: _pageController,
-                      itemCount: questions.length,
-                      physics: const NeverScrollableScrollPhysics(),
-                      onPageChanged: (int page) {
-                        setState(() {
-                          _currentPage = page;
-                        });
-                      },
-                      itemBuilder: (context, index) {
-                        return buildQuestionPage(index);
-                      }),
-                ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    FilledButton.tonal(
-                      onPressed: () {
-                        if (_currentPage > 0) {
-                          _pageController.previousPage(
-                            duration: const Duration(milliseconds: 500),
-                            curve: Curves.ease,
-                          );
-                          setState(() {
-                            isAnswerTapped = true;
-                          });
-                        }
-                      },
-                      style: ButtonStyle(
-                        backgroundColor: MaterialStateProperty.all<Color>(
-                            const Color(0xFFF0E7E7)),
-                      ),
-                      child: const Text(
-                        'Kembali',
-                        style: TextStyle(
-                          color: Color(0xFF2F9296),
-                          fontSize: 14.0,
-                          fontWeight: FontWeight.w600,
-                        ),
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  FilledButton.tonal(
+                    onPressed: () {
+                      if (_currentPage > 0) {
+                        _pageController.previousPage(
+                          duration: const Duration(milliseconds: 500),
+                          curve: Curves.ease,
+                        );
+                      }
+                    },
+                    style: ButtonStyle(
+                      backgroundColor: MaterialStateProperty.all<Color>(
+                          const Color(0xFFF0E7E7)),
+                    ),
+                    child: const Text(
+                      'Kembali',
+                      style: TextStyle(
+                        color: Color(0xFF2F9296),
+                        fontSize: 14.0,
+                        fontWeight: FontWeight.w600,
                       ),
                     ),
-                    const SizedBox(
-                      width: 20,
+                  ),
+                  const SizedBox(
+                    width: 20,
+                  ),
+                  FilledButton.tonal(
+                    onPressed: questionAnswers.containsKey(_currentPage) ? () {
+                      if (_currentPage < questions.length - 1) {
+                        _pageController.nextPage(
+                          duration: const Duration(milliseconds: 500),
+                          curve: Curves.ease,
+                        );
+                      } else {
+                        showScore();
+                      }
+                    } : null,
+                    style: ButtonStyle(
+                      backgroundColor: MaterialStateProperty.all<Color>(
+                          const Color(0xFF2F9296)),
                     ),
-                    FilledButton.tonal(
-                      onPressed: () {
-                        if (isAnswerTapped) {
-                          if (_currentPage < questions.length - 1) {
-                            _pageController.nextPage(
-                              duration: const Duration(milliseconds: 500),
-                              curve: Curves.ease,
-                            );
-                            setState(() {
-                              isAnswerTapped = false;
-                            });
-                          } else {
-                            showScore();
-                          }
-                        }
-                      },
-                      style: ButtonStyle(
-                        backgroundColor: MaterialStateProperty.all<Color>(
-                            const Color(0xFF2F9296)),
-                      ),
-                      child: Text(
-                        _currentPage == questions.length - 1
-                            ? 'Kumpulkan'
-                            : 'Selanjutnya',
-                        style: const TextStyle(
-                          color: Colors.white,
-                          fontSize: 14.0,
-                          fontWeight: FontWeight.w600,
-                        ),
+                    child: Text(
+                      _currentPage == questions.length - 1
+                          ? 'Kumpulkan'
+                          : 'Selanjutnya',
+                      style: const TextStyle(
+                        color: Colors.white,
+                        fontSize: 14.0,
+                        fontWeight: FontWeight.w600,
                       ),
                     ),
-                  ],
-                )
-              ]),
+                  ),
+                ],
+              )
+            ],
+          ),
         ),
       ),
     );
@@ -158,19 +151,19 @@ class _SelfScreeningState extends State<SelfScreening> {
                   ),
                 ),
               ),
-              Positioned(
-                top: 60,
-                left: 0,
-                right: 0,
-                child: Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 14.0),
-                  child: Text(
-                    questions[index]['question'],
-                    style: const TextStyle(
-                        fontSize: 20,
-                        fontWeight: FontWeight.w600,
-                        color: Color(0xFFf0e7e7)),
-                    textAlign: TextAlign.center,
+              Container(
+                height: MediaQuery.of(context).size.height * 0.265,
+                child: Center(
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 14.0),
+                    child: Text(
+                      questions[index]['question'],
+                      style: const TextStyle(
+                          fontSize: 20,
+                          fontWeight: FontWeight.w600,
+                          color: Color(0xFFf0e7e7)),
+                      textAlign: TextAlign.center,
+                    ),
                   ),
                 ),
               )
@@ -190,14 +183,15 @@ class _SelfScreeningState extends State<SelfScreening> {
                           ? Border.all(color: const Color(0xFF2f9296), width: 1.0)
                           : null,
                       borderRadius: const BorderRadius.all(Radius.circular(20)),
-                      color: questionAnswers[index] == answerIndex ? Colors.blue.withOpacity(0.3) : null,
+                      color: questionAnswers[index] == answerIndex
+                          ? Colors.blue.withOpacity(0.3)
+                          : null,
                     ),
                     child: ListTile(
                       title: Text(questions[index]['answer'][answerIndex]),
                       onTap: () {
                         setState(() {
                           questionAnswers[index] = answerIndex;
-
                           String category = questions[index]['category'];
                           int categoryIndex = questions
                               .where((q) => q['category'] == category)
@@ -205,7 +199,6 @@ class _SelfScreeningState extends State<SelfScreening> {
                               .indexOf(questions[index]);
 
                           categoryScores[category]![categoryIndex] = answerIndex;
-                          isAnswerTapped = true;
                         });
                       },
                     ),

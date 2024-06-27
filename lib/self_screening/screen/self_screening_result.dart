@@ -57,8 +57,15 @@ class SelfScreeningResult extends StatelessWidget {
                 fit: BoxFit.cover,
               ),
             ),
+            Positioned(
+                top: 40,
+                child: Text(
+                  'Skor Hasil Pemeriksaan',
+                  style: statusStyle,
+                )
+            ),
             Container(
-              margin: const EdgeInsets.only(top: 90),
+              margin: const EdgeInsets.only(top: 120),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 crossAxisAlignment: CrossAxisAlignment.center,
@@ -188,7 +195,7 @@ class SelfScreeningResult extends StatelessWidget {
                     onPressed: (){
                       Navigator.pushReplacement(
                           context,
-                          MaterialPageRoute(builder: (context) => const DashboardScreen()) 
+                          MaterialPageRoute(builder: (context) => const DashboardScreen())
                       );
                     },
                     style: ButtonStyle(

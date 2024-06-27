@@ -97,16 +97,16 @@ class _JournalingPageState extends State<JournalingPage> {
                   EmotionCardWidget(
                     emotion: 'marah',
                     icons: 'images/angry_icon_svg.svg',
-                    emotionBgColor: const Color(0xFFCDEDE1),
-                    borderColor: const Color(0xFF59B08F),
+                    emotionBgColor: const Color(0xFFFED6CD),
+                    borderColor: const Color(0xFFC39B33),
                     selectedEmotion: selectedEmotion,
                     onEmotionSelected: toggleCardBorder,
                   ),
                   EmotionCardWidget(
                     emotion: 'bahagia',
                     icons: 'images/excited_icon_svg.svg',
-                    emotionBgColor: const Color(0xFFFEF0CD),
-                    borderColor: const Color(0xFFC39B33),
+                    emotionBgColor: const Color(0xFFA0E7D2),
+                    borderColor: const Color(0xFF12936C),
                     selectedEmotion: selectedEmotion,
                     onEmotionSelected: toggleCardBorder,
                   ),
@@ -115,13 +115,15 @@ class _JournalingPageState extends State<JournalingPage> {
             ),
             FilledButton.tonal(
               onPressed: () => {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                      builder: (context) => InputJournal(
-                        emotion: selectedEmotion,
-                      )),
-                )
+                if (selectedEmotion != '') {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => InputJournal(
+                          emotion: selectedEmotion,
+                        )),
+                  )
+                }
               },
               style: ButtonStyle(
                 backgroundColor:

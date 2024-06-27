@@ -100,8 +100,15 @@ class _SelfScreeningDetailScreenState extends State<SelfScreeningDetailScreen> {
                   fit: BoxFit.cover,
                 ),
               ),
+              Positioned(
+                  top: 40,
+                  child: Text(
+                      'Skor Hasil Pemeriksaan',
+                    style: statusStyle,
+                  )
+              ),
               Container(
-                margin: const EdgeInsets.only(top: 90),
+                margin: const EdgeInsets.only(top: 120),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   crossAxisAlignment: CrossAxisAlignment.center,

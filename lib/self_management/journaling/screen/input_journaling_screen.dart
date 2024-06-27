@@ -62,7 +62,8 @@ class _InputJournalState extends State<InputJournal> {
             );
           },
         );
-
+        journalingController.clear();
+        titleController.clear();
         log('Journal Submitted $submitJournal');
       } catch (e) {
         setState(() {
