@@ -33,7 +33,12 @@ class SongPage extends StatelessWidget {
           child: Stack(
             children: [
               Positioned.fill(
-                child: Image.asset(
+                child: currentSong.imgUrl.startsWith('http') || currentSong.imgUrl.startsWith('https')
+                    ? Image.network(
+                  currentSong.imgUrl,
+                  fit: BoxFit.fill,
+                )
+                    : Image.asset(
                   currentSong.imgUrl,
                   fit: BoxFit.fill,
                 ),

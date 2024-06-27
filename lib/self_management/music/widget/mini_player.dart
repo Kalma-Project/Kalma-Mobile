@@ -36,7 +36,14 @@ class MiniPlayer extends StatelessWidget {
               padding: const EdgeInsets.only(top: 8, right: 12, left: 12),
               child: Row(
                 children: [
-                  Image.asset(
+                  currentSong.imgUrl.startsWith('http') || currentSong.imgUrl.startsWith('https')
+                      ? Image.network(
+                    currentSong.imgUrl,
+                    width: 44,
+                    height: 44,
+                    fit: BoxFit.cover,
+                  )
+                      : Image.asset(
                     currentSong.imgUrl,
                     width: 44,
                     height: 44,
