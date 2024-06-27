@@ -23,7 +23,7 @@ class ApiService {
       connectTimeout: const Duration(seconds: 60),
       receiveTimeout: const Duration(seconds: 60),
       validateStatus: (status) {
-        return status! < 500;
+        return status != null && status <= 400;
       }
     ));
 
@@ -119,14 +119,10 @@ class ApiService {
 
       if (response.statusCode == 200) {
         final body = response.data;
-        if (body['is_success'] == true) {
-          String newAccessToken = body['access_token'];
-          await _secureStorage.write(key: accessToken, value: newAccessToken);
-          log('Token refreshed successfully: $newAccessToken');
-          return true;
-        } else {
-          log('Failed to refresh token: ${body['message']}');
-        }
+        String newAccessToken = body['access_token'];
+        await _secureStorage.write(key: accessToken, value: newAccessToken);
+        log('Token refreshed successfully: $newAccessToken');
+        return true;
       } else if (response.statusCode == 401) {
         await clearTokens();
         navigatorKey.currentState?.pushNamed('/login');

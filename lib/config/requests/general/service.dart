@@ -92,10 +92,12 @@ class AuthService {
       Response response = await apiService.dio.get(get_user_property);
       if (response.statusCode == 200) {
         final data = response.data;
+        log('User property fetched');
+        return UserProperty.fromJson(data);
+      } else {
+        final data = response.data;
         return UserProperty.fromJson(data);
       }
-      log('User property fetched');
-      log(response.data);
     } catch (e) {
       log('User property failed: server error $e');
     }
