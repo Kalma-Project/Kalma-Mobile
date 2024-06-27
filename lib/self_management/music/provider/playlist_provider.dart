@@ -69,7 +69,7 @@ class PlayListProvider extends ChangeNotifier {
       List<Map<String, dynamic>> musicData = await _managementService.getMusicData(pageKey, pagingController);
 
       List<Song> newSongs = musicData.map((data) => Song(
-        imgUrl: data['imgUrl'] ?? 'music_images/3.jpeg', //belom ada di API
+        imgUrl: data['music_image'] ?? 'music_images/3.jpeg', //belom ada di API
         titleSong: data['title'] ?? '',
         artistName: data['author'] ?? '',
         audioPath: data['music_link'] ?? '',
@@ -184,7 +184,7 @@ class PlayListProvider extends ChangeNotifier {
     _audioPlayer.onPlayerComplete.listen((event) {
       if (_isShuffleActive) {
         shuffleNextSong();
-      } if (_isRepeatActive) {
+      }if (_isRepeatActive) {
         repeatCurrentSong();
       } else {
         playNextSong();
@@ -208,8 +208,7 @@ class PlayListProvider extends ChangeNotifier {
   //repeat the current song after the current song finished
   void repeatCurrentSong(){
     if (_currentSongIndex != null) {
-      seek(Duration.zero);
-      play();
+      currentSongIndex = _currentSongIndex;
     }
   }
 
