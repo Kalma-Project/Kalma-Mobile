@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_ta/config/requests/general/service.dart';
 import 'package:flutter_ta/model/general/general.dart';
 import 'package:flutter_ta/widget/primary_custom_button.dart';
+import 'package:flutter_ta/widget/success_alert.dart';
 
 import '../../../widget/failure_alert.dart';
 
@@ -41,6 +42,15 @@ class _ForgotPassScreenState extends State<ForgotPassScreen> {
           setState(() {
             isLoading = false;
           });
+          showDialog(
+              context: context,
+              builder: (BuildContext context) {
+                return SuccessAlert(
+                    title: 'Permintaan Berhasil Dikirim',
+                    message: sendForgotPassword.message
+                );
+              }
+          );
         } else {
           showDialog(
             context: context,

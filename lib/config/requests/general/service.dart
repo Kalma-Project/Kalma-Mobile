@@ -30,11 +30,21 @@ class AuthService {
         await _secureStorage.write(key: accessToken, value: body['access_token']);
         await _secureStorage.write(key: refresh_token, value: body['refresh_token']);
         log('Login successful. Access token and refresh token stored.');
-        return AuthUser(token: body['access_token'], message: body['message'], is_email_verified: body['is_email_verified'], refresh_token: body['refresh_token']);
+        return AuthUser(
+            token: body['access_token'],
+            message: body['message'],
+            is_email_verified: body['is_email_verified'],
+            refresh_token: body['refresh_token'],
+            is_success: body['is_success']
+        );
       } else {
         final body = response.data;
         log('Login failed: ${response.data}');
-        return AuthUser(message: body['message'], is_email_verified: body['is_email_verified']);
+        return AuthUser(
+            message: body['message'],
+            is_email_verified: body['is_email_verified'],
+            is_success: body['is_success']
+        );
       }
     } catch (e) {
       log('Login failed: $e');

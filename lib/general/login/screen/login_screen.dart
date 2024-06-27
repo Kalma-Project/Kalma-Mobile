@@ -9,6 +9,7 @@ import 'dart:developer';
 import 'package:flutter_ta/widget/primary_custom_button.dart';
 
 import '../../../model/general/general.dart';
+import '../../../widget/failure_alert.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
@@ -42,30 +43,52 @@ class _LoginScreenState extends State<LoginScreen> {
       AuthUser? user = await _authService.login(emailunameController.text, passwordController.text);
 
      if (user != null){
-       if (user.token != null) {
+       if (user.token != null && user.is_success == true) {
          Navigator.pushAndRemoveUntil(
              context,
              MaterialPageRoute(builder: (context) => const DashboardScreen()),
                  (route) => false,
          );
+         setState(() {
+           isLoading = false;
+         });
+       } else {
+         showDialog(
+           context: context,
+           builder: (BuildContext context) {
+             return FailureAlert(
+               title: 'Login Gagal',
+               message: user.message ?? 'Login anda gagal dikarenakan beberapa sebab',
+               action: () {
+                 Navigator.pop(context, 'OK');
+               },
+             );
+           },
+         );
+         setState(() {
+           isLoading = false;
+         });
        }
-       setState(() {
-         isLoading = false;
-       });
      } else {
        log('Login failed: user is null');
-       setState(() {
-         emailError = true;
-         passwordError = true;
-       });
        setState(() {
          isLoading = false;
        });
      }
     } else {
+      showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return FailureAlert(
+            title: 'Data Tidak Sesuai',
+            message: 'Mohon untuk melengkapi semua input teks yang tersedia!',
+            action: () {
+              Navigator.pop(context, 'OK');
+            },
+          );
+        },
+      );
       setState(() {
-        emailError = true;
-        passwordError = true;
         isLoading = false;
       });
     }

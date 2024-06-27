@@ -39,7 +39,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
       passwordController,
     ];
 
-    if (controllers.every((element) => element.text.isNotEmpty)) {
+    if (controllers.every((element) => element.text.isNotEmpty) && isChecked) {
       try {
         await _registerService.registerUserRequest(
           emailController.text,
@@ -54,7 +54,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
           context: context,
           builder: (BuildContext context) {
             return FailureAlert(
-                title: 'Register Failed',
+                title: 'Register Gagal',
                 message: e.toString(),
                 action: () {
                   Navigator.pop(context, 'OK');
@@ -69,6 +69,18 @@ class _RegisterScreenState extends State<RegisterScreen> {
       }
     } else {
       log('Please fill all the fields');
+      showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return FailureAlert(
+            title: 'Data Tidak Lengkap',
+            message: 'Mohon untuk melengkapi semua input teks dan persetujuan syarat ketentuan!.',
+            action: () {
+              Navigator.pop(context, 'OK');
+            },
+          );
+        },
+      );
       setState(() {
         isLoading = false;
       });

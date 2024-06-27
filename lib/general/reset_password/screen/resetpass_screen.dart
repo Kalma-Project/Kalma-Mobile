@@ -76,9 +76,19 @@ class _ResetPassScreenState extends State<ResetPassScreen> {
         }
       }
     } else {
+      showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return FailureAlert(
+            title: 'Data Tidak Lengkap',
+            message: 'Mohon untuk melengkapi semua input teks yang tersedia!',
+            action: () {
+              Navigator.pop(context, 'OK');
+            },
+          );
+        },
+      );
       setState(() {
-        passwordError = true;
-        confirmpasswordError = true;
         isLoading = false;
       });
     }
