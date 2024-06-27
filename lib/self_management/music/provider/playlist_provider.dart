@@ -184,7 +184,7 @@ class PlayListProvider extends ChangeNotifier {
     _audioPlayer.onPlayerComplete.listen((event) {
       if (_isShuffleActive) {
         shuffleNextSong();
-      } if (_isRepeatActive) {
+      }if (_isRepeatActive) {
         repeatCurrentSong();
       } else {
         playNextSong();
@@ -208,8 +208,7 @@ class PlayListProvider extends ChangeNotifier {
   //repeat the current song after the current song finished
   void repeatCurrentSong(){
     if (_currentSongIndex != null) {
-      seek(Duration.zero);
-      play();
+      currentSongIndex = _currentSongIndex;
     }
   }
 
