@@ -1,11 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:flutter_ta/config/api_service.dart';
+import 'package:flutter_ta/general/login/screen/login_screen.dart';
 
 class EmailVerification extends StatelessWidget {
   const EmailVerification({super.key});
 
   @override
   Widget build(BuildContext context) {
+    ApiService apiService = ApiService();
     Widget emailSvg = SvgPicture.asset(
       'images/email_verification_icon.svg',
       semanticsLabel: 'email icon',
@@ -79,15 +82,19 @@ class EmailVerification extends StatelessWidget {
                   child: Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 14.0),
                     child: FilledButton.tonal(
-                      onPressed: ()=>{
-                        // later will added
+                      onPressed: () async {
+                        await apiService.clearTokens();
+                        Navigator.pushReplacement(
+                            context, 
+                            MaterialPageRoute(builder: (context) => const LoginScreen())
+                        );
                       },
                       style: ButtonStyle(
                         backgroundColor: MaterialStateProperty.all<Color>(
                             const Color(0xFFFFFFFF)),
                       ),
                       child: const Text(
-                        'Kirim Ulang Link',
+                        'Kembali ke Halaman Login',
                         style: TextStyle(
                           color: Color(0xFF2F9296),
                           fontSize: 14.0,
@@ -97,40 +104,6 @@ class EmailVerification extends StatelessWidget {
                     ),
                   ),
                 ),
-                const SizedBox(
-                  height: 95.0,
-                ),
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 14.0),
-                  child: FilledButton.tonal(
-                      onPressed: (){
-                        // later will added
-                      },
-                      style: ButtonStyle(
-                        backgroundColor: MaterialStateProperty.all<Color>(
-                          Colors.transparent
-                        )
-                      ),
-                      child: const Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: <Widget>[
-                          Icon(
-                            Icons.arrow_back,
-                            size: 20,
-                            color: Color(0xFFF6F1F1),
-                          ),
-                          Text(
-                            'Kembali ke Halaman Login',
-                            style: TextStyle(
-                              color: Color(0xFFF6F1F1),
-                              fontSize: 14.0,
-                              fontWeight: FontWeight.w600,
-                            ),
-                          ),
-                        ],
-                      )
-                  ),
-                )
               ],
             )
           ],

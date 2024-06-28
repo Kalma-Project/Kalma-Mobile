@@ -5,10 +5,12 @@ import 'package:flutter_ta/config/api_service.dart';
 import 'package:flutter_ta/config/requests/general/service.dart';
 import 'package:flutter_ta/config/token/constants.dart';
 import 'package:flutter_ta/general/dashboard/screen/home/home_screen.dart';
+import 'package:flutter_ta/general/email_verification.dart';
 import 'package:flutter_ta/self_management/music/screen/list_music_page.dart';
 import 'package:flutter_ta/self_management/breathing_meditation/screen/breathing_screen.dart';
 import '../../../model/general/general.dart';
 import '../../../self_management/journaling/screen/journaling_screen.dart';
+import '../../../widget/action_alert.dart';
 
 class DashboardScreen extends StatefulWidget {
   const DashboardScreen({super.key});
@@ -48,6 +50,11 @@ class _DashboardScreenState extends State<DashboardScreen> {
            const BreathingMeditation(),
            const ListMusic(),
         ];
+      } else {
+        Navigator.pushReplacement(
+            context,
+            MaterialPageRoute(builder: (context) => const EmailVerification())
+        );
       }
     });
   }
@@ -78,7 +85,18 @@ class _DashboardScreenState extends State<DashboardScreen> {
       theme: ThemeData(fontFamily: 'JakartaSans'),
       home: WillPopScope(
         onWillPop: () async {
-          SystemNavigator.pop();
+          showDialog(
+            context: context,
+            builder: (context) => ActionAlert(
+              title: 'Keluar Aplikasi',
+              message: 'Apakah anda yakin akan keluar dari aplikasi?',
+              action1: () => Navigator.of(context).pop(false),
+              action2: () {
+                Navigator.of(context).pop(true);
+                SystemNavigator.pop();
+              },
+            ),
+          );
           return false;
         },
         child: Scaffold(

@@ -1,10 +1,13 @@
 import 'dart:developer';
 
 import 'package:dio/dio.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter_ta/main.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
+import 'package:provider/provider.dart';
 
 import '../../../model/general/general.dart';
+import '../../../self_management/music/provider/playlist_provider.dart';
 import '../../api_service.dart';
 import '../../endpoints.dart';
 
@@ -139,5 +142,12 @@ class SelfManagementService {
       log('Error getting detail data: $e');
     }
     return null;
+  }
+
+  Future<void> stopMusicWhenLogout(BuildContext context) async {
+    await apiService.clearTokens();
+
+    final playListProvider = Provider.of<PlayListProvider>(context, listen: false);
+    playListProvider.stop();
   }
 }

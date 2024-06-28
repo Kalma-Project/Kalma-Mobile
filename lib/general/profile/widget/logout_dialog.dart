@@ -1,8 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_ta/config/requests/self_management/service.dart';
 import 'package:flutter_ta/general/login/screen/login_screen.dart';
 import 'package:flutter_ta/config/api_service.dart';
+import 'package:flutter_ta/self_management/music/provider/playlist_provider.dart';
 
 void showLogoutConfirmationDialog(BuildContext context) {
+  SelfManagementService selfManagementService = SelfManagementService();
+
   showDialog(
     context: context,
     builder: (BuildContext context) {
@@ -19,7 +23,7 @@ void showLogoutConfirmationDialog(BuildContext context) {
           ),
           TextButton(
             onPressed:() async {
-              await apiService.clearTokens();
+              await selfManagementService.stopMusicWhenLogout(context);
               Navigator.pushAndRemoveUntil(
                 context,
                 MaterialPageRoute(builder: (context) => const LoginScreen()),

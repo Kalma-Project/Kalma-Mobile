@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_ta/config/requests/general/service.dart';
 import 'package:flutter_ta/general/dashboard/screen/dashboard_screen.dart';
+import 'package:flutter_ta/general/email_verification.dart';
 import 'package:flutter_ta/general/forgot_password/screen/forgotpass_screen.dart';
 import 'package:flutter_ta/widget/action_alert.dart';
 import 'dart:developer';
@@ -52,6 +53,11 @@ class _LoginScreenState extends State<LoginScreen> {
          setState(() {
            isLoading = false;
          });
+       } else if (user.is_success == true && user.is_email_verified == false) {
+         Navigator.pushReplacement(
+             context, 
+             MaterialPageRoute(builder: (context) => const EmailVerification())
+         );
        } else {
          showDialog(
            context: context,
