@@ -195,6 +195,59 @@ class ResetPasswordResponse {
   }
 }
 
+class UpdateUserResponse {
+  bool is_success;
+  String message;
+  UpdateUserErrorDetails? error_details;
+
+  UpdateUserResponse({
+    required this.is_success,
+    required this.message,
+    this.error_details
+  });
+}
+
+class UpdateUserErrorDetails {
+  String? email;
+  String? username;
+  String? full_name;
+  String? age;
+  String? avatar;
+  String? user_privacy;
+
+  UpdateUserErrorDetails({
+    this.username,
+    this.email,
+    this.full_name,
+    this.age,
+    this.avatar,
+    this.user_privacy
+  });
+
+  factory UpdateUserErrorDetails.fromMap(Map<String, dynamic> map) {
+    return UpdateUserErrorDetails(
+      email: map['email'] as String?,
+      username: map['username'] as String?,
+      full_name: map['full_name'] as String?,
+      age: map['age'] as String?,
+      avatar: map['avatar'] as String?,
+      user_privacy: map['user_privacy'] as String?,
+    );
+  }
+
+  Map<String, dynamic> toMap() {
+    return {
+      'email': email,
+      'username': username,
+      'full_name': full_name,
+      'age': age,
+      'avatar': avatar,
+      'user_privacy': user_privacy,
+    };
+  }
+}
+
+
 class JournalHistoryResponse {
   final int size;
   final int page;

@@ -6,6 +6,9 @@ class CustomTextField extends StatefulWidget {
   final String placeHolder;
   final TextEditingController? controller;
   final FocusNode? focusNode;
+  final TextInputType? inputType;
+  final String? errorText;
+  final Function(String)? onChanged;
 
   const CustomTextField({
     Key? key,
@@ -13,6 +16,9 @@ class CustomTextField extends StatefulWidget {
     required this.placeHolder,
     this.controller,
     this.focusNode,
+    this.inputType,
+    this.errorText,
+    this.onChanged
   }) : super(key: key);
 
   @override
@@ -42,8 +48,10 @@ class _CustomTextFieldState extends State<CustomTextField> {
     return Padding(
       padding: const EdgeInsets.all(16),
       child: TextField(
+        onChanged: widget.onChanged,
         cursorColor: const Color(0xff2F9296),
         controller: _controller,
+        keyboardType: widget.inputType,
         focusNode: _focusNode,
         style: GoogleFonts.plusJakartaSans(
           color: const Color(0xff3D3D3D),
@@ -55,6 +63,7 @@ class _CustomTextFieldState extends State<CustomTextField> {
           labelStyle: const TextStyle(
             color: Color(0xff3D3D3D),
           ),
+          errorText: widget.errorText ?? '',
           floatingLabelBehavior: FloatingLabelBehavior.always,
           suffixIcon: isFocused
               ? IconButton(

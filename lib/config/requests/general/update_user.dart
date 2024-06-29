@@ -1,6 +1,7 @@
 import 'dart:developer';
 
 import 'package:dio/dio.dart';
+import 'package:flutter_ta/model/general/general.dart';
 import 'dart:typed_data';
 import 'package:http_parser/http_parser.dart';
 
@@ -12,7 +13,7 @@ import '../../endpoints.dart';
 class UpdateUser {
   final ApiService _apiService = ApiService();
 
-  Future<void> updateProfile({
+  Future<UpdateUserResponse?> updateProfile({
     required String fullName,
     required String age,
     required String email,
@@ -28,7 +29,6 @@ class UpdateUser {
           filename: 'avatar.jpg',
           contentType: MediaType('image', 'jpeg'),
         );
-
       }
 
       FormData formData = FormData.fromMap({
@@ -46,29 +46,29 @@ class UpdateUser {
       );
 
       if (response.statusCode == 200) {
+        final body = response.data;
         navigatorKey.currentState?.pushNamed('/dashboard');
-        log('Profile updated successfully: ${response.data}');
-      }
-      log('Updated Profile Status: ${response.data.toString()}');
-
-    } catch (e) {
-      if (e is DioException) {
-        if (e.response?.statusCode == 400) {
-          final errorDetails = e.response?.data['error_details'];
-          final errorMessage = e.response?.data['message'];
-          log('Error updating profile: $errorMessage');
-          if (errorDetails != null) {
-            errorDetails.forEach((field, error) {
-              log('Error in $field: $error');
-            });
-          }
-        } else {
-          final errorMessage = e.response?.data['message'];
-          log('Unauthorized error: $errorMessage');
-        }
+        log('Profile updated successfully: $body');
+        return UpdateUserResponse(
+          is_success: body['is_success'],
+          message: body['message'],
+        );
       } else {
-        log('Unexpected error: $e');
+        final body = response.data;
+        UpdateUserErrorDetails? errorDetails;
+        if (body['error_details'] != null) {
+          errorDetails = UpdateUserErrorDetails.fromMap(body['error_details']);
+        }
+        return UpdateUserResponse(
+          is_success: body['is_success'],
+          message: body['message'],
+          error_details: errorDetails,
+        );
       }
+    } catch (e) {
+      log('User property failed to update: server error $e');
     }
+    return null;
   }
+
 }
