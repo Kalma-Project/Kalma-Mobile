@@ -50,7 +50,6 @@ class _HomeScreenState extends State<HomeScreen> {
       debugShowCheckedModeBanner: false,
       theme: ThemeData(fontFamily: 'JakartaSans'),
       home: Scaffold(
-        resizeToAvoidBottomInset: false,
         body: SafeArea(
           child: Container(
             height: MediaQuery.of(context).size.height,
@@ -160,117 +159,114 @@ class _HomeScreenState extends State<HomeScreen> {
                     ],
                   ),
                 ),
-                Expanded(
-                  child: Container(
-                    margin: const EdgeInsets.only(top: 14.0),
-                    padding: const EdgeInsets.only(left: 19.0, right: 19.0, top: 22.0),
-                    width: double.infinity,
-                    height: double.infinity,
-                    decoration: const BoxDecoration(
-                        color: Color(0xFFF6F1F1),
-                        borderRadius: BorderRadius.only(
-                            topLeft: Radius.circular(40),
-                            topRight: Radius.circular(40)
-                        )
-                    ),
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      mainAxisSize: MainAxisSize.max,
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      verticalDirection: VerticalDirection.down,
-                      children: <Widget>[
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: <Widget>[
-                            const Text(
-                              'Bacaan Hari Ini!',
-                              style: TextStyle(
-                                  fontSize: 20.0,
-                                  fontWeight: FontWeight.w600,
-                                  color: Color(0xFF3D3D3D)
+                Container(
+                  margin: const EdgeInsets.only(top: 14.0),
+                  padding: const EdgeInsets.only(left: 19.0, right: 19.0, top: 22.0),
+                  height: 285,
+                  decoration: const BoxDecoration(
+                      color: Color(0xFFF6F1F1),
+                      borderRadius: BorderRadius.only(
+                          topLeft: Radius.circular(40),
+                          topRight: Radius.circular(40)
+                      )
+                  ),
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    mainAxisSize: MainAxisSize.max,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    verticalDirection: VerticalDirection.down,
+                    children: <Widget>[
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: <Widget>[
+                          const Text(
+                            'Bacaan Hari Ini!',
+                            style: TextStyle(
+                                fontSize: 20.0,
+                                fontWeight: FontWeight.w600,
+                                color: Color(0xFF3D3D3D)
+                            ),
+                          ),
+                          ElevatedButton(
+                            style: ButtonStyle(
+                              elevation: WidgetStateProperty.all<double>(0),
+                              backgroundColor: WidgetStateProperty.all<Color>(const Color(0xFFE9E0E0)),
+                              shape: WidgetStateProperty.all<RoundedRectangleBorder>(
+                                RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(10),
+                                ),
                               ),
                             ),
-                            ElevatedButton(
-                              style: ButtonStyle(
-                                elevation: WidgetStateProperty.all<double>(0),
-                                backgroundColor: WidgetStateProperty.all<Color>(const Color(0xFFE9E0E0)),
-                                shape: WidgetStateProperty.all<RoundedRectangleBorder>(
-                                  RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(10),
-                                  ),
+                            onPressed: () {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) => const ArticleListPage(),
                                 ),
+                              );
+                            },
+                            child: const Text(
+                              'Lihat Semua',
+                              style: TextStyle(
+                                  fontWeight: FontWeight.w600,
+                                  fontSize: 14.0,
+                                  color: Color(0xFF2F9296)
                               ),
-                              onPressed: () {
-                                Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                    builder: (context) => const ArticleListPage(),
-                                  ),
-                                );
-                              },
-                              child: const Text(
-                                'Lihat Semua',
-                                style: TextStyle(
-                                    fontWeight: FontWeight.w600,
-                                    fontSize: 14.0,
-                                    color: Color(0xFF2F9296)
-                                ),
-                              ),
-                            )
-                          ],
-                        ),
-                        const SizedBox(height: 15.0),
-                        Row(
-                          children: <Widget>[
-                            SizedBox(
-                              width: MediaQuery.of(context).size.width * 0.89,
-                              height: MediaQuery.of(context).size.height * 0.25,
-                              child: PagedListView<int, Map<String, dynamic>>(
-                                  pagingController: _pagingController,
-                                  scrollDirection: Axis.horizontal,
-                                  builderDelegate: PagedChildBuilderDelegate<Map<String, dynamic>>(
-                                    itemBuilder: (context, item, index) => GestureDetector(
-                                      onTap: () {
-                                        Navigator.push(
-                                          context,
-                                          MaterialPageRoute(
-                                            builder: (context) => ArticleDetail(
-                                              title: item['title'],
-                                              imageUrl: item['image'],
-                                              author: item['created_by'],
-                                              paragraph: List<String>.from(item['content']),
+                            ),
+                          )
+                        ],
+                      ),
+                      const SizedBox(height: 15.0),
+                      Row(
+                        children: <Widget>[
+                          SizedBox(
+                            width: MediaQuery.of(context).size.width * 0.89,
+                            height: MediaQuery.of(context).size.height * 0.25,
+                            child: PagedListView<int, Map<String, dynamic>>(
+                                pagingController: _pagingController,
+                                scrollDirection: Axis.horizontal,
+                                builderDelegate: PagedChildBuilderDelegate<Map<String, dynamic>>(
+                                  itemBuilder: (context, item, index) => GestureDetector(
+                                    onTap: () {
+                                      Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                          builder: (context) => ArticleDetail(
+                                            title: item['title'],
+                                            imageUrl: item['image'],
+                                            author: item['created_by'],
+                                            paragraph: List<String>.from(item['content']),
+                                          ),
+                                        ),
+                                      );
+                                    },
+                                    child: Container(
+                                      margin: const EdgeInsets.only(right: 10),
+                                      width: MediaQuery.of(context).size.width / 2.01,
+                                      child: Stack(
+                                        children: [
+                                          Container(
+                                            width: MediaQuery.of(context).size.width / 1.0,
+                                            decoration: BoxDecoration(
+                                                color: const Color(0xFFE9E0E0),
+                                                borderRadius: BorderRadius.circular(20)
                                             ),
                                           ),
-                                        );
-                                      },
-                                      child: Container(
-                                        margin: const EdgeInsets.only(right: 10),
-                                        width: MediaQuery.of(context).size.width / 2.01,
-                                        child: Stack(
-                                          children: [
-                                            Container(
-                                              width: MediaQuery.of(context).size.width / 1.0,
-                                              decoration: BoxDecoration(
-                                                  color: const Color(0xFFE9E0E0),
-                                                  borderRadius: BorderRadius.circular(20)
-                                              ),
-                                            ),
-                                            ArticleCard(
-                                              title: item['title'],
-                                              imageUrl: item['image'],
-                                              author: item['created_by'],
-                                            )
-                                          ],
-                                        ),
+                                          ArticleCard(
+                                            title: item['title'],
+                                            imageUrl: item['image'],
+                                            author: item['created_by'],
+                                          )
+                                        ],
                                       ),
                                     ),
-                                  )
-                              ),
-                            )
-                          ],
-                        )
-                      ],
-                    ),
+                                  ),
+                                )
+                            ),
+                          )
+                        ],
+                      )
+                    ],
                   ),
                 )
               ],
