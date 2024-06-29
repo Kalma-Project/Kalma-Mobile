@@ -50,7 +50,7 @@ class _ListMusicState extends State<ListMusic> {
           return Stack(
             children: [
               Container(
-                height: double.infinity,
+                height: MediaQuery.of(context).size.height,
                 color: const Color(0xffF6F1F1),
                 child: Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 40),

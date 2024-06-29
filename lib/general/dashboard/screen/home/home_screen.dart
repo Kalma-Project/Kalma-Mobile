@@ -53,7 +53,7 @@ class _HomeScreenState extends State<HomeScreen> {
         resizeToAvoidBottomInset: false,
         body: SafeArea(
           child: Container(
-            height: double.infinity,
+            height: MediaQuery.of(context).size.height,
             decoration: const BoxDecoration(
                 gradient: LinearGradient(
                     begin: Alignment.bottomCenter,
