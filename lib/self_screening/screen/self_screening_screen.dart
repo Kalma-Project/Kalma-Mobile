@@ -34,7 +34,7 @@ class _SelfScreeningState extends State<SelfScreening> {
       key: _scaffoldKey,
       body: SingleChildScrollView(
         child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 14.0),
+          padding: const EdgeInsets.only(left: 14.0, right: 14.0, top: 28.0),
           child: Column(
             children: [
               CustomBackButton(

@@ -46,7 +46,7 @@ class _ListMusicState extends State<ListMusic> {
             return const Center(
               child: CircularProgressIndicator(color: Color(0xFF64CDC2)),
             );
-          }else{
+          } else {
           return Stack(
             children: [
               Container(
