@@ -29,60 +29,53 @@ class _CardHomeWidgetState extends State<CardHomeWidget> {
       children: [
         SizedBox(
           height: 100,
-          child: Expanded(
-            child: PageView.builder(
-              controller: _controller,
-              itemCount: contents.length,
-              onPageChanged: (int index){
-                setState(() {
-                  currentIndex = index;
-                });
-              },
-              itemBuilder: (_,i) {
-                CardContent cardContent = contents[i];
-                return Card(
-                    elevation: 0,
-                    color: const Color(0xFF4DA9AC),
-                    shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(20.0)
+          child: PageView.builder(
+            controller: _controller,
+            itemCount: contents.length,
+            onPageChanged: (int index) {
+              setState(() {
+                currentIndex = index;
+              });
+            },
+            itemBuilder: (_, i) {
+              CardContent cardContent = contents[i];
+              return Card(
+                elevation: 0,
+                color: const Color(0xFF4DA9AC),
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(20.0),
+                ),
+                child: ListTile(
+                  title: Text(
+                    cardContent.text,
+                    style: const TextStyle(
+                      fontSize: 14.0,
+                      fontWeight: FontWeight.w500,
+                      color: Color(0xFFF6F1F1),
                     ),
-                    child: ListTile(
-                      title: Text(
-                        cardContent.text,
-                        style: const TextStyle(
-                            fontSize: 14.0,
-                            fontWeight: FontWeight.w500,
-                            color: Color(0xFFF6F1F1)
-                        ),
-                        textAlign: TextAlign.start,
-                      ),
-                      trailing: const Icon(Icons.format_quote),
-                      iconColor: const Color(0xFFF6F1F1),
-                      contentPadding: const EdgeInsets.all(16.0),
-                    )
-                );
-              },
-            ),
+                    textAlign: TextAlign.start,
+                  ),
+                  trailing: const Icon(Icons.format_quote),
+                  iconColor: const Color(0xFFF6F1F1),
+                  contentPadding: const EdgeInsets.all(16.0),
+                ),
+              );
+            },
           ),
         ),
         const SizedBox(height: 10),
         Row(
           mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: List.generate(
-                contents.length,
-                    (index) => buildDot(index),
-              ),
-            ),
-          ],
+          children: List.generate(
+            contents.length,
+                (index) => buildDot(index),
+          ),
         ),
       ],
     );
   }
 
-  Container buildDot(int index) {
+  Widget buildDot(int index) {
     return Container(
       height: 8,
       width: currentIndex == index ? 30 : 8,
