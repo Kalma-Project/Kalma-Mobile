@@ -28,7 +28,6 @@ class _CardHomeWidgetState extends State<CardHomeWidget> {
     return Column(
       children: [
         SizedBox(
-          width: MediaQuery.of(context).size.width * 1,
           height: 100,
           child: Expanded(
             child: PageView.builder(
@@ -57,16 +56,16 @@ class _CardHomeWidgetState extends State<CardHomeWidget> {
                         ),
                         textAlign: TextAlign.start,
                       ),
-                      trailing: Icon(Icons.format_quote),
-                      iconColor: Color(0xFFF6F1F1),
-                      contentPadding: EdgeInsets.all(16.0),
+                      trailing: const Icon(Icons.format_quote),
+                      iconColor: const Color(0xFFF6F1F1),
+                      contentPadding: const EdgeInsets.all(16.0),
                     )
                 );
               },
             ),
           ),
         ),
-        const SizedBox(height: 10,),
+        const SizedBox(height: 10),
         Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
