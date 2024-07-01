@@ -101,18 +101,12 @@ class SongPage extends StatelessWidget {
                                 Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
-                                    Text(
-                                      currentSong.titleSong,
-                                      style: GoogleFonts.plusJakartaSans(
-                                          color: Colors.grey.shade50,
-                                          fontSize: 24,
-                                          fontWeight: FontWeight.w600),
-                                    ),
+                                    ResponsiveText(text: currentSong.titleSong),
                                     Text(
                                       currentSong.artistName,
                                       style: GoogleFonts.plusJakartaSans(
                                           color: Colors.grey.shade800,
-                                          fontSize: 24,
+                                          fontSize: 18,
                                           fontWeight: FontWeight.w400),
                                     ),
                                   ],
@@ -254,5 +248,38 @@ class SongPage extends StatelessWidget {
         ),
       );
     });
+  }
+}
+
+class ResponsiveText extends StatelessWidget {
+  final String text;
+
+  ResponsiveText({
+    Key? key,
+    required this.text
+  }): super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    String word = text;
+    List<String> words = word.split(' ');
+
+    if (words.length > 4) {
+      word = '${words.sublist(0, 4).join(' ')}\n${words.sublist(4).join(' ')}';
+    }
+
+    return Container(
+      constraints: BoxConstraints(maxWidth: 450.0),
+      child: Text(
+        text,
+        textAlign: TextAlign.left,
+        overflow: TextOverflow.visible,
+        style: GoogleFonts.plusJakartaSans(
+          fontSize: 16,
+          color: const Color(0xff2F9296),
+          fontWeight: FontWeight.w600,
+        ),
+      ),
+    );
   }
 }
