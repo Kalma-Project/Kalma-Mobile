@@ -50,7 +50,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
            const BreathingMeditation(),
            const ListMusic(),
         ];
-      } else {
+      } else if (userProperty == null) {
         Navigator.pushReplacement(
             context,
             MaterialPageRoute(builder: (context) => const EmailVerification())

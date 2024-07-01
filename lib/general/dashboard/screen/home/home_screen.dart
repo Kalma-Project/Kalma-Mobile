@@ -194,9 +194,9 @@ class _HomeScreenState extends State<HomeScreen> {
                             ),
                             ElevatedButton(
                               style: ButtonStyle(
-                                elevation: WidgetStateProperty.all<double>(0),
-                                backgroundColor: WidgetStateProperty.all<Color>(const Color(0xFFE9E0E0)),
-                                shape: WidgetStateProperty.all<RoundedRectangleBorder>(
+                                elevation: MaterialStateProperty.all<double>(0),
+                                backgroundColor: MaterialStateProperty.all<Color>(const Color(0xFFE9E0E0)),
+                                shape: MaterialStateProperty.all<RoundedRectangleBorder>(
                                   RoundedRectangleBorder(
                                     borderRadius: BorderRadius.circular(10),
                                   ),

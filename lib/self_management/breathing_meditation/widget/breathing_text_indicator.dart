@@ -24,7 +24,7 @@ class _BreathingTextIndicatorState extends State<BreathingTextIndicator> {
       mainAxisAlignment: MainAxisAlignment.center,
       children: <Widget>[
         Text(
-          'Inhale',
+          'Hirup',
           style: TextStyle(
               fontSize: 24,
               fontWeight: FontWeight.w400,
@@ -35,7 +35,7 @@ class _BreathingTextIndicatorState extends State<BreathingTextIndicator> {
           width: 40,
         ),
         Text(
-          'Hold',
+          'Tahan',
           style: TextStyle(
               fontSize: 24,
               fontWeight: FontWeight.w400,
@@ -46,7 +46,7 @@ class _BreathingTextIndicatorState extends State<BreathingTextIndicator> {
           width: 40,
         ),
         Text(
-          'Exhale',
+          'Hembus',
           style: TextStyle(
               fontSize: 24,
               fontWeight: FontWeight.w400,

@@ -16,24 +16,7 @@ class PlayListProvider extends ChangeNotifier {
   final SelfManagementService _managementService = SelfManagementService();
 
 
-  final List<Song> _playlist = [
-    Song(
-        imgUrl: 'music_images/1.jpg',
-        titleSong: 'Home',
-        artistName: 'Edith Whiskers',
-        audioPath: 'audio/Edith Whiskers (Tom Rosenthal) - Home (Lyrics).mp3'),
-    Song(
-        imgUrl: 'music_images/2.jpeg',
-        titleSong: 'Secukupnya',
-        artistName: 'Hindia',
-        audioPath:
-        'audio/Hindia - Secukupnya (Lyric Video) - OST. Nanti Kita Cerita Tentang Hari Ini.mp3'),
-    Song(
-        imgUrl: 'music_images/3.jpeg',
-        titleSong: 'Terlalu Lama Sendiri',
-        artistName: 'Kunto Aji',
-        audioPath: 'audio/Kunto Aji - Terlalu Lama Sendiri.mp3'),
-  ];
+  final List<Song> _playlist = [];
 
   //current song index
   int? _currentSongIndex;
@@ -97,7 +80,7 @@ class PlayListProvider extends ChangeNotifier {
   void play() async {
     final String path = _playlist[_currentSongIndex!].audioPath;
     if (_isPlaying && _currentAudioPath == path) {
-      return; //musik sedang berjalan --> tidak melakukan apa2
+      return;
     }
     _isPlaying = true;
     _currentAudioPath = path;
