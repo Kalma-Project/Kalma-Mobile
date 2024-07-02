@@ -55,14 +55,14 @@ class SelfScreeningResult extends StatelessWidget {
             ),
           ),
           Positioned(
-              top: 20,
+              top: 40,
               child: Text(
                 'Skor Hasil Pemeriksaan',
                 style: statusStyle,
               )
           ),
           Container(
-            margin: const EdgeInsets.only(top: 80),
+            padding: const EdgeInsets.only(top: 120),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.center,
