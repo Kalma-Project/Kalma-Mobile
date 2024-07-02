@@ -48,11 +48,9 @@ class _InputJournalState extends State<InputJournal> {
             emotionValue,
             journalingController.text
         );
-
         setState(() {
           isLoading = false;
         });
-
         showDialog(
           context: context,
           builder: (BuildContext context) {

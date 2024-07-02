@@ -47,7 +47,6 @@ class UpdateUser {
 
       if (response.statusCode == 200) {
         final body = response.data;
-        navigatorKey.currentState?.pushNamed('/dashboard');
         log('Profile updated successfully: $body');
         return UpdateUserResponse(
           is_success: body['is_success'],
