@@ -67,9 +67,11 @@ class _ListMusicState extends State<ListMusic> {
                     top: 100,
                     left: 14,
                     right: 14,
-                    child: SingleChildScrollView(
+                    bottom: 0,
+                    child: Expanded(
                       child: GridView.builder(
-                        physics: const NeverScrollableScrollPhysics(),
+                        scrollDirection: Axis.vertical,
+                        physics: const BouncingScrollPhysics(),
                         shrinkWrap: true,
                         gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                           crossAxisCount: 1,

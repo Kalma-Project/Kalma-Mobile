@@ -221,7 +221,7 @@ class _HomeScreenState extends State<HomeScreen> {
                             )
                           ],
                         ),
-                        const SizedBox(height: 15.0),
+                        const SizedBox(height: 8.0),
                         Row(
                           children: <Widget>[
                             SizedBox(
@@ -247,11 +247,12 @@ class _HomeScreenState extends State<HomeScreen> {
                                       },
                                       child: Container(
                                         margin: const EdgeInsets.only(right: 10),
+                                        padding: const EdgeInsets.only(bottom: 8.0),
                                         width: MediaQuery.of(context).size.width / 2.01,
                                         child: Stack(
                                           children: <Widget>[
                                             Container(
-                                              width: MediaQuery.of(context).size.width / 1.0,
+                                              width: MediaQuery.of(context).size.width / 0.9,
                                               decoration: BoxDecoration(
                                                   color: const Color(0xFFE9E0E0),
                                                   borderRadius: BorderRadius.circular(20)

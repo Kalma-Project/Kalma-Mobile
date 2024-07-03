@@ -67,7 +67,7 @@ class _ArticleCardState extends State<ArticleCard> {
             ),
           ),
           const SizedBox(
-            height: 12.0,
+            height: 8.0,
           ),
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 12.0),

@@ -6,6 +6,7 @@ import 'package:flutter_ta/general/profile/widget/pick_image.dart';
 import 'package:flutter_ta/widget/failure_alert.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:image_picker/image_picker.dart';
+import '../../../main.dart';
 import '../../../model/general/general.dart';
 import '../../../widget/primary_custom_button.dart';
 import '../../../widget/success_alert.dart';
@@ -111,6 +112,7 @@ class _ChangeProfileState extends State<ChangeProfile> {
 
     if (updateUserResponse != null) {
       if (updateUserResponse.is_success) {
+        navigatorKey.currentState?.pushReplacementNamed('/dashboard');
         showDialog(
           context: context,
           builder: (BuildContext context) {

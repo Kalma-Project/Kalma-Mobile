@@ -143,8 +143,14 @@ class _JournalingScreenState extends State<JournalingScreen> {
                 height: 33,
               ),
               Expanded(
-                child: PagedListView<int, Map<String, dynamic>>(
+                child: PagedGridView<int, Map<String, dynamic>>(
                   pagingController: _pagingController,
+                  gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                    crossAxisCount: 2,
+                    crossAxisSpacing: 10.0,
+                    mainAxisSpacing: 8.0,
+                    childAspectRatio: 1,
+                  ),
                   builderDelegate: PagedChildBuilderDelegate<Map<String, dynamic>>(
                     itemBuilder: (context, item, index) {
                       if (_pagingController.itemList != null && index < _pagingController.itemList!.length) {
