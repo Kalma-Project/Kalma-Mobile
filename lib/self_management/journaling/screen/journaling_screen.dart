@@ -23,6 +23,19 @@ class _JournalingPageState extends State<JournalingPage> {
     });
     log('selected emotion $selectedEmotion');
   }
+  void showEmotionSelectionAlert() {
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        content: const Text('Silakan pilih salah satu perasaan sebelum melanjutkan.'),
+        duration: const Duration(seconds: 2),
+        behavior: SnackBarBehavior.floating,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(10.0),
+        ),
+        margin: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 80.0),
+      ),
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -123,6 +136,9 @@ class _JournalingPageState extends State<JournalingPage> {
                           emotion: selectedEmotion,
                         )),
                   )
+                }
+                else {
+                showEmotionSelectionAlert()
                 }
               },
               style: ButtonStyle(

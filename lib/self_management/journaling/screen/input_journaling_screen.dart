@@ -26,8 +26,11 @@ class _InputJournalState extends State<InputJournal> {
   bool titleError = false;
   bool isLoading = false;
 
+  FocusNode titleFocusNode = FocusNode();
+  FocusNode journalingFocusNode = FocusNode();
 
-  void submitJournal() async{
+
+  void submitJournal() async {
     const validEmotions = {
       'marah': 'angry',
       'sedih': 'sad',
@@ -39,7 +42,18 @@ class _InputJournalState extends State<InputJournal> {
       isLoading = true;
     });
 
-    if (journalingController.text.isNotEmpty && titleController.text.isNotEmpty) {
+    setState(() {
+      titleError = titleController.text.isEmpty;
+      journalError = journalingController.text.isEmpty;
+    });
+
+    if (titleError) {
+      FocusScope.of(context).requestFocus(titleFocusNode);
+    } else if (journalError) {
+      FocusScope.of(context).requestFocus(journalingFocusNode);
+    }
+
+    if (!titleError && !journalError) {
       var emotionValue = validEmotions[widget.emotion] ?? widget.emotion;
 
       try {
@@ -109,13 +123,14 @@ class _InputJournalState extends State<InputJournal> {
                   ),
                   TextFormField(
                     controller: titleController,
+                    focusNode: titleFocusNode,
                     keyboardType: TextInputType.text,
                     decoration: InputDecoration(
                         border: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(16)
                         ),
                         labelText: 'Berikan judul untuk cerita kamu hari ini',
-                        errorText: titleError ? "Form harus diisi" : null
+                        errorText: titleError ? "Jangan lupa untuk mengisi judul disini" : null
                     ),
                   ),
                   const SizedBox(
@@ -125,13 +140,14 @@ class _InputJournalState extends State<InputJournal> {
                     height: 275,
                     child: TextFormField(
                       controller: journalingController,
+                      focusNode: journalingFocusNode,
                       keyboardType: TextInputType.text,
                       decoration: InputDecoration(
                           border: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(16)
                           ),
                           labelText: 'Tuangkan perasaanmu disini!',
-                          errorText: journalError ? "Form harus diisi" : null
+                          errorText: journalError ? "Ceritakan apa yang kamu rasakan hari ini disini" : null
                       ),
                     ),
                   ),
