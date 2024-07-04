@@ -81,11 +81,13 @@ class UserProperty {
   bool isSuccess;
   String message;
   UserPropertyData data;
+  String? type;
 
   UserProperty({
     required this.isSuccess,
     required this.message,
     required this.data,
+    this.type
   });
 
   factory UserProperty.fromJson(Map<String, dynamic> json) {
@@ -93,6 +95,7 @@ class UserProperty {
       isSuccess: json['is_success'],
       message: json['message'],
       data: UserPropertyData.fromJson(json['data']),
+      type: json['type']
     );
   }
 }

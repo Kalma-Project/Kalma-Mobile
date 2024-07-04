@@ -50,12 +50,11 @@ class _DashboardScreenState extends State<DashboardScreen> {
            const BreathingMeditation(),
            const ListMusic(),
         ];
-      } else if (userProperty == null) {
-        Navigator.pushReplacement(
-            context,
-            MaterialPageRoute(builder: (context) => const EmailVerification())
-        );
       }
+        // Navigator.pushReplacement(
+        //     context,
+        //     MaterialPageRoute(builder: (context) => const EmailVerification())
+        // );
     });
   }
 

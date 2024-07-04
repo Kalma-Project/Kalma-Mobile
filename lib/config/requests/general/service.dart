@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:flutter_ta/general/register/screen/success_register_screen.dart';
 
+import '../../../general/email_verification.dart';
 import '../../../main.dart';
 import '../../../model/general/general.dart';
 import '../../api_service.dart';
@@ -96,6 +97,10 @@ class AuthService {
         return UserProperty.fromJson(data);
       } else {
         final data = response.data;
+        log(data.toString());
+        if (data['type'] == 'email') {
+          navigatorKey.currentState?.pushReplacement(MaterialPageRoute(builder: (context) => const EmailVerification()));
+        }
         return UserProperty.fromJson(data);
       }
     } catch (e) {

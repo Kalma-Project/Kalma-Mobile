@@ -3,6 +3,7 @@ import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:flutter_ta/config/token/constants.dart';
+import 'package:flutter_ta/general/email_verification.dart';
 import 'package:flutter_ta/general/fail_verifymail_screen.dart';
 import 'package:flutter_ta/general/register/screen/success_register_screen.dart';
 import 'package:flutter_ta/general/reset_password/screen/resetpass_screen.dart';
@@ -147,6 +148,7 @@ class _MyAppState extends State<MyApp> {
         '/forgotPassword': (context) => const ForgotPassScreen(),
         '/detailMusic': (context) => const SongPage(),
         '/breathwork': (context) => const BreathingMeditation(),
+        '/emailverification': (context) => const EmailVerification()
       },
     );
   }
