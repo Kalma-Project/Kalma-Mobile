@@ -20,6 +20,7 @@ class _ListMusicState extends State<ListMusic> {
   void initState() {
     super.initState();
     playListProvider = Provider.of<PlayListProvider>(context, listen: false);
+    playListProvider.getMusicData();
   }
 
   void goToSong(int songIndex) {

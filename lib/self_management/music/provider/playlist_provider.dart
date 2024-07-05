@@ -16,7 +16,7 @@ class PlayListProvider extends ChangeNotifier {
   final SelfManagementService _managementService = SelfManagementService();
 
 
-  final List<Song> _playlist = [];
+  late List<Song> _playlist = [];
 
   //current song index
   int? _currentSongIndex;
@@ -45,20 +45,22 @@ class PlayListProvider extends ChangeNotifier {
       _isLoading = true;
       notifyListeners();
 
-
       int pageKey = 1;
       PagingController<int, Map<String, dynamic>> pagingController = PagingController(firstPageKey: 1);
 
       List<Map<String, dynamic>> musicData = await _managementService.getMusicData(pageKey, pagingController);
 
       List<Song> newSongs = musicData.map((data) => Song(
-        imgUrl: data['music_image'] ?? 'music_images/3.jpeg', //belom ada di API
+        id: data['id'],
+        imgUrl: data['music_image'] ?? 'music_images/3.jpeg',
         titleSong: data['title'] ?? '',
         artistName: data['author'] ?? '',
         audioPath: data['music_link'] ?? '',
+        isFav: false,
       )).toList();
 
-      _playlist.addAll(newSongs);
+      _playlist = newSongs;
+      loadFavoriteStatus();
 
       _isLoading = false;
 
@@ -201,7 +203,7 @@ class PlayListProvider extends ChangeNotifier {
       _playlist[songIndex].isFav = !_playlist[songIndex].isFav;
 
       SharedPreferences prefs = await SharedPreferences.getInstance();
-      await prefs.setBool('isFavorite_$songIndex', _playlist[songIndex].isFav);
+      await prefs.setBool('isFavorite_${_playlist[songIndex].id}', _playlist[songIndex].isFav);
 
       notifyListeners();
     }
@@ -210,8 +212,8 @@ class PlayListProvider extends ChangeNotifier {
   void loadFavoriteStatus() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     for (int i = 0; i < _playlist.length; i++) {
-      bool isFavorite = prefs.getBool('isFavorite_$i') ?? false;
-      _playlist[i].setFavorite(isFavorite);
+      bool isFavorite = prefs.getBool('isFavorite_${_playlist[i].id}') ?? false;
+      _playlist[i].isFav = isFavorite;
     }
     notifyListeners();
   }
