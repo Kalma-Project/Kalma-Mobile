@@ -42,6 +42,7 @@ class PlayListProvider extends ChangeNotifier {
   Future<void> getMusicData() async {
 
     try {
+      await Future.delayed(const Duration(seconds: 2));
       _isLoading = true;
       notifyListeners();
 
