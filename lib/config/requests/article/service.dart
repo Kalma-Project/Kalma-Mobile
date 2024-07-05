@@ -9,7 +9,7 @@ class ArticleService {
 
   Future<void> getArticle(int pageKey, PagingController<int, Map<String, dynamic>> pagingController) async {
     try {
-      Response response = await apiService.dio.get(
+      Response response = await apiService.dio.post(
           get_article,
           data: {
             "size": 6,

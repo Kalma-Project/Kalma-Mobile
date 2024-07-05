@@ -37,7 +37,7 @@ class SelfManagementService {
 
   Future<void> getJournalData(int pageKey, PagingController<int, Map<String, dynamic>> pagingController, String sortValue, String sortColumn) async {
     try {
-      Response response = await apiService.dio.get(
+      Response response = await apiService.dio.post(
         get_journaling_data,
         data: {
           "size": 6,
@@ -66,6 +66,8 @@ class SelfManagementService {
           pagingController.error = data['message'];
         }
       } else {
+        final data = response.data;
+        log(data.toString());
         log('Error: ${response.statusCode}');
         pagingController.error = 'Error: ${response.statusCode}';
       }
@@ -78,7 +80,7 @@ class SelfManagementService {
   Future<JournalData?> getDetailJournal(String id) async {
     try {
       Response response = await apiService.dio.get(
-          'self-management/journals/users-journal/$id'
+          'self-management/journals/users-journal/get/$id'
       );
       if (response.statusCode == 200) {
         final body = response.data;
@@ -93,7 +95,7 @@ class SelfManagementService {
 
   Future<List<Map<String, dynamic>>> getMusicData(int pageKey, PagingController<int, Map<String, dynamic>> pagingController) async {
     try {
-      Response response = await apiService.dio.get(
+      Response response = await apiService.dio.post(
         get_music_data,
         data: {
           "size": 10,
@@ -131,7 +133,7 @@ class SelfManagementService {
   Future<MusicData?> getDetailMusic(String id) async {
     try {
       Response response = await apiService.dio.get(
-          'self-management/journals/users-journal/$id'
+          'self-management/journals/users-journal/get/$id'
       );
       if (response.statusCode == 200) {
         final body = response.data;

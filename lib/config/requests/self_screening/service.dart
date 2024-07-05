@@ -41,7 +41,7 @@ class SelfScreeningService {
 
   Future<void> getSelfScreeningData(int pageKey, PagingController<int, Map<String, dynamic>> pagingController) async {
     try {
-      Response response = await apiService.dio.get(
+      Response response = await apiService.dio.post(
         get_self_screening,
         data: {
           "size": 6,
