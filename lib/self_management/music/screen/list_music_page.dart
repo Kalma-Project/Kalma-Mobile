@@ -101,6 +101,7 @@ class _ListMusicState extends State<ListMusic> {
                             ),
                           ),
                           trailing: IconButton(
+                            padding: const EdgeInsets.only(left: 22.0),
                             icon: song.isFav
                                 ? const Icon(Icons.favorite)
                                 : const Icon(Icons.favorite_border),
