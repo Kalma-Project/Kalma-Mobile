@@ -31,6 +31,9 @@ class _ListMusicState extends State<ListMusic> {
 
   void dropDownCallback(String? selectedValue) async {
     log(selectedValue!);
+    setState(() {
+      dropDownValue = selectedValue;
+    });
     playListProvider.getMusicData(
         selectedValue ?? '',
         'genre'
