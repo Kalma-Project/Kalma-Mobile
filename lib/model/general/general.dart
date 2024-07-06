@@ -51,6 +51,56 @@ class RefreshToken{
   });
 }
 
+class RegisterUserResponse {
+  bool is_success;
+  String message;
+  RegisterUserErrorDetails? error_details;
+  String? type;
+
+  RegisterUserResponse({
+    required this.is_success,
+    required this.message,
+    this.error_details,
+    this.type,
+  });
+}
+
+class RegisterUserErrorDetails {
+  String? email;
+  String? username;
+  String? full_name;
+  String? age;
+  String? password;
+
+  RegisterUserErrorDetails({
+    this.email,
+    this.username,
+    this.full_name,
+    this.age,
+    this.password
+  });
+
+  factory RegisterUserErrorDetails.fromMap(Map<String, dynamic> map) {
+    return RegisterUserErrorDetails(
+      email: map['email'] as String?,
+      username: map['username'] as String?,
+      full_name: map['full_name'] as String?,
+      age: map['age'] as String?,
+      password: map['password'] as String?,
+    );
+  }
+
+  Map<String, dynamic> toMap() {
+    return {
+      'email': email,
+      'username': username,
+      'full_name': full_name,
+      'age': age,
+      'password': password
+    };
+  }
+}
+
 class RegisterPayload{
   String email;
   String password;

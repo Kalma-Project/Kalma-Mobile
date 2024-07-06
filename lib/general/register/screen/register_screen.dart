@@ -2,10 +2,14 @@ import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_ta/config/requests/general/service.dart';
+import 'package:flutter_ta/model/general/general.dart';
 import 'package:flutter_ta/widget/failure_alert.dart';
 import 'dart:developer';
 
 import 'package:flutter_ta/widget/primary_custom_button.dart';
+
+import '../../../main.dart';
+import '../../../widget/success_alert.dart';
 
 class RegisterScreen extends StatefulWidget {
   const RegisterScreen({super.key});
@@ -20,17 +24,22 @@ class _RegisterScreenState extends State<RegisterScreen> {
   TextEditingController emailController = TextEditingController();
   TextEditingController ageController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
-  final AuthService _registerService = AuthService();
+  final AuthService registerService = AuthService();
   final dio = Dio();
 
   bool isChecked = false;
   bool isLoading = false;
 
+  String? usernameError;
+  String? fullnameError;
+  String? ageError;
+  String? emailError;
+  String? passwordError;
+
   void registerUser() async {
     setState(() {
       isLoading = true;
     });
-
     List<TextEditingController> controllers = [
       fullnameController,
       usernameController,
@@ -40,33 +49,53 @@ class _RegisterScreenState extends State<RegisterScreen> {
     ];
 
     if (controllers.every((element) => element.text.isNotEmpty) && isChecked) {
-      try {
-        await _registerService.registerUserRequest(
+        RegisterUserResponse? registerUserResponse = await registerService.registerUserRequest(
           emailController.text,
           passwordController.text,
           usernameController.text,
           fullnameController.text,
           ageController.text,
         );
-      } catch (e) {
-        log('Registration failed: $e');
-        showDialog(
-          context: context,
-          builder: (BuildContext context) {
-            return FailureAlert(
-                title: 'Register Gagal',
-                message: e.toString(),
-                action: () {
-                  Navigator.pop(context, 'OK');
-                },
-            );
-          },
-        );
-      } finally {
+
         setState(() {
           isLoading = false;
         });
-      }
+
+        if (registerUserResponse != null) {
+          if (registerUserResponse.is_success) {
+            navigatorKey.currentState?.pushReplacementNamed('/success_register');
+          } else {
+            if (registerUserResponse.error_details != null) {
+              setState(() {
+                usernameError = registerUserResponse.error_details?.username;
+                fullnameError = registerUserResponse.error_details?.full_name;
+                emailError = registerUserResponse.error_details?.email;
+                ageError = registerUserResponse.error_details?.age;
+                passwordError = registerUserResponse.error_details?.password;
+              });
+
+              showDialog(
+                context: context,
+                builder: (BuildContext context) {
+                  return FailureAlert(
+                    title: 'Registrasi Gagal',
+                    message: registerUserResponse.message,
+                  );
+                },
+              );
+            }
+
+            showDialog(
+              context: context,
+              builder: (BuildContext context) {
+                return FailureAlert(
+                  title: 'Registrasi Gagal',
+                  message: registerUserResponse.message,
+                );
+              },
+            );
+          }
+        }
     } else {
       log('Please fill all the fields');
       showDialog(
@@ -138,28 +167,28 @@ class _RegisterScreenState extends State<RegisterScreen> {
                       TextFormField(
                         controller: fullnameController,
                         keyboardType: TextInputType.text,
-                        decoration: const InputDecoration(
-                          border: UnderlineInputBorder(),
+                        decoration: InputDecoration(
+                          border: const UnderlineInputBorder(),
                           labelText: 'Nama Lengkap',
-                          // errorText: isNotValidated ? "Isi form dengan benar" : null
+                          errorText: fullnameError ?? null,
                         ),
                       ),
                       TextFormField(
                         controller: usernameController,
                         keyboardType: TextInputType.text,
-                        decoration: const InputDecoration(
-                          border: UnderlineInputBorder(),
+                        decoration: InputDecoration(
+                          border: const UnderlineInputBorder(),
                           labelText: 'Username',
-                          // errorText: isNotValidated ? "Isi form dengan benar" : null
+                          errorText: usernameError ?? null,
                         ),
                       ),
                       TextFormField(
                         controller: emailController,
                         keyboardType: TextInputType.text,
-                        decoration: const InputDecoration(
-                          border: UnderlineInputBorder(),
+                        decoration: InputDecoration(
+                          border: const UnderlineInputBorder(),
                           labelText: 'Alamat Email',
-                          // errorText: isNotValidated ? "Isi form dengan benar" : null
+                          errorText: emailError ?? null
                         ),
                       ),
                       TextFormField(
@@ -168,19 +197,19 @@ class _RegisterScreenState extends State<RegisterScreen> {
                         inputFormatters: <TextInputFormatter>[
                           FilteringTextInputFormatter.digitsOnly,
                         ],
-                        decoration: const InputDecoration(
-                          border: UnderlineInputBorder(),
+                        decoration: InputDecoration(
+                          border: const UnderlineInputBorder(),
                           labelText: 'Umur',
-                          // errorText: isNotValidated ? "Isi form dengan benar" : null
+                          errorText: ageError ?? null
                         ),
                       ),
                       TextFormField(
                         controller: passwordController,
                         keyboardType: TextInputType.text,
-                        decoration: const InputDecoration(
-                          border: UnderlineInputBorder(),
+                        decoration: InputDecoration(
+                          border: const UnderlineInputBorder(),
                           labelText: 'Kata Sandi',
-                          // errorText: isNotValidated ? "Isi form dengan benar" : null
+                          errorText: passwordError ?? null
                         ),
                       ),
                       const SizedBox(

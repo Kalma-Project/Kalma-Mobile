@@ -53,7 +53,7 @@ class AuthService {
     }
   }
 
-  Future<void> registerUserRequest(
+  Future<RegisterUserResponse?> registerUserRequest(
       String email,
       String password,
       String username,
@@ -72,20 +72,30 @@ class AuthService {
         },
       );
       if (response.statusCode == 201) {
+        final body = response.data;
         navigatorKey.currentState?.pushReplacement(MaterialPageRoute(builder: (context) => const SuccessRegisterScreen()));
-      } else {
-        String message = response.data['message'].toString();
-        throw Exception(message);
+        return RegisterUserResponse(
+          is_success: body['is_success'],
+          message: body['message'],
+        );
+      } else if (response.statusCode == 400) {
+        final body = response.data;
+        RegisterUserErrorDetails errorDetails;
+        if (body['error_details'] != null) {
+          errorDetails = RegisterUserErrorDetails.fromMap(body['error_details']);
+        }
+        log(body.toString());
+        return RegisterUserResponse(
+          is_success: body['is_success'],
+          message: body['message'],
+          error_details: body['error_details'],
+          type: body['type']
+        );
       }
-      log('Response: ${response.data.toString()}');
     } catch (e) {
       log('Error: $e');
-      if (e is DioException) {
-        log('DioException: ${e.response?.data}');
-        throw Exception(e.response?.data['message'].toString() ?? 'Failed to register');
-      }
-      rethrow;
     }
+    return null;
   }
 
   Future<UserProperty?> getUserProperty() async {
