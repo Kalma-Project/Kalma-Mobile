@@ -93,13 +93,20 @@ class SelfManagementService {
     return null;
   }
 
-  Future<List<Map<String, dynamic>>> getMusicData(int pageKey, PagingController<int, Map<String, dynamic>> pagingController) async {
+  Future<List<Map<String, dynamic>>> getMusicData(
+      int pageKey,
+      PagingController<int, Map<String, dynamic>> pagingController,
+      String? searchValue,
+      String? searchColumn
+      ) async {
     try {
       Response response = await apiService.dio.post(
         get_music_data,
         data: {
           "size": 10,
           "page": pageKey,
+          "sort_value": searchValue,
+          "sort_column": searchColumn,
         },
       );
 

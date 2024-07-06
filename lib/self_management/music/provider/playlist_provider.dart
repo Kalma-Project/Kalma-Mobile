@@ -35,21 +35,25 @@ class PlayListProvider extends ChangeNotifier {
   PlayListProvider() {
     loadFavoriteStatus();
     listenToDuration();
-    getMusicData();
+    getMusicData;
   }
 
-  //fungsi untuk mengambil data musik dari API
-  Future<void> getMusicData() async {
+  PagingController<int, Map<String, dynamic>> pagingController = PagingController(firstPageKey: 1);
 
+  Future<void> getMusicData(String? searchValue, String? searchColumn) async {
     try {
       await Future.delayed(const Duration(milliseconds: 1));
       _isLoading = true;
       notifyListeners();
 
       int pageKey = 1;
-      PagingController<int, Map<String, dynamic>> pagingController = PagingController(firstPageKey: 1);
 
-      List<Map<String, dynamic>> musicData = await _managementService.getMusicData(pageKey, pagingController);
+      List<Map<String, dynamic>> musicData = await _managementService.getMusicData(
+          pageKey,
+          pagingController,
+          searchValue,
+          searchColumn
+      );
 
       List<Song> newSongs = musicData.map((data) => Song(
         id: data['id'],
@@ -72,7 +76,6 @@ class PlayListProvider extends ChangeNotifier {
       log('Error: $e' as num);
     }
   }
-
 
   //initially not playing
   bool _isPlaying = false;

@@ -15,12 +15,26 @@ class ListMusic extends StatefulWidget {
 
 class _ListMusicState extends State<ListMusic> {
   late final PlayListProvider playListProvider;
+  String dropDownValue = '';
 
   @override
   void initState() {
     super.initState();
     playListProvider = Provider.of<PlayListProvider>(context, listen: false);
-    playListProvider.getMusicData();
+    playListProvider.getMusicData(
+      '',
+      'genre'
+    );
+  }
+
+  void dropDownCallback(String? selectedValue) async {
+    setState(() {
+      dropDownValue = selectedValue!;
+    });
+    playListProvider.getMusicData(
+        dropDownValue,
+        'genre'
+    );
   }
 
   void goToSong(int songIndex) {
@@ -62,6 +76,52 @@ class _ListMusicState extends State<ListMusic> {
                         fontWeight: FontWeight.w500,
                       ),
                     ),
+                  ),
+                  Positioned(
+                      top: 40,
+                      right: 14,
+                      child: Container(
+                        height: 32,
+                        alignment: Alignment.center,
+                        decoration: BoxDecoration(
+                          border: Border.all(color: const Color(0xffAAA4A4)),
+                          borderRadius: const BorderRadius.all(Radius.circular(8)),
+                        ),
+                        child: Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                          child: DropdownButtonHideUnderline(
+                            child: DropdownButton<String>(
+                              value: dropDownValue,
+                              items: [
+                                DropdownMenuItem<String>(
+                                  value: '',
+                                  child: Text('Semua',
+                                      style: GoogleFonts.plusJakartaSans(
+                                        fontSize: 12,
+                                      )),
+                                ),
+                                DropdownMenuItem<String>(
+                                  value: 'nature',
+                                  child: Text('Nature',
+                                      style: GoogleFonts.plusJakartaSans(
+                                        fontSize: 12,
+                                      )),
+                                ),
+                                DropdownMenuItem<String>(
+                                  value: 'instrumental',
+                                  child: Text(
+                                    'Instrumental',
+                                    style: GoogleFonts.plusJakartaSans(
+                                      fontSize: 12,
+                                    ),
+                                  ),
+                                ),
+                              ],
+                              onChanged: dropDownCallback,
+                            ),
+                          ),
+                        ),
+                      ),
                   ),
                   Positioned(
                     top: 100,
