@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_ta/self_management/music/screen/song_page.dart';
 import 'package:flutter_ta/self_management/music/widget/mini_player.dart';
@@ -28,11 +30,9 @@ class _ListMusicState extends State<ListMusic> {
   }
 
   void dropDownCallback(String? selectedValue) async {
-    setState(() {
-      dropDownValue = selectedValue!;
-    });
+    log(selectedValue!);
     playListProvider.getMusicData(
-        dropDownValue,
+        selectedValue ?? '',
         'genre'
     );
   }

@@ -105,8 +105,8 @@ class SelfManagementService {
         data: {
           "size": 10,
           "page": pageKey,
-          "sort_value": searchValue,
-          "sort_column": searchColumn,
+          "search_value": searchValue,
+          "search_column": searchColumn,
         },
       );
 
@@ -114,6 +114,7 @@ class SelfManagementService {
         var data = response.data;
 
         if (data['is_success']) {
+          log(data.toString());
           List<Map<String, dynamic>> musicData = List<Map<String, dynamic>>.from(data['data']);
 
           bool isLastPage = data['page'] >= data['total_pages'];
