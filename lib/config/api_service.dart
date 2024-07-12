@@ -1,11 +1,13 @@
 import 'dart:io';
 import 'package:dio/dio.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:flutter_ta/config/endpoints.dart';
 import 'dart:developer';
 
 import 'package:flutter_ta/config/token/constants.dart';
 import 'package:flutter_ta/main.dart';
+import 'package:flutter_ta/widget/failure_alert.dart';
 
 class ApiService {
   static final ApiService _instance = ApiService._internal();
@@ -45,7 +47,9 @@ class ApiService {
       },
 
       onError: (DioException error, ErrorInterceptorHandler handler) async {
-        if (error.response?.statusCode == 401 && !isRefreshingToken) {
+        if (error.type == DioExceptionType.connectionTimeout || error.type == DioExceptionType.receiveTimeout) {
+          showTimeoutDialog(navigatorKey.currentContext!);
+        } else if (error.response?.statusCode == 401 && !isRefreshingToken) {
           isRefreshingToken = true;
           bool refreshToken = await _refreshToken();
           isRefreshingToken = false;
@@ -104,6 +108,22 @@ class ApiService {
         log('refresh token successfully obtained and saved');
       }
     }
+  }
+
+  void showTimeoutDialog(BuildContext context) {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return FailureAlert(
+          title: 'Connection Timeout',
+          message: 'The connection has timed out. Please try again',
+          action: () async {
+            await clearTokens();
+            navigatorKey.currentState?.pushNamedAndRemoveUntil('/login', (Route<dynamic> route) => false);
+          },
+        );
+      },
+    );
   }
 
   Future<bool> _refreshToken() async {
